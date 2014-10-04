@@ -10,6 +10,18 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
+        <!-- Bootstrap core CSS -->
+        <link href="/vendor/flatify/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom Google Web Font -->
+        <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <link href='/vendor/google-fonts/lato.css' rel='stylesheet' type='text/css'>
+        <link href='/vendor/google-fonts/arvo.css' rel='stylesheet' type='text/css'>
+
+        <link href='/bower_components/AdminLTE/dist/css/AdminLTE.min.css' rel='stylesheet' type='text/css'>
+
+        <link href='/css/app.css' rel='stylesheet' type='text/css'>
+
         <!-- Styles -->
         <style>
             html, body {
@@ -66,24 +78,25 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    <a href="{{ url('/login') }}">Login</a>
-                    <a href="{{ url('/register') }}">Register</a>
-                </div>
-            @endif
-
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel
+                <div class="title">
+                    <i class="fa text-red fa-graduation-cap"></i>
+                </div>
+                <div class="title">
+                    <span class="text-red">a</span>c<span class="text-red">a</span>demic<span class="text-red">a</span>
+                </div>
+
+                <div class="links m-b-md">
+                    <a href="javascript:void(0)">
+                        Grading Utility and Student Performance Monitoring for Teachers and Parents
+                    </a>
                 </div>
 
                 <div class="links">
                     <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="https://laracasts.com">About Us</a>
+                    <a href="{{ url('/login') }}" class="text-fuchsia">Login</a>
+                    <a href="{{ url('/register') }}" class="text-blue">Register</a>
                 </div>
             </div>
         </div>
