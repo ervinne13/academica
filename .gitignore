@@ -1,6 +1,7 @@
 /node_modules
 /nbproject
 /public/storage
+/public/uploads
 /vendor
 /.idea
 Homestead.json

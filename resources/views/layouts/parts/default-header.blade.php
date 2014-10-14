@@ -1,7 +1,7 @@
 <header class="main-header">
 
     <!-- Logo -->
-    <a href="index2.html" class="logo">{!!env("APP_TITLE_HTML")!!}</a>
+    <a href="javascript:void(0)" class="logo">{!!Config::get('app.name')!!}</a>
 
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">
@@ -25,7 +25,7 @@
                         <li class="user-header">                          
                             <p>
                                 {{ Auth::user()->name }}
-                                <small>e<b>B</b>rochure {{ Auth::user()->role->name }}</small>
+                                <small>{!!Config::get('app.name')!!} {{ Auth::user()->role_name }}</small>
                                 <small>
                                     <a href="/user/{{Auth::user()->id}}/changepassword" style="color: white">
                                         Change Password

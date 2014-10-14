@@ -1,4 +1,6 @@
 
+/* global datatable_utilities */
+
 (function () {
 
     $(document).ready(function () {
@@ -6,29 +8,30 @@
     });
 
     function initializeTable() {
-        $('#users-table').DataTable({
+        $('#sections-table').DataTable({
             processing: true,
             serverSide: true,
             search: {
                 caseInsensitive: true
             },
             ajax: {
-                url: "/users/datatable"
+                url: "/sections/datatable"
             },
             order: [1, "desc"],
             columns: [
-                {data: 'id'},
-                {data: 'email'},
-                {data: 'name'}
+                {data: 'section_id'},
+                {data: 'level_name', name: 'levels.name'},
+                {data: 'section_name', name: 'sections.name'}
             ],
             columnDefs: [
                 {bSearchable: false, aTargets: [0]},
                 {orderable: false, targets: [0]},
                 {
                     targets: 0,
-                    render: function (columnData, type, rowData, meta) {
-                        var viewAction = datatable_utilities.getDefaultViewAction(columnData);
-                        var view = datatable_utilities.getInlineActionsView([viewAction]);
+                    render: function (id, type, rowData, meta) {
+
+                        var editAction = datatable_utilities.getDefaultEditAction(id);
+                        var view = datatable_utilities.getInlineActionsView([editAction]);
 
                         return view;
                     }

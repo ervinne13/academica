@@ -13,13 +13,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Font Awesome Icons -->
         <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
         <!-- Ionicons -->
-        <link href="/ionicons/ionicons.min.css" rel="stylesheet" type="text/css" />
+        <!--<link href="/ionicons/ionicons.min.css" rel="stylesheet" type="text/css" />-->
         <!-- Theme style -->
         <link href="{{ asset("/bower_components/AdminLTE/dist/css/AdminLTE.min.css")}}" rel="stylesheet" type="text/css" />
 
         <!--Skin: Blue-->
         <!--<link href="{{ asset("/bower_components/AdminLTE/dist/css/skins/skin-blue.min.css")}}" rel="stylesheet" type="text/css" />-->
-        <link href="{{ asset("/bower_components/AdminLTE/dist/css/skins/skin-green-light.min.css")}}" rel="stylesheet" type="text/css" />
+        <!--<link href="{{ asset("/bower_components/AdminLTE/dist/css/skins/skin-green-light.min.css")}}" rel="stylesheet" type="text/css" />-->
+        <link href="{{ asset("/bower_components/AdminLTE/dist/css/skins/skin-red-light.min.css")}}" rel="stylesheet" type="text/css" />
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -32,18 +33,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <link href="{{ asset("/bower_components/sweetalert2/dist/sweetalert2.min.css")}}" rel="stylesheet" type="text/css" />
         <link href="{{ asset("/bower_components/AdminLTE/plugins/select2/select2.min.css")}}" rel="stylesheet" type="text/css" />
 
-        <link href="{{ asset("/css/style.css")}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset("/css/app.css")}}" rel="stylesheet" type="text/css" />
         <meta name="_token" content="{{csrf_token()}}">
         @yield('css')
     </head>
-    <body class="skin-green-light">
+    <body class="skin-red-light">
         <div class="wrapper">
 
             <!-- Main Header -->
-            @include('layouts.parts.default-header')            
+            @include('layouts.parts.default-header')
 
-            <!-- Left side column. contains the logo and sidebar -->            
+            <!-- Left side column. contains the logo and sidebar -->
+            @if (Auth::user()->role_name == "ADMIN")
             @include('layouts.parts.admin-sidebar')
+            @elseif (Auth::user()->role_name == "TEACHER")
+            @include('layouts.parts.teacher-sidebar')
+            @elseif (Auth::user()->role_name == "VIEWER")
+            @include('layouts.parts.viewer-sidebar')
+            @endif            
 
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
