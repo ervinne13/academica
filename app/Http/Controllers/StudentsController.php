@@ -7,6 +7,7 @@ use App\Models\Subject;
 use Faker\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
 use function response;
 use function view;
@@ -25,6 +26,23 @@ class StudentsController extends Controller {
     public function datatable() {
         //  TODO: filter this later
         return Datatables::of(Student::Datatable())->make(true);
+    }
+
+    public function search(Request $request) {
+        $keyword = $request->q;
+        $classId = $request->classId;
+        $page    = $request->page;
+
+        $totalCount = Student::GetKeywordMatchSize($keyword, $classId);
+        $students = Student::Keyword($keyword, $classId, ($page - 1) * 30, 30)->get();
+
+//        echo Student::Keyword($keyword, $classId, ($page - 1) * 30, 30)-> toSql();
+        
+        return [
+            "total_count"        => $totalCount,
+            "incomplete_results" => $totalCount > count($students),
+            "items"              => $students
+        ];
     }
 
     /**
@@ -74,15 +92,15 @@ class StudentsController extends Controller {
 //        ];
 
         $rankedSubjectScores = [
-            ["subject" => "Technology and Livelihood Education (TLE)", "percentage" => 92],
-            ["subject" => "Filipino", "percentage" => 91],
-            ["subject" => "Edukasyong Pantahanan at Pangkabuhayan (EPP)", "percentage" => 90],
-            ["subject" => "Araling Panlipunan", "percentage" => 85],
-            ["subject" => "Edukasyong Pagpapakatao", "percentage" => 84],
-            ["subject" => "Filipino", "percentage" => 84],
-            ["subject" => "English", "percentage" => 80],
-            ["subject" => "Mathematics", "percentage" => 75],
-            ["subject" => "Science", "percentage" => 73],
+                ["subject" => "Technology and Livelihood Education (TLE)", "percentage" => 92],
+                ["subject" => "Filipino", "percentage" => 91],
+                ["subject" => "Edukasyong Pantahanan at Pangkabuhayan (EPP)", "percentage" => 90],
+                ["subject" => "Araling Panlipunan", "percentage" => 85],
+                ["subject" => "Edukasyong Pagpapakatao", "percentage" => 84],
+                ["subject" => "Filipino", "percentage" => 84],
+                ["subject" => "English", "percentage" => 80],
+                ["subject" => "Mathematics", "percentage" => 75],
+                ["subject" => "Science", "percentage" => 73],
         ];
 
         return view('pages.students.show', compact(

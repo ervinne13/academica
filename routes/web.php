@@ -22,18 +22,26 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('grading-years', 'GradingYearsController');
 
+    Route::resource('enrollment', 'EnrollmentController');
+
     Route::get('teachers/datatable', 'TeachersController@datatable');
+    Route::get('teacher/{teacherId}/classes/datatable', 'TeacherClassesController@datatable');
+    Route::get('teacher/{teacherId}/students/datatable', 'TeacherStudentsController@datatable');
     Route::resource('teachers', 'TeachersController');
-    Route::get('teacher/{$teacherId}/classes/datatable', 'TeacherClassesController@datatable');
     Route::resource('teacher.classes', 'TeacherClassesController');
+    Route::resource('teacher.students', 'TeacherStudentsController');
 
     Route::get('sections/datatable', 'SectionsController@datatable');
     Route::resource('sections', 'SectionsController');
 
     Route::get('students/datatable', 'StudentsController@datatable');
-    Route::resource('students', 'StudentsController');
+    Route::resource('students', 'StudentsController');    
 
     Route::get('subjects/datatable', 'SubjectsController@datatable');
     Route::resource('subjects', 'SubjectsController');
+    
+    Route::get('classes/datatable', 'ClassesController@datatable');
+    Route::resource('classes', 'ClassesController');
+    
 });
 

@@ -27,6 +27,13 @@
                 </a>
             </li>
             <li>
+                <a href="/enrollment">
+                    <span><i class="fa fa-plus text-blue"></i> 
+                        Enroll Students
+                    </span>
+                </a>
+            </li>
+            <li>
                 <a href="/sections">
                     <span><i class="fa fa-cubes text-light-blue"></i> 
                         Sections

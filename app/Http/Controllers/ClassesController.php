@@ -11,39 +11,28 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Yajra\Datatables\Datatables;
-use function abort;
 use function response;
 use function view;
 
-class TeacherClassesController extends Controller {
+class ClassesController extends Controller {
 
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index($teacherId) {
-        $teacher = Teacher::find($teacherId);
-        if ($teacher) {
-            return view('pages.teachers.classes.index', compact('teacher'));
-        } else {
-            abort(404);
-        }
+    public function index() {
+        return view('pages.classes.index');
     }
 
-    public function datatable($teacherId) {
-        $teacher = Teacher::find($teacherId);
-        if ($teacher) {
-            return Datatables::of(
-                            $teacher
-                                    ->classes()
-                                    ->with('gradingYear')
-                                    ->with('subject')
-                                    ->with('level')
-                    )->make(true);
-        } else {
-            abort(404);
-        }
+    public function datatable() {
+        return Datatables::of(
+                        SchoolClass::
+                                with('gradingYear')
+                                ->with('subject')
+                                ->with('level')
+                                ->with('teacher')
+                )->make(true);
     }
 
     /**
@@ -51,9 +40,9 @@ class TeacherClassesController extends Controller {
      *
      * @return Response
      */
-    public function create($teacherId) {
-        $viewData = $this->getFormViewData("ADD", $teacherId, 0);
-        return view('pages.teachers.classes.form', $viewData);
+    public function create() {
+        $viewData = $this->getFormViewData("ADD", 0);
+        return view('pages.classes.form', $viewData);
     }
 
     /**
@@ -63,7 +52,6 @@ class TeacherClassesController extends Controller {
      * @return Response
      */
     public function store(Request $request) {
-
         try {
             $class = new SchoolClass($request->toArray());
             $class->save();
@@ -89,9 +77,9 @@ class TeacherClassesController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function edit($teacherId, $classId) {
-        $viewData = $this->getFormViewData("EDIT", $teacherId, $classId);
-        return view('pages.teachers.classes.form', $viewData);
+    public function edit($classId) {
+        $viewData = $this->getFormViewData("EDIT", $classId);
+        return view('pages.classes.form', $viewData);
     }
 
     /**
@@ -122,19 +110,17 @@ class TeacherClassesController extends Controller {
         //
     }
 
-    private function getFormViewData($mode, $teacherId, $classId) {
-        $teacher = Teacher::find($teacherId);
+    private function getFormViewData($mode, $classId) {
+
 
         // <editor-fold defaultstate="collapsed" desc="Validations">
 
-        if (!$teacher) {
-            throw new NotFoundHttpException("Teacher Not Found");
-        }
-
         if ($classId == 0) {
-            $class = new SchoolClass();
+            $class   = new SchoolClass();
+            $teacher = new Teacher();
         } else {
-            $class = SchoolClass::find($classId);
+            $class   = SchoolClass::find($classId);
+            $teacher = $class->teacher;
         }
 
         if (!$class) {

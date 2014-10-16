@@ -32,6 +32,18 @@ class User extends Authenticatable {
     ];
 
     //
+    // <editor-fold defaultstate="collapsed" desc="Utility Functions">
+
+    public function isAdmin() {
+        return $this->role_name == static::ROLE_ADMIN;
+    }
+
+    public function isTeacher() {
+        return $this->role_name == static::ROLE_TEACHER;
+    }
+
+    // </editor-fold>
+    //
     // <editor-fold defaultstate="collapsed" desc="Relationships">
 
     public function teacher() {

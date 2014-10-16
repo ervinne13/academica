@@ -18,19 +18,22 @@ class TeachersSeeder extends Seeder {
         for ($i = 0; $i < 25; $i++) {
             $faker = Factory::create();
 
+            $firstName = $faker->firstName;
+            $lastName  = $faker->lastName;
+
             $user            = new User();
             $user->seeded    = 1;
             $user->role_name = User::ROLE_TEACHER;
             $user->email     = $faker->email;
-            $user->name      = "{$faker->firstName} {$faker->lastName}";
+            $user->name      = "{$firstName} {$lastName}";
             $user->password  = \Hash::make("password");
 
             $user->save();
 
             $teacher              = new Teacher();
             $teacher->user_id     = $user->id;
-            $teacher->first_name  = $faker->firstName;
-            $teacher->last_name   = $faker->lastName;
+            $teacher->first_name  = $firstName;
+            $teacher->last_name   = $lastName;
             $teacher->middle_name = strtoupper($faker->randomLetter);
             $teacher->birthdate   = $faker->dateTimeThisDecade->format("Y-m-d");
 

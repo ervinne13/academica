@@ -15,7 +15,7 @@ var teacherId = '{{$teacher->user_id}}';
 <!-- Content Header (Page header) -->
 <section                         class="content-header">
     <h1>
-        My Classes
+        My Students
         <small>{{Auth::user()->name}}</small>
     </h1>
 </section>
@@ -31,16 +31,13 @@ var teacherId = '{{$teacher->user_id}}';
                             <table id="datatable" class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>
-                                            <a href="/teacher/{{Auth::user()->id}}/classes/create">
-                                                <i class="fa fa-plus"></i>
-                                            </a>
-                                        </th>
                                         <th>ID</th>
                                         <th>Class Name</th>
                                         <th>Year</th>
                                         <th>Level</th>
                                         <th>Subject</th>
+                                        <th>Student Name</th>
+                                        <th>Student LRN</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>

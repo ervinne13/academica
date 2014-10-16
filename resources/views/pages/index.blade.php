@@ -2,21 +2,15 @@
 
 @section('js')
 @parent
-<script src="{{ asset ("/js/pages/teachers/classes/index.js") }}" type="text/javascript"></script>
-
-<script type="text/javascript">
-var teacherId = '{{$teacher->user_id}}';
-</script>
-
+<script src="{{ asset ("/js/pages/teachers/index.js") }}" type="text/javascript"></script>
 @endsection
 
 @section('content')
 
 <!-- Content Header (Page header) -->
-<section                         class="content-header">
+<section class="content-header">
     <h1>
-        My Classes
-        <small>{{Auth::user()->name}}</small>
+        Teachers        
     </h1>
 </section>
 
@@ -28,19 +22,18 @@ var teacherId = '{{$teacher->user_id}}';
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <table id="datatable" class="table table-striped">
+                            <table id="teachers-table" class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>
-                                            <a href="/teacher/{{Auth::user()->id}}/classes/create">
+                                            <a href="/teachers/create">
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                         </th>
-                                        <th>ID</th>
-                                        <th>Class Name</th>
-                                        <th>Year</th>
-                                        <th>Level</th>
-                                        <th>Subject</th>
+                                        <th>First Name</th>                                                                                
+                                        <th>Middle Name</th>
+                                        <th>Last Name</th>
+                                        <th>Birth Date</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>

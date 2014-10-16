@@ -3,7 +3,9 @@
 var form_utilities = {
     moduleUrl: "/",
     updateObjectId: 0,
-    validate: null
+    validate: null,
+    errorHandler: null,
+    successHandler: null
 };
 
 form_utilities.formToJSON = function ($form) {
@@ -22,6 +24,16 @@ form_utilities.formToJSON = function ($form) {
     return json;
 };
 
+form_utilities.setFieldError = function (fieldName, errorMessage) {
+    var errorLabelHtml = '<label id="' + fieldName + '-error" class="error" for="' + fieldName + '">' + errorMessage + '</label>';
+
+    //  clear previous error
+    $('#' + fieldName + '-error').remove();
+
+    //  insert new error
+    $('[name=' + fieldName + ']').parent().append(errorLabelHtml);
+};
+
 form_utilities.initializeDefaultProcessing = function ($form) {
 
     $('.action-button').click(function () {
@@ -37,16 +49,32 @@ form_utilities.initializeDefaultProcessing = function ($form) {
             try {
                 form_utilities.process(type, data, function (success, message) {
                     if (success) {
-                        setTimeout(function () {
-                            if (type == "action-create-new") {
-                                window.location.reload();
-                            } else if (type == "action-create-close" || type == "action-update-close") {
-                                window.location.href = form_utilities.moduleUrl;
+
+                        if (form_utilities.successHandler) {
+                            form_utilities.successHandler(message);
+                        } else {
+                            setTimeout(function () {
+                                if (type == "action-create-new") {
+                                    window.location.reload();
+                                } else if (type == "action-create-close" || type == "action-update-close") {
+                                    window.location.href = form_utilities.moduleUrl;
+                                }
+                            }, globals.reloadRedirectWaitTime);
+
+                            if (form_utilities.onSaveMessage) {
+                                swal("Success!", form_utilities.onSaveMessage, "success");
+                            } else {
+                                swal("Success!", "Saved!", "success");
                             }
-                        }, globals.reloadRedirectWaitTime);
-                        swal("Success!", "Category Saved!", "success");
+                        }
                     } else {
-                        swal("Error!", message, "error");
+                        console.error(message);
+
+                        if (form_utilities.errorHandler) {
+                            form_utilities.errorHandler(message);
+                        } else {
+                            swal("Error!", message, "error");
+                        }
                     }
                 });
             } catch (e) {
@@ -77,14 +105,13 @@ form_utilities.process = function (type, data, callback) {
         url: url,
         type: method,
         data: data,
-        dataType: 'json',
+//        dataType: 'json',
         success: function (response) {
             console.log(response);
             callback(true, response);
         },
-        fail: function (response) {
-            callback(response);
-            callback(false, response);
+        error: function (response) {
+            callback(false, response.responseText);
         }
     });
 

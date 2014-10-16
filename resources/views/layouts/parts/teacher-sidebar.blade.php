@@ -20,9 +20,16 @@
                 </a>
             </li>
             <li>
-                <a href="/teacher/{{Auth()->user()->id}}/students">
-                    <span><i class="fa fa-users text-blue"></i> 
-                        My Students
+                <a href="/enrollment">
+                    <span><i class="fa fa-plus text-blue"></i> 
+                        Enroll Students
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="/students">
+                    <span><i class="fa fa-users text-aqua"></i> 
+                        Students
                     </span>
                 </a>
             </li>

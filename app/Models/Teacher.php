@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\DB;
 
 class Teacher extends BaseModel {
 
+    protected $primaryKey = "user_id";
+
     //
     // <editor-fold defaultstate="collapsed" desc="Static Utility Functions">
 
@@ -22,6 +24,10 @@ class Teacher extends BaseModel {
         return $this->belongsTo(User::class);
     }
 
+    public function classes() {
+        return $this->hasMany(SchoolClass::class);
+    }
+
     // </editor-fold>
     // 
     // <editor-fold defaultstate="collapsed" desc="Event Handlers">
@@ -33,6 +39,14 @@ class Teacher extends BaseModel {
             $teacher->user()->delete();
             // do the rest of the cleanup...
         });
+    }
+
+    // </editor-fold>
+    //    
+    // <editor-fold defaultstate="collapsed" desc="Scopes">
+
+    public function scopeAlphabetical($query) {
+        return $query->orderBy('first_name');
     }
 
     // </editor-fold>
