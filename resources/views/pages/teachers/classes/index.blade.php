@@ -10,7 +10,8 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Teachers        
+        My Classes
+        <small>{{Auth::user()->name}}</small>
     </h1>
 </section>
 
@@ -22,18 +23,17 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <table id="teachers-table" class="table table-striped">
+                            <table id="datatable" class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>
-                                            <a href="/teachers/create">
+                                            <a href="/teachers/{{Auth::user()->id}}/create">
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                         </th>
-                                        <th>First Name</th>                                                                                
-                                        <th>Middle Name</th>
-                                        <th>Last Name</th>
-                                        <th>Birth Date</th>
+                                        <th>Class Name</th>
+                                        <th>Class Name</th>
+                                        <th>Class Name</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>

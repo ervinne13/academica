@@ -24,6 +24,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('teachers/datatable', 'TeachersController@datatable');
     Route::resource('teachers', 'TeachersController');
+    Route::get('teacher/{$teacherId}/classes/datatable', 'TeacherClassesController@datatable');
+    Route::resource('teacher.classes', 'TeacherClassesController');
 
     Route::get('sections/datatable', 'SectionsController@datatable');
     Route::resource('sections', 'SectionsController');
