@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\GradedItem;
+use App\Models\GradedItemType;
+use App\Models\GradingPeriod;
+use App\Models\Subject;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Yajra\Datatables\Datatables;
+use function response;
+use function view;
 
 class GradedItemsController extends Controller {
 
@@ -37,10 +43,8 @@ class GradedItemsController extends Controller {
      * @return Response
      */
     public function create() {
-        $viewData = [
-            "mode" => "ADD"
-        ];
-        return view('pages.graded-items.form', $viewData);
+//        return $this->getViewData(0);
+        return view('pages.graded-items.form', $this->getViewData(0));
     }
 
     /**
@@ -50,7 +54,12 @@ class GradedItemsController extends Controller {
      * @return Response
      */
     public function store(Request $request) {
-        //
+        try {
+            $gradedItem = new GradedItem($request->toArray());
+            $gradedItem->save();
+        } catch (Exception $e) {
+            return response($e->getMessage(), 500);
+        }
     }
 
     /**
@@ -70,7 +79,7 @@ class GradedItemsController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        //
+        return view('pages.graded-items.form', $this->getViewData($id));
     }
 
     /**
@@ -81,7 +90,13 @@ class GradedItemsController extends Controller {
      * @return Response
      */
     public function update(Request $request, $id) {
-        //
+        try {
+            $gradedItem = GradedItem::find($id);
+            $gradedItem->fill($request->toArray());
+            $gradedItem->save();
+        } catch (Exception $e) {
+            return response($e->getMessage(), 500);
+        }
     }
 
     /**
@@ -92,6 +107,24 @@ class GradedItemsController extends Controller {
      */
     public function destroy($id) {
         //
+    }
+
+    function getViewData($gradedItemId) {
+        $viewData = [
+            "gradingPeriods"  => GradingPeriod::all(),
+            "gradedItemTypes" => GradedItemType::all(),
+            "subjects"        => Subject::all()
+        ];
+
+        if ($gradedItemId == 0) {
+            $viewData["mode"]       = "ADD";
+            $viewData["gradedItem"] = new GradedItem();
+        } else {
+            $viewData["mode"]       = "EDIT";
+            $viewData["gradedItem"] = GradedItem::find($gradedItemId);
+        }
+
+        return $viewData;
     }
 
 }
