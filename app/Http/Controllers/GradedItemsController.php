@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Teacher;
+use App\Models\GradedItem;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Yajra\Datatables\Datatables;
 
-class TeachersController extends Controller {
+class GradedItemsController extends Controller {
 
     /**
      * Display a listing of the resource.
@@ -15,11 +15,20 @@ class TeachersController extends Controller {
      * @return Response
      */
     public function index() {
-        return view('pages.teachers.index');
+        //
     }
 
-    public function datatable() {
-        return Datatables::of(Teacher::with('user'))->make(true);
+    public function typeIndex($gradedItemTypeName) {
+        return $gradedItemTypeName;
+    }
+
+    public function datatable($gradedItemTypeName = null) {
+
+        if ($gradedItemTypeName) {
+            return Datatables::of(GradedItem::type($gradedItemTypeName))->make(true);
+        } else {
+            return Datatables::of(GradedItem::query())->make(true);
+        }
     }
 
     /**
@@ -28,11 +37,10 @@ class TeachersController extends Controller {
      * @return Response
      */
     public function create() {
-
-        $teacher = new Teacher();
-        $mode    = "ADD";
-
-        return view('pages.teachers.form', compact(['teacher', 'mode']));
+        $viewData = [
+            "mode" => "ADD"
+        ];
+        return view('pages.graded-items.form', $viewData);
     }
 
     /**

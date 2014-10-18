@@ -5,6 +5,7 @@
 
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
+            <li class="header">Management</li>
             <li>
                 <a href="/">
                     <span><i class="fa fa-dashboard text-red"></i> 
@@ -30,6 +31,42 @@
                 <a href="/students">
                     <span><i class="fa fa-users text-aqua"></i> 
                         Students
+                    </span>
+                </a>
+            </li>
+            <li class="header">Graded Items</li>
+            <li>
+                <a href="/graded-items/create">
+                    <span><i class="fa fa-plus text-red"></i> 
+                        Create Graded Item
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="/graded-items/type/Quizzes">
+                    <span><i class="fa fa-book text-red"></i> 
+                        Quizzes
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="/graded-items/type/Assignments">
+                    <span><i class="fa fa-book text-maroon"></i> 
+                        Assignments
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="/graded-items/type/Long Tests">
+                    <span><i class="fa fa-book text-fuchsia"></i> 
+                        Long Tests
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="/graded-items/type/Periodical Tests">
+                    <span><i class="fa fa-book text-purple"></i> 
+                        Periodical Tests
                     </span>
                 </a>
             </li>

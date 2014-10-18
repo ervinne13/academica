@@ -35,13 +35,21 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('sections', 'SectionsController');
 
     Route::get('students/datatable', 'StudentsController@datatable');
-    Route::resource('students', 'StudentsController');    
+    Route::resource('students', 'StudentsController');
 
     Route::get('subjects/datatable', 'SubjectsController@datatable');
     Route::resource('subjects', 'SubjectsController');
-    
+
     Route::get('classes/datatable', 'ClassesController@datatable');
     Route::resource('classes', 'ClassesController');
-    
+
+    // <editor-fold defaultstate="collapsed" desc="Graded Items">
+
+    Route::get('graded-items/type/{gradedItemTypeName}', 'GradedItemsController@typeIndex');
+    Route::get('graded-items/type/{gradedItemTypeName}/datatable', 'GradedItemsController@datatable');
+    Route::get('graded-items/datatable', 'GradedItemsController@datatable');
+    Route::resource('graded-items', 'GradedItemsController');
+
+    // </editor-fold>
 });
 
