@@ -8,22 +8,23 @@
     });
 
     function initializeTable() {
-        $('#subjects-table').DataTable({
+        $('#datatable').DataTable({
             processing: true,
             serverSide: true,
             search: {
                 caseInsensitive: true
             },
             ajax: {
-                url: "/subjects/datatable"
+                url: "/graded-items/datatable"
             },
             order: [1, "desc"],
             columns: [
-                {data: 'id'},
-                {data: 'is_active'},
-                {data: 'is_default'},
-                {data: 'name'},
-                {data: 'short_name'}
+                {data: 'id', name: 'graded_items.id'},
+                {data: 'name', name: 'graded_items.name'},
+                {data: 'short_name', name: 'graded_items.short_name'},
+                {data: 'subject_short_name', name: 'subjects.short_name'},
+                {data: 'type_name', name: 'graded_item_types.name'},
+                {data: 'grading_period', name: 'grading_periods.name'}
             ],
             columnDefs: [
                 {bSearchable: false, aTargets: [0]},
@@ -36,18 +37,6 @@
                         var view = datatable_utilities.getInlineActionsView([editAction]);
 
                         return view;
-                    }
-                },
-                {
-                    targets: 1,
-                    render: function (isActive, type, rowData, meta) {
-                        return isActive == 1 ? "Active" : "Inactive";
-                    }
-                },
-                {
-                    targets: 2,
-                    render: function (isDefault, type, rowData, meta) {
-                        return isDefault == 1 ? "Yes" : "No";
                     }
                 }
             ]

@@ -2,7 +2,7 @@
 
 @section('js')
 @parent
-<script src="{{ asset ("/js/pages/classes/index.js") }}" type="text/javascript"></script>
+<script src="{{ asset ("/js/pages/graded-items/index.js") }}" type="text/javascript"></script>
 
 @endsection
 
@@ -11,7 +11,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Classes        
+        Graded Items        
     </h1>
 </section>
 
@@ -27,16 +27,15 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            <a href="/classes/create">
+                                            <a href="/graded-items/create">
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                         </th>
-                                        <th>ID</th>
-                                        <th>Class Name</th>
-                                        <th>Year</th>
-                                        <th>Level</th>
+                                        <th>Name</th>
+                                        <th>Short Name</th>
                                         <th>Subject</th>
-                                        <th>Teacher</th>
+                                        <th>Type</th>
+                                        <th>Grading Period</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>

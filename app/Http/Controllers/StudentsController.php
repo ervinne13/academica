@@ -34,10 +34,10 @@ class StudentsController extends Controller {
         $page    = $request->page;
 
         $totalCount = Student::GetKeywordMatchSize($keyword, $classId);
-        $students = Student::Keyword($keyword, $classId, ($page - 1) * 30, 30)->get();
+        $students   = Student::Keyword($keyword, $classId, ($page - 1) * 30, 30)->get();
 
 //        echo Student::Keyword($keyword, $classId, ($page - 1) * 30, 30)-> toSql();
-        
+
         return [
             "total_count"        => $totalCount,
             "incomplete_results" => $totalCount > count($students),
@@ -51,7 +51,12 @@ class StudentsController extends Controller {
      * @return Response
      */
     public function create() {
-        //
+        $viewData = [
+            "mode"    => "ADD",
+            "student" => new Student()
+        ];
+
+        return view('pages.students.form', $viewData);
     }
 
     /**
@@ -61,7 +66,7 @@ class StudentsController extends Controller {
      * @return Response
      */
     public function store(Request $request) {
-        //
+        
     }
 
     /**
@@ -72,14 +77,18 @@ class StudentsController extends Controller {
      */
     public function show($id) {
 
-        $faker    = Factory::create();
-        $subjects = Subject::getSubjectsWithMapeh();
-        $student  = Student::find($id);
-        if (!$student) {
+        $viewData = [
+            "mode"     => "VIEW",
+            "faker"    => Factory::create(),
+            "subjects" => Subject::getSubjectsWithMapeh(),
+            "student"  => Student::find($id)
+        ];
+
+        if (!$viewData["student"]) {
             return response("Student not found", 404);
         }
 
-//        $rankedSubjectScores = [
+//        $viewData["rankedSubjectScores"] = [
 //            ["subject" => "Mathematics", "percentage" => 92],
 //            ["subject" => "Science", "percentage" => 89],
 //            ["subject" => "English", "percentage" => 88],
@@ -91,21 +100,19 @@ class StudentsController extends Controller {
 //            ["subject" => "Technology and Livelihood Education (TLE)", "percentage" => 83],
 //        ];
 
-        $rankedSubjectScores = [
-                ["subject" => "Technology and Livelihood Education (TLE)", "percentage" => 92],
-                ["subject" => "Filipino", "percentage" => 91],
-                ["subject" => "Edukasyong Pantahanan at Pangkabuhayan (EPP)", "percentage" => 90],
-                ["subject" => "Araling Panlipunan", "percentage" => 85],
-                ["subject" => "Edukasyong Pagpapakatao", "percentage" => 84],
-                ["subject" => "Filipino", "percentage" => 84],
-                ["subject" => "English", "percentage" => 80],
-                ["subject" => "Mathematics", "percentage" => 75],
-                ["subject" => "Science", "percentage" => 73],
+        $viewData["rankedSubjectScores"] = [
+            ["subject" => "Technology and Livelihood Education (TLE)", "percentage" => 92],
+            ["subject" => "Filipino", "percentage" => 91],
+            ["subject" => "Edukasyong Pantahanan at Pangkabuhayan (EPP)", "percentage" => 90],
+            ["subject" => "Araling Panlipunan", "percentage" => 85],
+            ["subject" => "Edukasyong Pagpapakatao", "percentage" => 84],
+            ["subject" => "Filipino", "percentage" => 84],
+            ["subject" => "English", "percentage" => 80],
+            ["subject" => "Mathematics", "percentage" => 75],
+            ["subject" => "Science", "percentage" => 73],
         ];
 
-        return view('pages.students.show', compact(
-                        ['student', 'subjects', 'faker', 'rankedSubjectScores']
-        ));
+        return view('pages.students.show', $viewData);
     }
 
     /**

@@ -12,6 +12,7 @@
                     </span>
                 </a>
             </li>
+            <li class="header">Teachers & Students</li>
             <li>
                 <a href="/teachers">
                     <span><i class="fa fa-users text-fuchsia"></i> 
@@ -33,6 +34,21 @@
                     </span>
                 </a>
             </li>
+            <li class="header">Master Files</li>
+            <li>
+                <a href="/grading-years">
+                    <span><i class="fa fa-calendar text-blue"></i> 
+                        Grading Years
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="/graded-items">
+                    <span><i class="fa fa-check text-aqua"></i> 
+                        Graded Items
+                    </span>
+                </a>
+            </li>
             <li>
                 <a href="/sections">
                     <span><i class="fa fa-cubes text-light-blue"></i> 
@@ -46,14 +62,7 @@
                         Subjects
                     </span>
                 </a>
-            </li>
-            <li>
-                <a href="/grading-years">
-                    <span><i class="fa fa-calendar text-blue"></i> 
-                        Grading Years
-                    </span>
-                </a>
-            </li>
+            </li>            
             <li>
                 <a href="/classes">
                     <span><i class="fa fa-clock-o text-blue"></i> 

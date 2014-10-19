@@ -5,7 +5,7 @@
 <script type='text/javascript'>
     var id = '{{$gradedItem->id}}';
 </script>
-<script src="{{ asset ("/js/pages/graded-item/form.js") }}" type="text/javascript"></script>
+<script src="{{ asset ("/js/pages/graded-items/form.js") }}" type="text/javascript"></script>
 @endsection
 
 @section('content')

@@ -21,7 +21,7 @@ class GradedItemsController extends Controller {
      * @return Response
      */
     public function index() {
-        //
+        return view('pages.graded-items.index');
     }
 
     public function typeIndex($gradedItemTypeName) {
@@ -33,7 +33,12 @@ class GradedItemsController extends Controller {
         if ($gradedItemTypeName) {
             return Datatables::of(GradedItem::type($gradedItemTypeName))->make(true);
         } else {
-            return Datatables::of(GradedItem::query())->make(true);
+//            return Datatables::of(GradedItem::
+//                                    with('gradedItemType')
+//                                    ->with('gradingPeriod')
+//                                    ->with('subject')
+//                    )->make(true);
+            return Datatables::of(GradedItem::datatable())->make(true);
         }
     }
 

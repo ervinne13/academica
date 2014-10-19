@@ -4,10 +4,10 @@ var form_utilities = {
     moduleUrl: "/",
     updateObjectId: 0,
     validate: null,
+    postValidate: function () {},
     errorHandler: null,
     successHandler: null
 };
-
 form_utilities.formToJSON = function ($form) {
 
     var json = {};
@@ -41,6 +41,7 @@ form_utilities.initializeDefaultProcessing = function ($form) {
         var valid = true;
         if (form_utilities.validate) {
             valid = $form.valid();
+            form_utilities.postValidate();
         }
 
         if (valid) {

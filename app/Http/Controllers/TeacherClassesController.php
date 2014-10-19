@@ -31,6 +31,16 @@ class TeacherClassesController extends Controller {
         }
     }
 
+    public function listJSON($teacherId) {
+        $teacher = Teacher::find($teacherId);
+        return $teacher
+                        ->classes()
+                        ->with('gradingYear')
+                        ->with('subject')
+                        ->with('level')
+                        ->get();
+    }
+
     public function datatable($teacherId) {
         $teacher = Teacher::find($teacherId);
         if ($teacher) {

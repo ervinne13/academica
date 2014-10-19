@@ -67,6 +67,10 @@
 //            alert($(this).val());
         });
 
+        $('[name=teacher_id]').change(function () {
+            loadAndSetTeacherClasses();
+        });
+
         $('[name=class_id]').change(function () {
             refreshSelectedClassLabel();
             loadAndDisplayEnrolledStudents();
@@ -86,6 +90,26 @@
 
     function refreshSelectedClassLabel() {
         $('#selected-class-label').text($('[name=class_id] option:selected').text());
+    }
+
+    function loadAndSetTeacherClasses() {
+        var teacherId = $('[name=teacher_id]').val();
+        var url = baseURL + "/api/teacher/" + teacherId + "/classes";
+        $.get(url, function (classes) {
+            utilities.setBoxLoading($('#students-to-enroll-box'), false);
+//            classes = JSON.parse(classes);
+            var html = "";
+
+            for (var i in classes) {
+                html += '<option value="' + classes[i].id + '">' + classes[i].name + '</option>';
+            }
+
+            $('[name=class_id]').html(html);
+
+        });
+
+        utilities.setBoxLoading($('#students-to-enroll-box'), true);
+
     }
 
     function loadAndDisplayEnrolledStudents(onFinish) {

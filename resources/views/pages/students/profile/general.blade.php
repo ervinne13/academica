@@ -1,10 +1,18 @@
 
 <div class="row">    
     <div class="col-md-3">
-        <img src="{{ $student->image_url  ? URL::to('/') . $student->image_url : "" }}" width="250px" height="250px" id="image-preview">
-        <div class="full-width">
-            <!--<div class="chart" id="sales-chart" style="height: 300px; position: relative"></div>-->            
-        </div>      
+        @if ($mode == "VIEW")
+        <img src="{{ $student->image_url  ? URL::to('/') . $student->image_url : "" }}" width="250px" height="250px" id="image-preview">        
+        @else
+        <div class="form-group">
+            <label for="input-student-image">Profile Image</label>
+            <input type="file" id="input-student-image" name="image">
+            <p class="help-block">Ideal size is 250px x 250px</p>
+
+            <img src="{{ $student->image_url  ? URL::to('/') . $student->image_url : "" }}" width="250px" height="250px" id="image-preview">
+            <input type="hidden" name="image_url">
+        </div>
+        @endif
     </div>
     <div class="col-md-9">
         <div class="row">

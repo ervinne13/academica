@@ -19,5 +19,7 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/students/search', 'StudentsController@search');
 
+Route::get('teacher/{teacherId}/classes', 'TeacherClassesController@listJSON');
+
 Route::get('class/{classId}/students', 'ClassStudentsController@index');
 Route::delete('class/{classId}/students/{studentId}', 'ClassStudentsController@destroy');

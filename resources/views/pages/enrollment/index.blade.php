@@ -7,7 +7,7 @@
 <script id="student-selection-template" type="text/html">
     <div class="media">
         <a class="media-left" href="#">
-            <img class="media-object" src="<%= image_url %>" alt="Student Image">
+            <img style="width: 75px; height: 75px;" class="media-object" src="<%= image_url %>" alt="Student Image">
         </a>
         <div class="media-body">
             <h4 class="media-heading"><%= first_name %> <%= last_name %></h4>
@@ -20,7 +20,7 @@
 <script id="student-list-item-template" type="text/html">
     <li class="media">
         <a class="media-left" href="#">
-            <img class="media-object" src="<%= image_url %>" alt="Student Image">
+            <img class="media-object" style="width: 75px; height: 75px;" src="<%= image_url %>" alt="Student Image">
         </a>
         <div class="media-body">
             <span class="pull-right">
@@ -50,7 +50,7 @@
 
     <div class="row">
         <div class="col-md-6">
-            <div class="box box-success">
+            <div id="students-to-enroll-box" class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">Students to Enroll</h3>
                 </div>
@@ -62,7 +62,7 @@
                                 @if(count($teachers) > 1)
                                 <select name="teacher_id" class="form-control">
                                     @foreach($teachers AS $teacher)                                
-                                    <option value="{{$teacher->id}}">{{$teacher->first_name}} {{$teacher->last_name}}</option>
+                                    <option value="{{$teacher->user_id}}">{{$teacher->first_name}} {{$teacher->last_name}}</option>
                                     @endforeach
                                 </select>
                                 @else

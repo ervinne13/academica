@@ -17,9 +17,12 @@ class GradedItemTypesSeeder extends Seeder {
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         $gradedItemTypes = [
-            ["id" => 1, "name" => "Written Works (20%)", "percentage_value" => 20],
-            ["id" => 2,"name" => "Performance Tasks (60%)", "percentage_value" => 60],
-            ["id" => 3,"name" => "Quarterly Exams (20%)", "percentage_value" => 20],
+            ["name" => "Written Works (MAPEH 20%)", "percentage_value" => 20],
+            ["name" => "Performance Tasks (MAPEH 60%)", "percentage_value" => 60],
+            ["name" => "Quarterly Exams (MAPEH 20%)", "percentage_value" => 20],
+            ["name" => "Written Works (30%)", "percentage_value" => 30],
+            ["name" => "Performance Tasks (30%)", "percentage_value" => 30],
+            ["name" => "Quarterly Exams (40%)", "percentage_value" => 40],
         ];
 
         GradedItemType::insert($gradedItemTypes);

@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\DB;
 class Teacher extends BaseModel {
 
     protected $primaryKey = "user_id";
+    protected $fillable   = [
+        "first_name", "last_name", "middle_name", 'birthdate', 'image_url'
+    ];
 
     //
     // <editor-fold defaultstate="collapsed" desc="Static Utility Functions">
