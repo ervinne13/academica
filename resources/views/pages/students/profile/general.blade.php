@@ -4,7 +4,7 @@
         @if ($mode == "VIEW")
         <img src="{{ $student->image_url  ? URL::to('/') . $student->image_url : "" }}" width="250px" height="250px" id="image-preview">        
         @else
-        <div class="form-group">
+        <div id="image-preview-container" class="form-group">
             <label for="input-student-image">Profile Image</label>
             <input type="file" id="input-student-image" name="image">
             <p class="help-block">Ideal size is 250px x 250px</p>
@@ -33,7 +33,7 @@
         <div class="row">
             <div class="form-group col-md-4">
                 <label>Birth Date</label>
-                <input type="text" name="birthdate" class="form-control" value="{{ $student->birthdate }}">
+                <input type="text" name="birthdate" class="form-control datepicker" value="{{ $student->birthdate }}">
             </div>
         </div>
 

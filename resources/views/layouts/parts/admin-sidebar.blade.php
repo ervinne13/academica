@@ -5,6 +5,7 @@
 
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
+            <li class="header">Administration</li>
             <li>
                 <a href="/">
                     <span><i class="fa fa-dashboard text-red"></i> 
@@ -12,10 +13,24 @@
                     </span>
                 </a>
             </li>
+            <li>
+                <a href="/users">
+                    <span><i class="fa fa-user text-maroon"></i> 
+                        Users
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="/users/create">
+                    <span><i class="fa fa-plus text-fuchsia"></i> 
+                        Register Viewer
+                    </span>
+                </a>
+            </li>
             <li class="header">Teachers & Students</li>
             <li>
                 <a href="/teachers">
-                    <span><i class="fa fa-users text-fuchsia"></i> 
+                    <span><i class="fa fa-users text-blue"></i> 
                         Teachers
                     </span>
                 </a>
@@ -29,7 +44,7 @@
             </li>
             <li>
                 <a href="/enrollment">
-                    <span><i class="fa fa-plus text-blue"></i> 
+                    <span><i class="fa fa-plus text-aqua"></i> 
                         Enroll Students
                     </span>
                 </a>

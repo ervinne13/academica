@@ -34,6 +34,22 @@ class User extends Authenticatable {
     //
     // <editor-fold defaultstate="collapsed" desc="Utility Functions">
 
+    public function getFormattedLinks() {
+
+        if ($this->id) {
+            $links = $this->links;
+
+            $formattedLinks = [];
+            foreach ($links AS $link) {
+                array_push($formattedLinks, join(':', [$link->name, $link->url]));
+            }
+
+            return join(',', $formattedLinks);
+        } else {
+            return "";
+        }
+    }
+
     public function isAdmin() {
         return $this->role_name == static::ROLE_ADMIN;
     }
@@ -48,6 +64,10 @@ class User extends Authenticatable {
 
     public function teacher() {
         return $this->hasOne(Teacher::class);
+    }
+
+    public function links() {
+        return $this->hasMany(ViewerAccessibleLinks::class);
     }
 
     // </editor-fold>

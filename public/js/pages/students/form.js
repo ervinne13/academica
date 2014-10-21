@@ -4,9 +4,17 @@
 (function () {
 
     $(document).ready(function () {
+        initializeUI();
         initializeFormUtilities();
         initializeImageUtilities();
     });
+
+    function initializeUI() {
+        $('.datepicker').datepicker({
+            autoclose: true,
+            format: "yyyy-mm-dd",
+        });
+    }
 
     function initializeFormUtilities() {
         form_utilities.moduleUrl = "/students";

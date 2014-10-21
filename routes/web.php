@@ -24,12 +24,17 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('enrollment', 'EnrollmentController');
 
-    Route::get('teachers/datatable', 'TeachersController@datatable');    
+    Route::get('teachers/datatable', 'TeachersController@datatable');
     Route::get('teacher/{teacherId}/classes/datatable', 'TeacherClassesController@datatable');
     Route::get('teacher/{teacherId}/students/datatable', 'TeacherStudentsController@datatable');
     Route::resource('teachers', 'TeachersController');
     Route::resource('teacher.classes', 'TeacherClassesController');
     Route::resource('teacher.students', 'TeacherStudentsController');
+
+    Route::get('users/datatable', 'UsersController@datatable');
+    Route::get('users/{userId}/activate', 'UsersController@activate');
+    Route::get('users/{userId}/deactivate', 'UsersController@deactivate');
+    Route::resource('users', 'UsersController');
 
     Route::get('sections/datatable', 'SectionsController@datatable');
     Route::resource('sections', 'SectionsController');

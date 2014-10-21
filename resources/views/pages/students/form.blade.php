@@ -1,10 +1,16 @@
 @extends('layouts.lte-module')
 
+@section('css')
+@parent
+<link href="{{ asset("/bower_components/AdminLTE/plugins/datepicker/datepicker3.css") }}" rel="stylesheet" type="text/css" />
+@endsection
+
 @section('js')
 @parent
 <script type='text/javascript'>
     var id = '{{$student->id}}';
 </script>
+<script src="{{ asset ("/bower_components/AdminLTE/plugins/datepicker/bootstrap-datepicker.js") }}" type="text/javascript"></script>
 <script src="{{ asset ("/js/image-utils.js") }}" type="text/javascript"></script>
 <script src="{{ asset ("/js/pages/students/form.js") }}" type="text/javascript"></script>
 @endsection

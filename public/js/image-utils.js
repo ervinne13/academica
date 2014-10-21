@@ -34,6 +34,9 @@ image_utils.uploadFile = function ($input, $imageUrlInput) {
             data: formData,
             success: function (response) {
                 console.log(response);
+                if (utilities) {
+                    utilities.setBoxLoading($('#image-preview-container'), false);
+                }
                 if ($imageUrlInput) {
                     var uploadNames = JSON.parse(response);
                     if (uploadNames.length > 0) {
@@ -45,5 +48,9 @@ image_utils.uploadFile = function ($input, $imageUrlInput) {
                 }
             }
         });
+
+        if (utilities) {
+            utilities.setBoxLoading($('#image-preview-container'), true);
+        }
     }
 };

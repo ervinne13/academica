@@ -10,7 +10,14 @@ class HomeController extends Controller {
     public function index() {
 
         if (Auth::check()) {
-            return view('pages.home.index');
+
+            $roleName = Auth::user()->role_name;
+
+            if ($roleName == "VIEWER") {
+                return view('pages.home.viewer-welcome');
+            } else {
+                return view('pages.home.index');
+            }
         } else {
             return view('welcome');
         }
