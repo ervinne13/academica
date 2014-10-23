@@ -21,23 +21,22 @@ class GradedItemsController extends Controller {
      * @return Response
      */
     public function index() {
-        return view('pages.graded-items.index');
+        $viewData                     = $this->getDefaultViewData();
+        $viewData["gradedItemTypeId"] = 0;
+        return view('pages.graded-items.index', $viewData);
     }
 
-    public function typeIndex($gradedItemTypeName) {
-        return $gradedItemTypeName;
+    public function typeIndex($gradedItemTypeId) {
+        $viewData                     = $this->getDefaultViewData();
+        $viewData["gradedItemTypeId"] = $gradedItemTypeId;
+        return view('pages.graded-items.index', $viewData);
     }
 
-    public function datatable($gradedItemTypeName = null) {
+    public function datatable($gradedItemTypeId = null) {
 
-        if ($gradedItemTypeName) {
-            return Datatables::of(GradedItem::type($gradedItemTypeName))->make(true);
+        if ($gradedItemTypeId) {
+            return Datatables::of(GradedItem::datatable()->type($gradedItemTypeId))->make(true);
         } else {
-//            return Datatables::of(GradedItem::
-//                                    with('gradedItemType')
-//                                    ->with('gradingPeriod')
-//                                    ->with('subject')
-//                    )->make(true);
             return Datatables::of(GradedItem::datatable())->make(true);
         }
     }
@@ -115,11 +114,11 @@ class GradedItemsController extends Controller {
     }
 
     function getViewData($gradedItemId) {
-        $viewData = [
+        $viewData = array_merge($this->getDefaultViewData(), [
             "gradingPeriods"  => GradingPeriod::all(),
             "gradedItemTypes" => GradedItemType::all(),
             "subjects"        => Subject::all()
-        ];
+        ]);
 
         if ($gradedItemId == 0) {
             $viewData["mode"]       = "ADD";

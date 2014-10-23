@@ -20,7 +20,7 @@ class TeachersController extends Controller {
      * @return Response
      */
     public function index() {
-        return view('pages.teachers.index');
+        return view('pages.teachers.index', $this->getDefaultViewData());
     }
 
     public function datatable() {
@@ -34,11 +34,13 @@ class TeachersController extends Controller {
      */
     public function create() {
 
-        $teacher       = new Teacher();
-        $teacher->user = new User();
-        $mode          = "ADD";
+        $viewData = $this->getDefaultViewData();
 
-        return view('pages.teachers.form', compact(['teacher', 'mode']));
+        $viewData["mode"]          = "ADD";
+        $viewData["teacher"]       = new Teacher();
+        $viewData["teacher"]->user = new User();
+
+        return view('pages.teachers.form', $viewData);
     }
 
     /**
@@ -60,7 +62,7 @@ class TeachersController extends Controller {
             $user->role_name = User::ROLE_TEACHER;
             $user->password  = \Hash::make($request->password);
             $user->save();
-            
+
             $teacher          = new Teacher($request->toArray());
             $teacher->user_id = $user->id;
             $teacher->save();
@@ -89,10 +91,11 @@ class TeachersController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        $teacher = Teacher::find($id);
-        $mode    = "EDIT";
+        $viewData            = $this->getDefaultViewData();
+        $viewData["teacher"] = Teacher::find($id);
+        $viewData["mode"]    = "EDIT";
 
-        return view('pages.teachers.form', compact(['teacher', 'mode']));
+        return view('pages.teachers.form', $viewData);
     }
 
     /**

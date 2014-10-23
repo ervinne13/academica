@@ -7,7 +7,6 @@ use App\Models\Subject;
 use Faker\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
 use function response;
 use function view;
@@ -20,7 +19,7 @@ class StudentsController extends Controller {
      * @return Response
      */
     public function index() {
-        return view('pages.students.index');
+        return view('pages.students.index', $this->getDefaultViewData());
     }
 
     public function datatable() {
@@ -51,10 +50,9 @@ class StudentsController extends Controller {
      * @return Response
      */
     public function create() {
-        $viewData = [
-            "mode"    => "ADD",
-            "student" => new Student()
-        ];
+        $viewData            = $this->getDefaultViewData();
+        $viewData["mode"]    = "ADD";
+        $viewData["student"] = new Student();
 
         return view('pages.students.form', $viewData);
     }
@@ -77,12 +75,12 @@ class StudentsController extends Controller {
      */
     public function show($id) {
 
-        $viewData = [
+        $viewData = array_merge($this->getDefaultViewData(), [
             "mode"     => "VIEW",
             "faker"    => Factory::create(),
             "subjects" => Subject::getSubjectsWithMapeh(),
             "student"  => Student::find($id)
-        ];
+        ]);
 
         if (!$viewData["student"]) {
             return response("Student not found", 404);

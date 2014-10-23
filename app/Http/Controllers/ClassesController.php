@@ -22,7 +22,7 @@ class ClassesController extends Controller {
      * @return Response
      */
     public function index() {
-        return view('pages.classes.index');
+        return view('pages.classes.index', $this->getDefaultViewData());
     }
 
     public function datatable() {
@@ -129,7 +129,9 @@ class ClassesController extends Controller {
 
         // </editor-fold>
 
-        return [
+
+
+        return array_merge($this->getDefaultViewData(), [
             "mode"         => $mode,
             "teacher"      => $teacher,
             "class"        => $class,
@@ -138,7 +140,7 @@ class ClassesController extends Controller {
             "levels"       => Level::all(),
             "gradingYears" => GradingYear::Decending()->get(),
             "subjects"     => Subject::Active()->get()
-        ];
+        ]);
     }
 
 }

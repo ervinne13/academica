@@ -21,16 +21,16 @@ class EnrollmentController extends Controller {
         $currentUser = Auth::user();
 
         if ($currentUser->isAdmin()) {
-            $viewData = [
+            $viewData = array_merge($this->getDefaultViewData(), [
                 "teachers" => Teacher::all(),
                 "classes"  => SchoolClass::all()
-            ];
+            ]);
         } else {
             $teacher  = Teacher::find($currentUser->id);
-            $viewData = [
+            $viewData = array_merge($this->getDefaultViewData(), [
                 "teachers" => [$teacher],
                 "classes"  => $teacher->classes
-            ];
+            ]);
         }
 
         return view('pages.enrollment.index', $viewData);

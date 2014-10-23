@@ -43,33 +43,22 @@
                 </a>
             </li>
             <li>
-                <a href="/graded-items/type/Quizzes">
+                <a href="/graded-items">
                     <span><i class="fa fa-book text-red"></i> 
-                        Quizzes
+                        Graded Items
                     </span>
                 </a>
             </li>
+
+            @foreach($gradedItemTypes AS $gradedItemType)
             <li>
-                <a href="/graded-items/type/Assignments">
-                    <span><i class="fa fa-book text-maroon"></i> 
-                        Assignments
+                <a href="/graded-items/type/{{$gradedItemType->id}}">
+                    <span><i class="fa fa-book text-red"></i> 
+                        {{$gradedItemType->name}}
                     </span>
                 </a>
             </li>
-            <li>
-                <a href="/graded-items/type/Long Tests">
-                    <span><i class="fa fa-book text-fuchsia"></i> 
-                        Long Tests
-                    </span>
-                </a>
-            </li>
-            <li>
-                <a href="/graded-items/type/Periodical Tests">
-                    <span><i class="fa fa-book text-purple"></i> 
-                        Periodical Tests
-                    </span>
-                </a>
-            </li>
+            @endforeach
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

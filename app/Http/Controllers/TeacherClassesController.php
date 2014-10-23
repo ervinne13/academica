@@ -25,7 +25,10 @@ class TeacherClassesController extends Controller {
     public function index($teacherId) {
         $teacher = Teacher::find($teacherId);
         if ($teacher) {
-            return view('pages.teachers.classes.index', compact('teacher'));
+            $viewData             = $this->getDefaultViewData();
+            $viewData ["teacher"] = $teacher;
+
+            return view('pages.teachers.classes.index', $viewData);
         } else {
             abort(404);
         }
@@ -153,7 +156,7 @@ class TeacherClassesController extends Controller {
 
         // </editor-fold>
 
-        return [
+        return array_merge($this->getDefaultViewData(), [
             "mode"         => $mode,
             "teacher"      => $teacher,
             "class"        => $class,
@@ -162,7 +165,7 @@ class TeacherClassesController extends Controller {
             "levels"       => Level::all(),
             "gradingYears" => GradingYear::Decending()->get(),
             "subjects"     => Subject::Active()->get()
-        ];
+        ]);
     }
 
 }

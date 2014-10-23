@@ -3,7 +3,11 @@
 @section('js')
 @parent
 <script src="{{ asset ("/js/pages/graded-items/index.js") }}" type="text/javascript"></script>
+<script type="text/javascript">
 
+var gradedItemTypeId = '{{$gradedItemTypeId}}';
+
+</script>
 @endsection
 
 @section('content')

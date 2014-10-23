@@ -1,5 +1,5 @@
 
-/* global datatable_utilities */
+/* global datatable_utilities, gradedItemTypeId */
 
 (function () {
 
@@ -8,6 +8,15 @@
     });
 
     function initializeTable() {
+
+        var url;
+
+        if (gradedItemTypeId == 0) {
+            url = "/graded-items/datatable";
+        } else {
+            url = "/graded-items/type/" + gradedItemTypeId + "/datatable";
+        }
+
         $('#datatable').DataTable({
             processing: true,
             serverSide: true,
@@ -15,7 +24,7 @@
                 caseInsensitive: true
             },
             ajax: {
-                url: "/graded-items/datatable"
+                url: url
             },
             order: [1, "desc"],
             columns: [

@@ -14,12 +14,14 @@ class HomeController extends Controller {
             $roleName = Auth::user()->role_name;
 
             if ($roleName == "VIEWER") {
-                return view('pages.home.viewer-welcome');
+                return view('pages.home.viewer-welcome', $this->getDefaultViewData());
+            } else if ($roleName == "TEACHER") {
+                return view('pages.home.teacher-welcome', $this->getDefaultViewData());
             } else {
-                return view('pages.home.index');
+                return view('pages.home.index', $this->getDefaultViewData());
             }
         } else {
-            return view('welcome');
+            return view('welcome', $this->getDefaultViewData());
         }
     }
 
