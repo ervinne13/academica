@@ -39,7 +39,7 @@ class ClassesSeeder extends Seeder {
                     "level_id"        => $level->id,
                     "subject_id"      => $subject->id,
                     "teacher_id"      => $teacher->user_id,
-                    "name"            => "{$level->name} {$subject->short_name} ({$gradingYear->year}) - {$teacherFirstNameInitial}. {$teacher->last_name}"
+                    "name"            => "{$level->id} {$subject->short_name} ({$gradingYear->year}) - {$teacherFirstNameInitial}. {$teacher->last_name}"
                 ]);
 
                 $teacherIndex ++;

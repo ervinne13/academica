@@ -12,7 +12,7 @@ class Student extends Model {
                 ->select(DB::raw('count(*) as match_count'));
 
         $query->where(function($query) use ($keyword) {
-            $query->where('lrn_number', 'LIKE', "%{$keyword}%");
+            $query->where('lrn', 'LIKE', "%{$keyword}%");
             $query->orWhere('student_number', 'LIKE', "%{$keyword}%");
             $query->orWhere('first_name', 'LIKE', "%{$keyword}%");
             $query->orWhere('last_name', 'LIKE', "%{$keyword}%");
@@ -45,7 +45,7 @@ class Student extends Model {
     public function scopeKeyword($query, $keyword, $classId, $offset, $fetchCount) {
         $query
                 ->where(function($query) use ($keyword) {
-                    $query->where('lrn_number', 'LIKE', "%{$keyword}%");
+                    $query->where('lrn', 'LIKE', "%{$keyword}%");
                     $query->orWhere('student_number', 'LIKE', "%{$keyword}%");
                     $query->orWhere('first_name', 'LIKE', "%{$keyword}%");
                     $query->orWhere('last_name', 'LIKE', "%{$keyword}%");

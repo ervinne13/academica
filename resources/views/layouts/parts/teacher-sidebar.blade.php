@@ -34,6 +34,13 @@
                     </span>
                 </a>
             </li>
+            <li>
+                <a href="/class-records">
+                    <span><i class="fa fa-users text-info"></i> 
+                        Class Records
+                    </span>
+                </a>
+            </li>
             <li class="header">Graded Items</li>
             <li>
                 <a href="/graded-items/create">

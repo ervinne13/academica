@@ -11,8 +11,7 @@
         </a>
         <div class="media-body">
             <h4 class="media-heading"><%= first_name %> <%= last_name %></h4>
-            <p>LRN Number: <%= lrn_number %></p>
-            <p>Student Number: <%= student_number %></p>
+            <p>LRN: <%= lrn %></p>
         </div>
     </div>
 </script>
@@ -29,7 +28,7 @@
                 </a>
             </span>
             <h4 class="media-heading"><%= first_name %> <%= last_name %></h4>
-            <p>LRN Number: <%= lrn_number %></p>
+            <p>LRN Number: <%= lrn %></p>
             <p>Student Number: <%= student_number %></p>
         </div>
     </li>

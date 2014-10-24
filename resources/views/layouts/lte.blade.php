@@ -16,8 +16,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <link href="{{ asset("/bower_components/AdminLTE/bootstrap/css/bootstrap.min.css") }}" rel="stylesheet" type="text/css" />
         <!-- Font Awesome Icons -->
         <link href="/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
         <!-- Ionicons -->
         <!--<link href="/ionicons/ionicons.min.css" rel="stylesheet" type="text/css" />-->
+
+        <!--Other Element / View Styles-->
+        <link href="{{ asset("/bower_components/sweetalert2/dist/sweetalert2.min.css")}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset("/bower_components/AdminLTE/plugins/select2/select2.min.css")}}" rel="stylesheet" type="text/css" />
+
         <!-- Theme style -->
         <link href="{{ asset("/bower_components/AdminLTE/dist/css/AdminLTE.min.css")}}" rel="stylesheet" type="text/css" />
 
@@ -31,11 +37,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
-
-        <!--Other Element / View Styles-->
-        <link href="{{ asset("/bower_components/sweetalert2/dist/sweetalert2.min.css")}}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset("/bower_components/AdminLTE/plugins/select2/select2.min.css")}}" rel="stylesheet" type="text/css" />
+        <![endif]-->        
 
         <link href="{{ asset("/css/app.css")}}" rel="stylesheet" type="text/css" />
         <meta name="_token" content="{{csrf_token()}}">

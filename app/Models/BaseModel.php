@@ -18,4 +18,18 @@ class BaseModel extends Model {
         }
     }
 
+    public function manyThroughMany($related, $through, $firstKey, $secondKey, $pivotKey) {
+        $model        = new $related;
+        $table        = $model->getTable();
+        $throughModel = new $through;
+        $pivot        = $throughModel->getTable();
+
+        //Student::class, StudentClass::class, 'class_id', 'id', 'student_id'
+        //join student_classes ON student_id = students.id
+        return $model
+                        ->join($pivot, $pivot . '.' . $pivotKey, '=', $table . '.' . $secondKey)
+                        ->select($table . '.*')
+                        ->where($pivot . '.' . $firstKey, '=', $this->id);
+    }
+
 }

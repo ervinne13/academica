@@ -20,6 +20,7 @@
             order: [1, "desc"],
             columns: [
                 {data: 'id'},
+                {data: 'lrn'},
                 {data: 'last_name'},
                 {data: 'first_name'},
                 {data: 'section_name', name: 'section.name'},

@@ -32,6 +32,10 @@ class GradedItemsController extends Controller {
         return view('pages.graded-items.index', $viewData);
     }
 
+    public function getBySubject($subjectId) {
+        return GradedItem::BySubject($subjectId)->get();
+    }
+
     public function datatable($gradedItemTypeId = null) {
 
         if ($gradedItemTypeId) {

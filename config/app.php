@@ -168,6 +168,8 @@ return [
          * Package Service Providers...
          */
 
+        Collective\Html\HtmlServiceProvider::class,
+        
         //
 
         /*
@@ -231,6 +233,15 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'Form'=> Illuminate\Html\FormFacade::class, 
+        'HTML'=> Illuminate\Html\HtmlFacade::class,
+        
+        /*
+         * 3rd party aliases
+         */
+        
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        
     ],
 
 ];

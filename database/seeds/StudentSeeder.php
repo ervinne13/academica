@@ -29,6 +29,7 @@ class StudentSeeder extends Seeder {
             $faker                     = Factory::create();
             $student                   = new Student();
             $student->seeded           = 1;
+            $student->lrn              = $faker->randomNumber(9) . "" . $faker->randomNumber(3);
             $student->student_number   = "SN-" . date('Y') . "-" . $faker->randomNumber(7);
             $student->first_name       = $faker->firstName;
             $student->last_name        = $faker->lastName;

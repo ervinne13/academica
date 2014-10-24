@@ -7,6 +7,21 @@
     var classId = '{{$class->id}}';
 </script>
 <script src="{{ asset ("/js/pages/teachers/classes/form.js") }}" type="text/javascript"></script>
+
+<script type="text/html" id="assigned-graded-items-row-template">
+    <tr class="graded-item-row" data-graded-item-id="<%= graded_item_id %>">        
+        <td><%= name %></td>
+        <td>
+            <input type="text" class="form-control hps-field" value="<%= highest_possible_score %>">
+        </td>
+        <td>
+            <a href="javascript:void" class="action-delete-graded-item" data-id="<%= graded_item_id %>">
+                <i class="fa fa-times"></i>
+            </a>
+        </td>
+    </tr>
+</script>
+
 @endsection
 
 @section('content')
@@ -58,23 +73,21 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
 
-                            <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Teacher</label>
-                                    <select name="teacher_id" required class="form-control">
-                                        @foreach($teachers AS $otherTeacher)
-                                        <?php
-                                        if ($class->teacher_id) {
-                                            $selected = $class->teacher_id == $otherTeacher->user_id ? "selected" : "";
-                                        } else {
-                                            //  If there is no teacher id set, use the current user's teacher id
-                                            $selected = $teacher->user_id == $otherTeacher->user_id ? "selected" : "";
-                                        }
-                                        ?>
+                                    <select name="teacher_id" required class="form-control"  {{ Auth::user()->role_name == "TEACHER" ? "readonly" : "" }}>
+                                            @foreach($teachers AS $otherTeacher)
+                                            <?php
+                                            if ($class->teacher_id) {
+                                                $selected = $class->teacher_id == $otherTeacher->user_id ? "selected" : "";
+                                            } else {
+                                                //  If there is no teacher id set, use the current user's teacher id
+                                                $selected = $teacher->user_id == $otherTeacher->user_id ? "selected" : "";
+                                            }
+                                            ?>
 
-                                        <option value="{{$otherTeacher->user_id}}" {{$selected}}>{{$otherTeacher->first_name}} {{$otherTeacher->last_name}}</option>
+                                            <option value="{{$otherTeacher->user_id}}" {{$selected}}>{{$otherTeacher->first_name}} {{$otherTeacher->last_name}}</option>
                                         @endforeach
                                     </select>
                                 </div>  
@@ -86,7 +99,36 @@
                                         <option value="{{$subject->id}}" {{$selected}}>({{$subject->short_name}}) {{$subject->name}}</option>
                                         @endforeach
                                     </select>
-                                </div>  
+                                </div>
+
+                            </div>
+
+                            <div class="col-lg-6" id="graded-items-container">
+                                <div class="form-group">
+                                    <label>Assign Graded Item</label>                                                                        
+                                    <div class="input-group">
+                                        <select name="graded_item_id" hidden required class="form-control select2"></select>
+                                        <span class="input-group-btn">
+                                            <button id="action-add-graded-item" class="btn btn-success" type="button">Add</button>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <label class="pull-left">Assigned Graded Items</label>
+                                <a href="javascript:void(0)" id="action-clear-graded-items" class="pull-right">Clear</a>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th style="min-width: 270px;">Graded Item</th>
+                                            <th>Highest Possible Score</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="assigned-graded-items-tbody"></tbody>
+                                </table>
+
                             </div>
                         </div>
                     </form>

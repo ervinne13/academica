@@ -33,8 +33,6 @@ class GradedItemSeeder extends Seeder {
             ["Q2", "Quiz 2"],
             ["Q3", "Quiz 3"],
             ["A1", "Assignment 1"],
-            ["A2", "Assignment 2"],
-            ["A3", "Assignment 3"],
             ["LT", "Long Test"],
         ];
 
@@ -57,25 +55,34 @@ class GradedItemSeeder extends Seeder {
                         "grading_period_id" => $gradingPeriod->id,
                     ];
 
-                    foreach ($writtenWorks AS $writtenWork) {
-                        $gradedItem["short_name"] = $writtenWork[0];
-                        $gradedItem["name"]       = "P-{$gradingPeriod->short_name} {$subject->short_name} $writtenWork[1]";
+                    if ($itemType->name == "Written Works (20%)") {
+                        foreach ($writtenWorks AS $writtenWork) {
+                            $gradedItem["short_name"] = $writtenWork[0];
+//                        $gradedItem["name"]       = "P-{$gradingPeriod->short_name} {$subject->short_name} $writtenWork[1]";
+                            $gradedItem["name"]       = "P-{$gradingPeriod->short_name} $writtenWork[1]";
 
-                        array_push($gradedItems, $gradedItem);
+                            array_push($gradedItems, $gradedItem);
+                        }
                     }
 
-                    foreach ($performance AS $performanceItem) {
-                        $gradedItem["short_name"] = $performanceItem[0];
-                        $gradedItem["name"]       = "P-{$gradingPeriod->short_name} {$subject->short_name} $performanceItem[1]";
+                    if ($itemType->name == "Performance Tasks (60%)") {
+                        foreach ($performance AS $performanceItem) {
+                            $gradedItem["short_name"] = $performanceItem[0];
+//                        $gradedItem["name"]       = "P-{$gradingPeriod->short_name} {$subject->short_name} $performanceItem[1]";
+                            $gradedItem["name"]       = "P-{$gradingPeriod->short_name} $performanceItem[1]";
 
-                        array_push($gradedItems, $gradedItem);
+                            array_push($gradedItems, $gradedItem);
+                        }
                     }
 
-                    foreach ($quarterlyExam AS $exam) {
-                        $gradedItem["short_name"] = $exam[0];
-                        $gradedItem["name"]       = "P-{$gradingPeriod->short_name} {$subject->short_name} $exam[1]";
+                    if ($itemType->name == "Quarterly Exams (20%)") {
+                        foreach ($quarterlyExam AS $exam) {
+                            $gradedItem["short_name"] = $exam[0];
+//                        $gradedItem["name"]       = "P-{$gradingPeriod->short_name} {$subject->short_name} $exam[1]";
+                            $gradedItem["name"]       = "P-{$gradingPeriod->short_name} $exam[1]";
 
-                        array_push($gradedItems, $gradedItem);
+                            array_push($gradedItems, $gradedItem);
+                        }
                     }
                 }
             }

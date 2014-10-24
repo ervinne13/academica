@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder {
         $this->call(GradedItemTypesSeeder::class);
         $this->call(GradingPeriodsSeeder::class);
         $this->call(GradedItemSeeder::class);
+        $this->call(ClassGradedItemSeeder::class);
     }
 
 }

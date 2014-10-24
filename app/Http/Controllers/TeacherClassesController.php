@@ -9,6 +9,7 @@ use App\Models\Subject;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Yajra\Datatables\Datatables;
 use function abort;
@@ -78,10 +79,22 @@ class TeacherClassesController extends Controller {
     public function store(Request $request) {
 
         try {
-            $class = new SchoolClass($request->toArray());
+
+            DB::beginTransaction();
+
+            $requestAssoc = $request->toArray();
+            unset($requestAssoc["class_id"]);
+
+            $class = new SchoolClass($requestAssoc);
             $class->save();
+
+            $class->assignGradedItemsNonTrans($request->gradedItems);
+
+            DB::commit();
+
             return $class;
         } catch (\Exception $e) {
+            DB::rollBack();
             return response($e->getMessage(), 500);
         }
     }
@@ -114,13 +127,23 @@ class TeacherClassesController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id) {
+    public function update(Request $request, $teacherId, $classId) {
+
         try {
-            $class = SchoolClass::find($id);
+
+            DB::beginTransaction();
+
+            $class = SchoolClass::find($classId);
             $class->fill($request->toArray());
-            $class->save();
+            $class->update();
+
+            $class->assignGradedItemsNonTrans($request->gradedItems);
+
+            DB::commit();
+
             return $class;
         } catch (\Exception $e) {
+            DB::rollBack();
             return response($e->getMessage(), 500);
         }
     }

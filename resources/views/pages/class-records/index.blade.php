@@ -1,8 +1,17 @@
 @extends('layouts.lte-record-list')
 
+@section('css')
+@parent
+<style>
+    .table-center-th th {
+        text-align: center;
+    }
+</style>
+@endsection
+
 @section('js')
 @parent
-<script src="{{ asset ("/js/pages/students/index.js") }}" type="text/javascript"></script>
+<script src="{{ asset ("/js/pages/class-records/index.js") }}" type="text/javascript"></script>
 @endsection
 
 @section('content')
@@ -10,7 +19,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Students        
+        Class Records        
     </h1>
 </section>
 
@@ -22,21 +31,20 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <table id="students-table" class="table table-striped">
+                            <table id="datatable" class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>
-                                            <a href="/students/create">
+                                            <a href="/class-records/create">
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                         </th>
-                                        <th>LRN</th>                                        
-                                        <th>Last Name</th>
-                                        <th>First Name</th>
-                                        <th>Section</th>                                        
-                                        <th>Contact Number 1</th>                                        
-                                        <th>Contact Number 2</th>                                        
-                                        <th>Student Number</th>
+                                        <th>ID</th>
+                                        <th>Class Name</th>
+                                        <th>Year</th>
+                                        <th>Level</th>
+                                        <th>Subject</th>
+                                        <th>Teacher</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>

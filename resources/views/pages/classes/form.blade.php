@@ -64,17 +64,17 @@
                                 <div class="form-group">
                                     <label>Teacher</label>
                                     <select name="teacher_id" required class="form-control">
-                                        @foreach($teachers AS $otherTeacher)
-                                        <?php
-                                        if ($class->teacher_id) {
-                                            $selected = $class->teacher_id == $otherTeacher->user_id ? "selected" : "";
-                                        } else {
-                                            //  If there is no teacher id set, use the current user's teacher id
-                                            $selected = $teacher->user_id == $otherTeacher->user_id ? "selected" : "";
-                                        }
-                                        ?>
+                                            @foreach($teachers AS $otherTeacher)
+                                            <?php
+                                            if ($class->teacher_id) {
+                                                $selected = $class->teacher_id == $otherTeacher->user_id ? "selected" : "";
+                                            } else {
+                                                //  If there is no teacher id set, use the current user's teacher id
+                                                $selected = $teacher->user_id == $otherTeacher->user_id ? "selected" : "";
+                                            }
+                                            ?>
 
-                                        <option value="{{$otherTeacher->user_id}}" {{$selected}}>{{$otherTeacher->first_name}} {{$otherTeacher->last_name}}</option>
+                                            <option value="{{$otherTeacher->user_id}}" {{$selected}}>{{$otherTeacher->first_name}} {{$otherTeacher->last_name}}</option>
                                         @endforeach
                                     </select>
                                 </div>  

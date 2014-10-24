@@ -11,7 +11,10 @@
         "php": ">=5.6.4",
         "laravel/framework": "5.3.*",
         "cboden/ratchet": "^0.3.5",
-        "yajra/laravel-datatables-oracle": "^6.18"
+        "yajra/laravel-datatables-oracle": "^6.18",
+        "maatwebsite/excel": "~2.1.0",
+        "illuminate/html": "5.*",
+        "laravelcollective/html": "^5.2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -16,6 +16,16 @@
     </div>
     <div class="col-md-9">
         <div class="row">
+            <div class="form-group col-md-6">
+                <label>Learner's Reference Number (LRN)</label>
+                <input type="text" required name="lrn" class="form-control" value="{{ $student->lrn }}">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Student Number</label>
+                <input type="text" required name="student_number" class="form-control" value="{{ $student->student_number }}">
+            </div>
+        </div>
+        <div class="row">
             <div class="form-group col-md-4">
                 <label>First Name</label>
                 <input type="text" required name="first_name" class="form-control" value="{{ $student->first_name }}">

@@ -11,8 +11,11 @@ class GradedItem extends Model {
     ];
 
     public function scopeType($query, $type) {
-        return $query->where('type_id', '=', $type)
-        ;
+        return $query->where('type_id', '=', $type);
+    }
+
+    public function scopeBySubject($query, $subjectId) {
+        return $query->where('subject_id', $subjectId);
     }
 
     public function scopeDatatable($query) {
@@ -32,6 +35,23 @@ class GradedItem extends Model {
                         ->leftJoin('graded_item_types', 'graded_item_types.id', '=', 'type_id')
                         ->leftJoin('subjects', 'subjects.id', '=', 'subject_id')
                         ->leftJoin('grading_periods', 'grading_periods.id', '=', 'grading_period_id')
+        ;
+    }
+
+    public function scopeClassWithHPS($query, $classId) {
+
+        return $query
+                        ->rightJoin('class_graded_items', 'graded_item_id', '=', 'id')
+                        ->where('class_id', $classId)
+        ;
+    }
+
+    public function scopeWithHPS($query, $gradedItemId, $classId) {
+
+        return $query
+                        ->rightJoin('class_graded_items', 'graded_item_id', '=', 'id')
+                        ->where('class_id', $classId)
+                        ->where('graded_item_id', $gradedItemId)
         ;
     }
 

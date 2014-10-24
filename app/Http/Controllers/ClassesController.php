@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClassGradedItem;
 use App\Models\GradingYear;
 use App\Models\Level;
 use App\Models\SchoolClass;
@@ -110,6 +111,42 @@ class ClassesController extends Controller {
         //
     }
 
+    public function getGradedItems($classId) {
+        return ClassGradedItem::with('gradedItem')->where('class_id', $classId)->get();
+    }
+
+    public function assignGradedItems(Request $request, $classId) {
+
+        $class = SchoolClass::find($classId);
+
+        if ($class) {
+            try {
+                $class->assignGradedItems($request->graded_items);
+            } catch (\Exception $e) {
+                return response($e->getMessage(), 500);
+            }
+
+            return "OK";
+        } else {
+            return response("Class not found", 404);
+        }
+    }
+
+    public function assignGradedItem(Request $request, $classId) {
+
+        $class = SchoolClass::find($classId);
+
+        if ($class) {
+            $class->assignGradedItem(
+                    $request->graded_item_id, $request->highest_possible_score
+            );
+
+            return "OK";
+        } else {
+            return response("Class not found", 404);
+        }
+    }
+
     private function getFormViewData($mode, $classId) {
 
 
@@ -128,8 +165,6 @@ class ClassesController extends Controller {
         }
 
         // </editor-fold>
-
-
 
         return array_merge($this->getDefaultViewData(), [
             "mode"         => $mode,
