@@ -59,6 +59,23 @@ class UsersController extends Controller {
         }
     }
 
+    public function changePassword($userId) {
+        $viewData         = $this->getDefaultViewData();
+        $viewData["user"] = User::find($userId);
+        return view('pages.users.change-password', $viewData);
+    }
+
+    public function updatePassword(Request $request, $userId) {
+
+        try {
+            $user           = User::find($userId);
+            $user->password = \Hash::make($request->new_password);
+            $user->save();
+        } catch (\Exception $e) {
+            return response($e->getMessage(), 500);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *

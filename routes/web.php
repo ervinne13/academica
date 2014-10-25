@@ -38,6 +38,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('teacher.students', 'TeacherStudentsController');
 
     Route::get('users/datatable', 'UsersController@datatable');
+    Route::get('users/{userId}/change-password', 'UsersController@changePassword');
+    Route::post('users/{userId}/update-password', 'UsersController@updatePassword');
     Route::get('users/{userId}/activate', 'UsersController@activate');
     Route::get('users/{userId}/deactivate', 'UsersController@deactivate');
     Route::resource('users', 'UsersController');

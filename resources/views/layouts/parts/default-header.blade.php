@@ -27,7 +27,7 @@
                                 {{ Auth::user()->name }}
                                 <small>{!!Config::get('app.name')!!} {{ Auth::user()->role_name }}</small>
                                 <small>
-                                    <a href="/user/{{Auth::user()->id}}/changepassword" style="color: white">
+                                    <a href="/users/{{Auth::user()->id}}/change-password" style="color: white">
                                         Change Password
                                     </a>
                                 </small>

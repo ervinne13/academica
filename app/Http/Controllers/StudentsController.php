@@ -73,8 +73,8 @@ class StudentsController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function show($id) {
-
+    public function show($id) {        
+        
         $viewData = array_merge($this->getDefaultViewData(), [
             "mode"     => "VIEW",
             "faker"    => Factory::create(),
