@@ -67,7 +67,7 @@ class ClassRecordExcelImport extends ExcelFile {
                 $score         = $importCol;
                 $computedGrade = ($score / $hps) * 100;
 
-                if ($score) {
+                if ($score !== NULL) {
 
                     $grade = StudentGrade::firstOrNew([
                                 "class_id"       => $class->id,

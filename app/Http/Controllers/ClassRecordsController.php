@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Academica\ClassRecord;
 use Academica\ClassRecordExcelImport;
 use App\Models\GradedItem;
 use App\Models\GradedItemType;
@@ -95,19 +96,16 @@ class ClassRecordsController extends Controller {
     }
 
     protected function getClassRecordViewData($periodId, $classId) {
+        $classRecord = new ClassRecord($periodId, $classId);
+
         $viewData             = $this->getDefaultViewData();
         $viewData["periods"]  = GradingPeriod::all();
         $viewData["period"]   = GradingPeriod::find($periodId);
         $viewData["class"]    = SchoolClass::find($classId);
         $viewData["students"] = StudentClass::ClassStudents($classId)->get();
-        $viewData["grades"]   = $this->getClassStudentGrades($classId);
+        $viewData["grades"]   = $classRecord->getStudentGrades();
 
-        $viewData["categorizedGradedItems"] = GradedItemType::with(['gradedItems' => function($query) use ($periodId, $classId) {
-                        return (new GradedItem())
-                                        ->scopeClassWithHPS($query, $classId)
-                                        ->where('grading_period_id', $periodId)
-                        ;
-                    }])->get();
+        $viewData["categorizedGradedItems"] = $classRecord->getCategorizedGradedItems();
 
         return $viewData;
     }
@@ -142,21 +140,6 @@ class ClassRecordsController extends Controller {
     public function store(Request $request, ClassRecordExcelImport $import) {
         $import->importToDB($request->class_id);
         return redirect("/period/{$request->period_id}/class/{$request->class_id}/class-record");
-    }
-
-    protected function getClassStudentGrades($classId) {
-        $rawGrades    = StudentGrade::ClassId($classId)->get();
-        $mappedGrades = [];
-
-        foreach ($rawGrades AS $grade) {
-            if (!array_key_exists($grade->student_id, $mappedGrades)) {
-                $mappedGrades[$grade->student_id] = [];
-            }
-
-            $mappedGrades[$grade->student_id][$grade->graded_item_id] = $grade->score;
-        }
-
-        return $mappedGrades;
     }
 
 }

@@ -5,6 +5,10 @@
 
     $(document).ready(function () {
         initializeTable();
+        
+        //  hide sidebar
+        $('.sidebar-toggle').click();
+        
     });
 
     function initializeTable() {

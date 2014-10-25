@@ -46,12 +46,31 @@ class GradedItem extends Model {
         ;
     }
 
+    public function scopeClassWithActiveHPS($query, $classId) {
+
+        return $query
+                        ->rightJoin('class_graded_items', 'graded_item_id', '=', 'id')
+                        ->where('class_id', $classId)
+                        ->where('is_active', 1)
+        ;
+    }
+
     public function scopeWithHPS($query, $gradedItemId, $classId) {
 
         return $query
                         ->rightJoin('class_graded_items', 'graded_item_id', '=', 'id')
                         ->where('class_id', $classId)
                         ->where('graded_item_id', $gradedItemId)
+        ;
+    }
+
+    public function scopeWithActiveHPS($query, $gradedItemId, $classId) {
+
+        return $query
+                        ->rightJoin('class_graded_items', 'graded_item_id', '=', 'id')
+                        ->where('class_id', $classId)
+                        ->where('graded_item_id', $gradedItemId)
+                        ->where('is_active', 1)
         ;
     }
 

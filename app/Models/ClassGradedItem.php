@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class ClassGradedItem extends Model {
+class ClassGradedItem extends BaseModel {
 
     public function gradedItem() {
         return $this->belongsTo(GradedItem::class);
+    }
+
+    public function scopeClassId($query, $classId) {
+        return $query->where('class_id', $classId);
     }
 
 }

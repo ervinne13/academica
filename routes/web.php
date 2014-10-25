@@ -20,6 +20,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('files/upload', 'FilesController@upload');
 
+    Route::get('grading-years/datatable', 'GradingYearsController@datatable');
     Route::resource('grading-years', 'GradingYearsController');
 
     Route::resource('enrollment', 'EnrollmentController');

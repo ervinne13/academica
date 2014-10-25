@@ -7,26 +7,21 @@
         initializeTable();
     });
 
-    function initializeTable() {
-        $('#students-table').DataTable({
+    function initializeTable() {        
+        $('#datatable').DataTable({
             processing: true,
             serverSide: true,
             search: {
                 caseInsensitive: true
             },
             ajax: {
-                url: "/students/datatable"
+                url: "/grading-years/datatable"
             },
             order: [1, "desc"],
             columns: [
                 {data: 'id'},
-                {data: 'lrn'},
-                {data: 'last_name'},
-                {data: 'first_name'},
-                {data: 'section_name', name: 'sections.name'},
-                {data: 'contact_number_1'},
-                {data: 'contact_number_2'},
-                {data: 'student_number'}
+                {data: 'is_open'},
+                {data: 'name'}
             ],
             columnDefs: [
                 {bSearchable: false, aTargets: [0]},
@@ -36,10 +31,15 @@
                     render: function (id, type, rowData, meta) {
 
                         var editAction = datatable_utilities.getDefaultEditAction(id);
-                        var viewAction = datatable_utilities.getDefaultViewAction(id);
-                        var view = datatable_utilities.getInlineActionsView([viewAction, editAction]);
+                        var view = datatable_utilities.getInlineActionsView([editAction]);
 
                         return view;
+                    }
+                },
+                {
+                    targets: 1,
+                    render: function (isOpen, type, rowData, meta) {
+                        return isOpen == 1 ? "Open" : "Closed";
                     }
                 }
             ]

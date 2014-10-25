@@ -12,8 +12,11 @@
     <tr class="graded-item-row" data-graded-item-id="<%= graded_item_id %>">        
         <td><%= name %></td>
         <td>
-            <input type="text" class="form-control hps-field" value="<%= highest_possible_score %>">
+            <input type="checkbox" class="is-active-field" <%= is_active == 1 ? 'checked' : '' %>>
         </td>
+        <td>
+            <input type="text" class="form-control hps-field" value="<%= highest_possible_score %>">
+        </td>        
         <td>
             <a href="javascript:void" class="action-delete-graded-item" data-id="<%= graded_item_id %>">
                 <i class="fa fa-times"></i>
@@ -121,7 +124,8 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th style="min-width: 270px;">Graded Item</th>
+                                            <th style="min-width: 200px;">Graded Item</th>
+                                            <th>Include In Grading?</th>
                                             <th>Highest Possible Score</th>
                                             <th></th>
                                         </tr>

@@ -18,16 +18,10 @@ class ClassGradedItemSeeder extends Seeder {
         DB::table("class_graded_items")->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
-        $queryString = 'SELECT 
-                                classes.id AS class_id, classes.name AS class_name, graded_items.id AS graded_item_id, graded_items.name AS graded_item_name
-                        FROM graded_items
-                        LEFT JOIN  classes  
-                                ON classes.subject_id = graded_items.subject_id';        
-        
         $joinRecords = DB::table('graded_items')
                 ->select(['classes.id AS class_id', 'classes.name AS class_name', 'graded_items.id AS graded_item_id', 'graded_items.name AS graded_item_name', 'graded_items.short_name AS graded_item_short_name'])
-                ->leftJoin('classes', 'classes.subject_id' , '=', 'graded_items.subject_id')
-                ->get();        
+                ->leftJoin('classes', 'classes.subject_id', '=', 'graded_items.subject_id')
+                ->get();
 
         try {
 
@@ -57,6 +51,7 @@ class ClassGradedItemSeeder extends Seeder {
                 DB::table('class_graded_items')->insert([
                     "class_id"               => $record->class_id,
                     "graded_item_id"         => $record->graded_item_id,
+                    "is_active"              => 0,
                     "highest_possible_score" => $hps
                 ]);
             }

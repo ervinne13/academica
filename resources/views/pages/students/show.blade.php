@@ -31,7 +31,7 @@
                     <li class="active"><a href="#tab-general" data-toggle="tab">Profile / General Information</a></li>
                     <li><a href="#tab-insights" data-toggle="tab">Performance Insights</a></li>
                     <li><a href="#tab-report-card" data-toggle="tab">Report Card</a></li>
-                    <li class="dropdown">
+<!--                    <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             Actions <span class="caret"></span>
                         </a>
@@ -46,7 +46,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>                    
+                    </li>                    -->
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="tab-general">

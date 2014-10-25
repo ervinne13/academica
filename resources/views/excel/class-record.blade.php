@@ -37,8 +37,14 @@
             <th>Teacher</th>
             <th>{{$class->teacher->first_name}} {{$class->teacher->last_name}}</th>
             @foreach($categorizedGradedItems AS $gradedItemTypes) 
-            @foreach($gradedItemTypes->gradedItems AS $gradedItem) 
+            @foreach($gradedItemTypes->gradedItems AS $gradedItem)             
+
+            @if ($gradedItem->is_active)
             <th>{{$gradedItem->short_name}}</th>
+            @else
+            <td>{{$gradedItem->short_name}}</td>
+            @endif
+
             @endforeach
             <th>Total</th>
             <th>PS</th>
@@ -55,7 +61,13 @@
             @foreach($categorizedGradedItems AS $gradedItemTypes) 
             <?php $total                   = 0; ?>
             @foreach($gradedItemTypes->gradedItems AS $gradedItem) 
+
+            @if ($gradedItem->is_active)
             <th>{{$gradedItem->highest_possible_score}}</th>
+            @else
+            <td>{{$gradedItem->highest_possible_score}}</td>
+            @endif
+
             <?php $total += $gradedItem->highest_possible_score ?>
             @endforeach
             <th>{{$total}}</th>
@@ -89,17 +101,17 @@
             $previousGradedItemCount = 4;
             ?>
 
-            @foreach($categorizedGradedItems AS $gradedItemTypes)            
+            @foreach($categorizedGradedItems AS $gradedItemType)            
 
-            @foreach($gradedItemTypes->gradedItems AS $gradedItem)
+            @foreach($gradedItemType->gradedItems AS $gradedItem)
             <td>
-                {{array_key_exists($student->id, $grades) && array_key_exists($gradedItem->id, $grades[$student->id]) ? $grades[$student->id][$gradedItem->id] : ""}}
+                {{array_key_exists($gradedItem->id, $grades[$student->id]) ? $grades[$student->id][$gradedItem->id] : ""}}
             </td>
             @endforeach
 
             <?php
             $startLetterIndex        = $previousGradedItemCount;
-            $endLetterIndex          = $previousGradedItemCount + count($gradedItemTypes->gradedItems) - 1; //  -1 so the cell with formula won't be counted            
+            $endLetterIndex          = $previousGradedItemCount + count($gradedItemType->gradedItems) - 1; //  -1 so the cell with formula won't be counted            
 
             $startLetter = chr(64 + $startLetterIndex);
             $endLetter   = chr(64 + $endLetterIndex);
@@ -114,6 +126,10 @@
                 =SUM({{$startLetter}}{{$row}}:{{$endLetter}}{{$row}})
                 @else
 
+                @if (array_key_exists($gradedItemType->id,$grades[$student->id]["summary"]))
+                {{$grades[$student->id]["summary"][$gradedItemType->id]["total"]}}
+                @endif
+
                 @endif
             </td>
             <td>
@@ -121,7 +137,9 @@
                 <!--3 is the row number of the highest possible score-->
                 =({{$totalLetter}}{{$row}} / {{$totalLetter}}4) * 100
                 @else
-
+                @if (array_key_exists($gradedItemType->id,$grades[$student->id]["summary"]))
+                {{number_format($grades[$student->id]["summary"][$gradedItemType->id]["ps"], 2)}}
+                @endif
                 @endif
             </td>
             <td style="border-right: black solid 2px;">
@@ -129,13 +147,15 @@
                 <!--3 is the row number of the highest possible score-->
                 ={{$psLetter}}{{$row}} * ({{$wsLetter}}4 / 100)
                 @else
-
+                @if (array_key_exists($gradedItemType->id,$grades[$student->id]["summary"]))
+                {{number_format($grades[$student->id]["summary"][$gradedItemType->id]["ws"], 2)}}
+                @endif
                 @endif
             </td>
 
             <?php
             //  +3 for next columns            
-            $previousGradedItemCount += count($gradedItemTypes->gradedItems) + 3;
+            $previousGradedItemCount += count($gradedItemType->gradedItems) + 3;
             ?>
 
             @endforeach
@@ -144,6 +164,10 @@
                 @if ($mode == "GENERATE")
                 =SUM({{join(',', $wsColumns)}})
                 @else
+
+                @if (array_key_exists("initialGrade",$grades[$student->id]["summary"]))
+                {{number_format($grades[$student->id]["summary"]["initialGrade"], 2)}}
+                @endif
 
                 @endif
             </td>
@@ -154,4 +178,18 @@
         <?php $row ++; ?>
         @endforeach
     </tbody>
+    <tfoot>
+        <tr></tr>
+        <tr>
+            <td colspan="10">
+                Note: Graded Items in <strong>BOLD</strong> are included in the running partial grade computation while those that are not, are ignored until they are included.
+                (Applies only in web mode)
+            </td>             
+        </tr>
+        <tr>
+            <td colspan="10">
+                NG: No Grade
+            </td>
+        </tr>
+    </tfoot>
 </table>

@@ -102,6 +102,7 @@
             for (var i in gradedItems) {
                 var rowHtml = gradedItemRowTemplate({
                     graded_item_id: gradedItems[i].graded_item_id,
+                    is_active: gradedItems[i].is_active,
                     name: gradedItems[i].graded_item.name,
                     highest_possible_score: gradedItems[i].highest_possible_score
                 });
@@ -160,6 +161,7 @@
         $('.graded-item-row').each(function () {
             data.push({
                 class_id: classId,
+                is_active: $(this).find('.is-active-field').is(':checked') ? 1 : 0,
                 graded_item_id: $(this).data('graded-item-id'),
                 highest_possible_score: $(this).find('.hps-field').val()
             });
