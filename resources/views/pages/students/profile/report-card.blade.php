@@ -1,4 +1,3 @@
-
 <?php $totalFinal = 0 ?>
 
 <div class="row">    

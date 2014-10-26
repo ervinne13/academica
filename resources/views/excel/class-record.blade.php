@@ -171,13 +171,18 @@
 
                 @endif
             </td>
-            <td></td>
+            <td>
+                @if (array_key_exists("transmutedGrade",$grades[$student->id]["summary"]))
+                {{number_format($grades[$student->id]["summary"]["transmutedGrade"], 2)}}
+                @endif
+            </td>
 
         </tr>
 
         <?php $row ++; ?>
         @endforeach
     </tbody>
+    @if ($mode != "GENERATE")
     <tfoot>
         <tr></tr>
         <tr>
@@ -188,8 +193,9 @@
         </tr>
         <tr>
             <td colspan="10">
-                NG: No Grade
+                Blank Entries: No Grade / Did not pass
             </td>
         </tr>
     </tfoot>
+    @endif
 </table>

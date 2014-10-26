@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Academica\Grading\Transmuter;
+use Academica\StudentRecordsProvider;
 use App\Models\Student;
+use App\Models\StudentGrade;
 use App\Models\Subject;
+use App\Models\Transmutation;
+use Exception;
 use Faker\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -44,6 +49,19 @@ class StudentsController extends Controller {
         ];
     }
 
+    public function getGrades($studentId) {
+
+        $transmutation = Transmutation::all();
+        $transmuter    = new Transmuter($transmutation);
+
+        $studentRecord = new StudentRecordsProvider(Student::find($studentId));
+        $studentRecord->setTransmuter($transmuter);
+        
+        return $studentRecord->getRecordsByPeriod();
+
+//        return StudentGrade::GradingYear(date('Y'))->studentId($studentId)->get();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -64,7 +82,20 @@ class StudentsController extends Controller {
      * @return Response
      */
     public function store(Request $request) {
-        
+
+        try {
+            $student = new Student($request->toArray());
+        } catch (Exception $e) {
+            return response($e->getMessage(), 400);
+        }
+
+        try {
+            $student->save();
+
+            return $student;
+        } catch (Exception $e) {
+            return response($e->getMessage(), 500);
+        }
     }
 
     /**
@@ -73,8 +104,8 @@ class StudentsController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function show($id) {        
-        
+    public function show($id) {
+
         $viewData = array_merge($this->getDefaultViewData(), [
             "mode"     => "VIEW",
             "faker"    => Factory::create(),
@@ -85,6 +116,12 @@ class StudentsController extends Controller {
         if (!$viewData["student"]) {
             return response("Student not found", 404);
         }
+
+        $transmutation = Transmutation::all();
+        $transmuter    = new Transmuter($transmutation);
+
+        $studentRecord = new StudentRecordsProvider($viewData["student"]);
+        $studentRecord->setTransmuter($transmuter);
 
 //        $viewData["rankedSubjectScores"] = [
 //            ["subject" => "Mathematics", "percentage" => 92],
@@ -110,6 +147,8 @@ class StudentsController extends Controller {
             ["subject" => "Science", "percentage" => 73],
         ];
 
+//        return $studentRecord->get();
+
         return view('pages.students.show', $viewData);
     }
 
@@ -120,7 +159,15 @@ class StudentsController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        //
+        $viewData            = $this->getDefaultViewData();
+        $viewData["mode"]    = "EDIT";
+        $viewData["student"] = Student::find($id);
+
+        if ($viewData["student"]) {
+            return view('pages.students.form', $viewData);
+        } else {
+            return response("Student Not Found", 404);
+        }
     }
 
     /**
@@ -131,7 +178,24 @@ class StudentsController extends Controller {
      * @return Response
      */
     public function update(Request $request, $id) {
-        //
+        $student = Student::find($id);
+
+        if ($student) {
+            try {
+                $student->fill($request->toArray());
+            } catch (Exception $e) {
+                return response($e->getMessage(), 400);
+            }
+
+            try {
+                $student->save();
+                return $student;
+            } catch (Exception $e) {
+                return response($e->getMessage(), 500);
+            }
+        } else {
+            return response("Student not found", 404);
+        }
     }
 
     /**

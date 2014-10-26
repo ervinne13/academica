@@ -22,7 +22,7 @@
             </div>
             <div class="form-group col-md-6">
                 <label>Student Number</label>
-                <input type="text" required name="student_number" class="form-control" value="{{ $student->student_number }}">
+                <input type="text" name="student_number" class="form-control" value="{{ $student->student_number }}">
             </div>
         </div>
         <div class="row">

@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use Academica\ClassRecord;
 use Academica\ClassRecordExcelImport;
-use App\Models\GradedItem;
-use App\Models\GradedItemType;
+use Academica\Grading\Transmuter;
 use App\Models\GradingPeriod;
 use App\Models\SchoolClass;
 use App\Models\StudentClass;
-use App\Models\StudentGrade;
 use App\Models\Teacher;
+use App\Models\Transmutation;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -96,7 +95,12 @@ class ClassRecordsController extends Controller {
     }
 
     protected function getClassRecordViewData($periodId, $classId) {
+
+        $transmutation = Transmutation::all();
+        $transmuter    = new Transmuter($transmutation);
+
         $classRecord = new ClassRecord($periodId, $classId);
+        $classRecord->setTransmuter($transmuter);
 
         $viewData             = $this->getDefaultViewData();
         $viewData["periods"]  = GradingPeriod::all();

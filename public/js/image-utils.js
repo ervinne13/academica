@@ -38,7 +38,12 @@ image_utils.uploadFile = function ($input, $imageUrlInput) {
                     utilities.setBoxLoading($('#image-preview-container'), false);
                 }
                 if ($imageUrlInput) {
-                    var uploadNames = JSON.parse(response);
+                    try {
+                        var uploadNames = JSON.parse(response);
+                    } catch (e) {
+                        console.warn(e);
+                        var uploadNames = [response];
+                    }
                     if (uploadNames.length > 0) {
 
                         var filePath = image_utils.baseUrl ? image_utils.baseUrl + "/uploads/" + uploadNames[0] : "/uploads/" + uploadNames[0];

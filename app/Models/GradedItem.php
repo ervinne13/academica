@@ -74,6 +74,10 @@ class GradedItem extends Model {
         ;
     }
 
+    public function scopePeriod($query, $periodId) {
+        return $query->where('grading_period_id', $periodId);
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Relationships">
 
     public function gradedItemType() {

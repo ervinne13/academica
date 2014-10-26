@@ -85,6 +85,13 @@ class SchoolClass extends BaseModel {
         }
     }
 
+    public function scopeByStudent($query, $studentId) {
+        return $query
+                        ->rightJoin('student_classes', 'class_id', '=', 'id')
+                        ->where('student_id', $studentId);
+        ;
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Relationships">
 
     public function gradingYear() {

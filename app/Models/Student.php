@@ -7,6 +7,19 @@ use Illuminate\Support\Facades\DB;
 
 class Student extends Model {
 
+    protected $fillable = [
+        "is_active", "lrn", "student_number",
+        "first_name",
+        "middle_name",
+        "last_name",
+        "birthdate",
+        "contact_number_1",
+        "contact_number_2",
+        "landline",
+        "address",
+        "image_url",
+    ];
+
     public static function GetKeywordMatchSize($keyword, $classId) {
         $query = DB::table('students')
                 ->select(DB::raw('count(*) as match_count'));

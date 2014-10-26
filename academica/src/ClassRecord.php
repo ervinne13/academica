@@ -2,6 +2,7 @@
 
 namespace Academica;
 
+use Academica\Grading\Transmuter;
 use App\Models\GradedItem;
 use App\Models\GradedItemType;
 use App\Models\StudentClass;
@@ -17,9 +18,16 @@ class ClassRecord {
     protected $period;
     protected $classId;
 
+    /** @var Transmuter */
+    protected $transmuter;
+
     public function __construct($period, $classId) {
         $this->period  = $period;
         $this->classId = $classId;
+    }
+
+    public function setTransmuter(Transmuter $transmuter) {
+        $this->transmuter = $transmuter;
     }
 
     public function getCategorizedGradedItems() {
@@ -66,7 +74,7 @@ class ClassRecord {
 
         foreach ($classStudents AS $student) {
 
-            if (!array_key_exists($grade->student_id, $mappedGrades)) {
+            if (!array_key_exists($student->id, $mappedGrades)) {
                 //  since this student is not mapped yet in the first in the
                 //  raw grades conversion loop (see above), it means the student
                 //  has not taken this graded item yet. Assume 0 grade
@@ -82,7 +90,7 @@ class ClassRecord {
                 foreach ($gradedItemType->gradedItems AS $classGradedItem) {
 
                     if (!array_key_exists($classGradedItem->id, $mappedGrades[$student->student_id])) {
-                        $mappedGrades[$student->id][$classGradedItem->id] = "NG";
+                        $mappedGrades[$student->id][$classGradedItem->id] = "";
                     } else {
                         $totalScore += $mappedGrades[$student->id][$classGradedItem->id];
                     }
@@ -124,6 +132,10 @@ class ClassRecord {
                 }
 
                 $mappedGrades[$student->id]["summary"]["initialGrade"] = $initialGrade;
+
+                if ($this->transmuter) {
+                    $mappedGrades[$student->id]["summary"]["transmutedGrade"] = $this->transmuter->transmute($initialGrade);
+                }
             }
         }
 

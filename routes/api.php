@@ -29,3 +29,6 @@ Route::delete('class/{classId}/students/{studentId}', 'ClassStudentsController@d
 Route::post('/class/{classId}/assign', 'ClassesController@assignGradedItem');
 Route::post('/class/{classId}/assign-multiple', 'ClassesController@assignGradedItems');
 Route::get('/class/{classId}/graded-items', 'ClassesController@getGradedItems');
+
+// For testing
+Route::get('/students/{studentId}/grades', 'StudentsController@getGrades');
