@@ -40,11 +40,20 @@ class StudentRecordsProvider {
         $recordsByPeriod = [];
 
         foreach ($periods AS $period) {
-            $records = new StudentRecords();
+            $records           = [];
+            $initialGradeTotal = 0;
+            $totalSubjectCount = 0;
             foreach ($classes AS $class) {
-                $records->addSubjectGrades($this->getSubjectGradesFromClass($class, $period->id));
+                $subjectGrades = $this->getSubjectGradesFromClass($class, $period->id);
+                
+                $records[$class->subject_id] = $subjectGrades->toArray();
+                
+                $initialGradeTotal += $subjectGrades->getInitialGrade();
+                $totalSubjectCount ++;
             }
-            $recordsByPeriod[$period->id] = $records->toArray();
+            $recordsByPeriod[$period->id] = $records;
+            $recordsByPeriod[$period->id]["initialGrade"] = $initialGradeTotal / $totalSubjectCount;
+            $recordsByPeriod[$period->id]["transmutedGrade"] = $this->transmuter->transmute($recordsByPeriod[$period->id]["initialGrade"]);
 //            $recordsByPeriod[$period->id] = $records;
         }
 
