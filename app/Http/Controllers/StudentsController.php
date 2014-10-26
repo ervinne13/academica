@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Academica\Grading\Transmuter;
-use Academica\StudentRecordsProvider;
+use Academica\StudentGradesProvider;
 use App\Models\Student;
 use App\Models\StudentGrade;
 use App\Models\Subject;
@@ -54,7 +54,7 @@ class StudentsController extends Controller {
         $transmutation = Transmutation::all();
         $transmuter    = new Transmuter($transmutation);
 
-        $studentRecord = new StudentRecordsProvider(Student::find($studentId));
+        $studentRecord = new StudentGradesProvider(Student::find($studentId));
         $studentRecord->setTransmuter($transmuter);
         
         return $studentRecord->getRecordsByPeriod();
@@ -120,7 +120,7 @@ class StudentsController extends Controller {
         $transmutation = Transmutation::all();
         $transmuter    = new Transmuter($transmutation);
 
-        $studentRecord = new StudentRecordsProvider($viewData["student"]);
+        $studentRecord = new StudentGradesProvider($viewData["student"]);
         $studentRecord->setTransmuter($transmuter);
 
 //        $viewData["rankedSubjectScores"] = [

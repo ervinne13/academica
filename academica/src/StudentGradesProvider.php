@@ -14,7 +14,7 @@ use App\Models\StudentGrade;
  *
  * @author ervinne
  */
-class StudentRecordsProvider {
+class StudentGradesProvider {
 
     /** @var Student */
     protected $student;
