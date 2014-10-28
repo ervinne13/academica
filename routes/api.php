@@ -32,3 +32,4 @@ Route::get('/class/{classId}/graded-items', 'ClassesController@getGradedItems');
 
 // For testing
 Route::get('/students/{studentId}/grades', 'StudentsController@getGrades');
+Route::get('/test', 'TestController@test');

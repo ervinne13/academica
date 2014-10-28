@@ -22,53 +22,14 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($subjects["general"] AS $subject)
-                <?php
-                $q1         = $faker->numberBetween(74, 98);
-                $q2         = $faker->numberBetween(74, 98);
-                $q3         = $faker->numberBetween(74, 98);
-                $q4         = $faker->numberBetween(74, 98);
-
-                $final = ($q1 + $q2 + $q3 + $q4) / 4;
-                $totalFinal += $final;
-                ?>
+                @foreach($card["subjects"] AS $subjectGrade)                
                 <tr>
-                    <td>{{$subject->name}}</td>
-                    <td class="text-center">{{$q1}}</td>
-                    <td class="text-center">{{$q2}}</td>
-                    <td class="text-center">{{$q3}}</td>
-                    <td class="text-center">{{$q4}}</td>
-                    <td class="text-right">{{number_format($final, 2)}}</td>
-                </tr>
-                @endforeach
-
-                <tr>
-                    <td class="text-right">MAPEH</td>
-                    <td class="text-center">{{$q1}}</td>
-                    <td class="text-center">{{$q2}}</td>
-                    <td class="text-center">{{$q3}}</td>
-                    <td class="text-center">{{$q4}}</td>
-                    <td class="text-right">{{number_format($final, 2)}}</td>
-                </tr>
-
-                @foreach($subjects["mapeh"] AS $subject)
-                <?php
-                $q1    = $faker->numberBetween(74, 98);
-                $q2    = $faker->numberBetween(74, 98);
-                $q3    = $faker->numberBetween(74, 98);
-                $q4    = $faker->numberBetween(74, 98);
-
-                $final = ($q1 + $q2 + $q3 + $q4) / 4;
-                $totalFinal += $final;
-                ?>
-
-                <tr>
-                    <td class="text-right">{{$subject->name}}</td>
-                    <td class="text-center">{{$q1}}</td>
-                    <td class="text-center">{{$q2}}</td>
-                    <td class="text-center">{{$q3}}</td>
-                    <td class="text-center">{{$q4}}</td>
-                    <td class="text-right">{{number_format($final, 2)}}</td>
+                    <td>{{$subjectGrade["name"]}}</td>
+                    <td class="text-center">{{$subjectGrade["grades"][1]["transmutedGrade"]}}</td>
+                    <td class="text-center">{{$subjectGrade["grades"][2]["transmutedGrade"]}}</td>
+                    <td class="text-center">{{$subjectGrade["grades"][3]["transmutedGrade"]}}</td>
+                    <td class="text-center">{{$subjectGrade["grades"][4]["transmutedGrade"]}}</td>
+                    <td class="text-right">{{$subjectGrade["transmutedGrade"]}}</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -81,13 +42,52 @@
         <h3>
             Summary
             <small>
-                @if ($totalFinal / 13 >= 75)
+                @if ($card["transmutedGrade"] >= 75)
                 Passed                
                 @else
-                Failed
+                <label class="text-danger">Failed</label>
                 @endif
             </small>
         </h3>
+
+        @if ($gradingYear->currently_active_period_id < 4)
+        <h5>
+            This is the student's partial grade only!            
+        </h5>
+        <h5>
+            The system computed the student's grades based on his performance up to <b>{{$gradingPeriod->name}}</b>
+        </h5>
+        @endif
+
+        <?php
+        if ($card["transmutedGrade"] > 90) {
+            $transmutedGradeColor = "bg-green";
+        } else if ($card["transmutedGrade"] > 80) {
+            $transmutedGradeColor = "bg-aqua-active";
+        } else if ($card["transmutedGrade"] > 75) {
+            $transmutedGradeColor = "bg-orange";
+        } else {
+            $transmutedGradeColor = "bg-red";
+        }
+        ?>
+
+        <div class="small-box {{$transmutedGradeColor}}">
+            <div class="inner">
+                <h3>{{$card["transmutedGrade"]}}<sup style="font-size: 20px">%</sup></h3>
+                <p>Overall Grade</p>
+            </div>
+            <div class="icon">
+                @if ($card["transmutedGrade"] > 90)
+                <i class="fa fa-star"></i>
+                @elseif($card["transmutedGrade"] > 80)
+                <i class="fa fa-thumbs-up"></i>
+                @elseif($card["transmutedGrade"] > 75)
+                <i class="fa fa-thumbs-up"></i>
+                @else
+                <i class="fa fa-thumbs-down"></i>
+                @endif
+            </div>
+        </div>
 
         <div class="small-box bg-aqua-active">
             <div class="inner">
@@ -96,24 +96,6 @@
             </div>
             <div class="icon">
                 <i class="fa fa-star"></i>
-            </div>
-        </div>
-
-        <div class="small-box bg-green">
-            <div class="inner">
-                <h3>{{number_format($totalFinal / 13, 2)}}<sup style="font-size: 20px">%</sup></h3>
-                <p>Overall Grade</p>
-            </div>
-            <div class="icon">
-                @if ($totalFinal / 13 > 90)
-                <i class="fa fa-star"></i>
-                @elseif($totalFinal / 13 > 80)
-                <i class="fa fa-thumbs-up"></i>
-                @elseif($totalFinal / 13 > 75)
-                <i class="fa fa-thumbs-up"></i>
-                @else
-                <i class="fa fa-thumbs-down"></i>
-                @endif
             </div>
         </div>
 

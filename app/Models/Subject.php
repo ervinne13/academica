@@ -4,10 +4,24 @@ namespace App\Models;
 
 class Subject extends BaseModel {
 
-    public static function getSubjectsWithMapeh() {
-        $mapeh       = ["Music", "Arts", "Physical Education", "Health"];
-        $subjectsRaw = Subject::Active()->get();
-        $subjects    = [
+    public function scopeEnrolledByStudent($query, $userId) {
+        return $query
+                        ->select('subjects.*')
+                        ->leftJoin('classes', 'subjects.id', '=', 'subject_id')
+                        ->leftJoin('student_classes', 'classes.id', '=', 'class_id')
+                        ->where('student_id', $userId);
+    }
+
+    public static function getSubjectsWithMapeh($query = null) {
+        $mapeh = ["Music", "Arts", "Physical Education", "Health"];
+
+        if ($query) {
+            $subjectsRaw = $query->get();
+        } else {
+            $subjectsRaw = Subject::Active()->get();
+        }
+
+        $subjects = [
             "general" => [],
             "mapeh"   => []
         ];

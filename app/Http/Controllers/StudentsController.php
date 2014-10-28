@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Academica\Grading\Transmuter;
+use Academica\ReportCardFormatter;
 use Academica\StudentGradesProvider;
+use App\Models\GradingYear;
 use App\Models\Student;
-use App\Models\StudentGrade;
 use App\Models\Subject;
 use App\Models\Transmutation;
 use Exception;
@@ -56,7 +57,7 @@ class StudentsController extends Controller {
 
         $studentRecord = new StudentGradesProvider(Student::find($studentId));
         $studentRecord->setTransmuter($transmuter);
-        
+
         return $studentRecord->getRecordsByPeriod();
 
 //        return StudentGrade::GradingYear(date('Y'))->studentId($studentId)->get();
@@ -106,11 +107,15 @@ class StudentsController extends Controller {
      */
     public function show($id) {
 
+        $currentGradingYear = GradingYear::open()->first();
+
         $viewData = array_merge($this->getDefaultViewData(), [
-            "mode"     => "VIEW",
-            "faker"    => Factory::create(),
-            "subjects" => Subject::getSubjectsWithMapeh(),
-            "student"  => Student::find($id)
+            "mode"          => "VIEW",
+            "faker"         => Factory::create(),
+            "subjects"      => Subject::getSubjectsWithMapeh(),
+            "student"       => Student::find($id),
+            "gradingYear"   => $currentGradingYear,
+            "gradingPeriod" => \App\Models\GradingPeriod::find($currentGradingYear->currently_active_period_id)
         ]);
 
         if (!$viewData["student"]) {
@@ -122,6 +127,11 @@ class StudentsController extends Controller {
 
         $studentRecord = new StudentGradesProvider($viewData["student"]);
         $studentRecord->setTransmuter($transmuter);
+
+        $grades = $studentRecord->getRecordsByPeriod();
+
+        $formatter        = new ReportCardFormatter();
+        $viewData["card"] = $formatter->format($grades, $viewData["student"]->id, $transmuter);
 
 //        $viewData["rankedSubjectScores"] = [
 //            ["subject" => "Mathematics", "percentage" => 92],

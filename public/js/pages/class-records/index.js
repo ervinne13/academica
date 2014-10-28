@@ -26,13 +26,13 @@
                 {data: 'id'},
                 {data: 'id'},
                 {data: 'name'},
-                {data: 'grading_year.year', name: 'grading_years.year'},
+                {data: 'grading_year.year'},
                 {data: 'level.name'},
                 {data: 'subject.name'},
                 {data: 'teacher.first_name'}
             ],
             columnDefs: [
-                {bSearchable: false, aTargets: [0]},
+                {bSearchable: false, aTargets: [3]},
                 {orderable: false, targets: [0]},
                 {
                     targets: 0,
