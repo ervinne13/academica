@@ -16,6 +16,8 @@ Route::get('/', 'HomeController@index');
 Route::auth();
 Route::get('/logout', 'Auth\LoginController@logout');
 
+Route::get('/test/pdf', 'TestController@pdf');
+
 Route::group(['middleware' => 'auth'], function () {
 
     Route::post('files/upload', 'FilesController@upload');
@@ -48,12 +50,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('sections', 'SectionsController');
 
     Route::get('students/datatable', 'StudentsController@datatable');
+    Route::get('students/{studentId}/print', 'StudentsController@printCard');
     Route::resource('students', 'StudentsController');
 
     Route::get('subjects/datatable', 'SubjectsController@datatable');
     Route::resource('subjects', 'SubjectsController');
 
     Route::get('classes/datatable', 'ClassesController@datatable');
+    Route::get('classes/{classId}/grading/{gradedItemId}', 'ClassGradingController@create');
+    Route::get('classes/{classId}/students/{gradedItemId}/grades', 'ClassGradingController@students');
+    Route::post('class-grading', 'ClassGradingController@store');
     Route::resource('classes', 'ClassesController');
 
     // <editor-fold defaultstate="collapsed" desc="Graded Items">
@@ -65,4 +71,3 @@ Route::group(['middleware' => 'auth'], function () {
 
     // </editor-fold>
 });
-

@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use Academica\Grading\Transmuter;
 use Academica\ReportCardFormatter;
+use Academica\SectionStudentRankProvider;
 use Academica\StudentGradesProvider;
+use App\Models\ClassGradedItem;
+use App\Models\GradingPeriod;
 use App\Models\GradingYear;
+use App\Models\SchoolClass;
+use App\Models\SectionClass;
 use App\Models\Student;
+use App\Models\StudentGrade;
 use App\Models\Subject;
 use App\Models\Transmutation;
 use Exception;
@@ -109,13 +115,23 @@ class StudentsController extends Controller {
 
         $currentGradingYear = GradingYear::open()->first();
 
+        $query = ClassGradedItem::EnrolledByStudent($id)->groupByFix();
+
+        $gradedItems      = $query->get();
+        $takenGradedItems = $query->gradedItemTaken()->get();
+
+        $monthlyGrades = StudentGrade::Monthly()->StudentId($id)->get();
+
         $viewData = array_merge($this->getDefaultViewData(), [
-            "mode"          => "VIEW",
-            "faker"         => Factory::create(),
-            "subjects"      => Subject::getSubjectsWithMapeh(),
-            "student"       => Student::find($id),
-            "gradingYear"   => $currentGradingYear,
-            "gradingPeriod" => \App\Models\GradingPeriod::find($currentGradingYear->currently_active_period_id)
+            "mode"                  => "VIEW",
+            "faker"                 => Factory::create(),
+            "subjects"              => Subject::getSubjectsWithMapeh(),
+            "student"               => Student::find($id),
+            "gradingYear"           => $currentGradingYear,
+            "gradingPeriod"         => GradingPeriod::find($currentGradingYear->currently_active_period_id),
+            "gradedItemsCount"      => count($gradedItems),
+            "takenGradedItemsCount" => count($takenGradedItems),
+            "ordinalSuffix"         => array('th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th')
         ]);
 
         if (!$viewData["student"]) {
@@ -128,38 +144,31 @@ class StudentsController extends Controller {
         $studentRecord = new StudentGradesProvider($viewData["student"]);
         $studentRecord->setTransmuter($transmuter);
 
-        $grades = $studentRecord->getRecordsByPeriod();
+        $viewData["grades"] = $studentRecord->getRecordsByPeriod();
 
         $formatter        = new ReportCardFormatter();
-        $viewData["card"] = $formatter->format($grades, $viewData["student"]->id, $transmuter);
+        $viewData["card"] = $formatter->format($viewData["grades"], $viewData["student"]->id, $transmuter);
 
-//        $viewData["rankedSubjectScores"] = [
-//            ["subject" => "Mathematics", "percentage" => 92],
-//            ["subject" => "Science", "percentage" => 89],
-//            ["subject" => "English", "percentage" => 88],
-//            ["subject" => "Filipino", "percentage" => 85],
-//            ["subject" => "Araling Panlipunan", "percentage" => 85],
-//            ["subject" => "Edukasyong Pagpapakatao", "percentage" => 84],
-//            ["subject" => "Filipino", "percentage" => 85],
-//            ["subject" => "Edukasyong Pantahanan at Pangkabuhayan (EPP)", "percentage" => 83],
-//            ["subject" => "Technology and Livelihood Education (TLE)", "percentage" => 83],
-//        ];
+        for ($i = 0; $i < count($monthlyGrades); $i ++) {
+            $monthlyGrades[$i]["transmuted_grade"] = $transmuter->transmute($monthlyGrades[$i]["total_grade"]);
+        }
 
-        $viewData["rankedSubjectScores"] = [
-            ["subject" => "Technology and Livelihood Education (TLE)", "percentage" => 92],
-            ["subject" => "Filipino", "percentage" => 91],
-            ["subject" => "Edukasyong Pantahanan at Pangkabuhayan (EPP)", "percentage" => 90],
-            ["subject" => "Araling Panlipunan", "percentage" => 85],
-            ["subject" => "Edukasyong Pagpapakatao", "percentage" => 84],
-            ["subject" => "Filipino", "percentage" => 84],
-            ["subject" => "English", "percentage" => 80],
-            ["subject" => "Mathematics", "percentage" => 75],
-            ["subject" => "Science", "percentage" => 73],
-        ];
+        $viewData["monthlyGrades"] = $monthlyGrades;
 
-//        return $studentRecord->get();
+        $viewData["studentsRanked"] = [];
+        $firstClass                 = SchoolClass::ByStudent($id)->first();
+
+        if ($firstClass) {
+            $section = SectionClass::ClassId($firstClass->id)->first();
+
+            if ($section) {
+                $rankProvider               = new SectionStudentRankProvider();
+                $viewData["studentsRanked"] = $rankProvider->getStudentsRanked($section->section_id);
+            }
+        }
 
         return view('pages.students.show', $viewData);
+//        return $viewData["studentsRanked"];
     }
 
     /**
@@ -216,6 +225,46 @@ class StudentsController extends Controller {
      */
     public function destroy($id) {
         //
+    }
+
+    public function printCard($studentId) {
+        $currentGradingYear = GradingYear::open()->first();
+
+        $query = ClassGradedItem::EnrolledByStudent($studentId)->groupByFix();
+
+        $gradedItems      = $query->get();
+        $takenGradedItems = $query->gradedItemTaken()->get();
+
+        $viewData = array_merge($this->getDefaultViewData(), [
+            "mode"                  => "VIEW",
+            "subjects"              => Subject::getSubjectsWithMapeh(),
+            "student"               => Student::find($studentId),
+            "gradingYear"           => $currentGradingYear,
+            "gradingPeriod"         => GradingPeriod::find($currentGradingYear->currently_active_period_id),
+            "gradedItemsCount"      => count($gradedItems),
+            "takenGradedItemsCount" => count($takenGradedItems),
+            "ordinalSuffix"         => array('th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th')
+        ]);
+
+        if (!$viewData["student"]) {
+            return response("Student not found", 404);
+        }
+
+        $transmutation = Transmutation::all();
+        $transmuter    = new Transmuter($transmutation);
+
+        $studentRecord = new StudentGradesProvider($viewData["student"]);
+        $studentRecord->setTransmuter($transmuter);
+
+        $viewData["grades"] = $studentRecord->getRecordsByPeriod();
+
+        $formatter        = new ReportCardFormatter();
+        $viewData["card"] = $formatter->format($viewData["grades"], $viewData["student"]->id, $transmuter);
+
+//        return view('printout.pdf.report-card', $viewData);
+
+        $pdf = \PDF::loadView('printout.pdf.report-card', $viewData)->setPaper('a4')->setOrientation('landscape');
+        return $pdf->download('report-card.pdf');
     }
 
 }

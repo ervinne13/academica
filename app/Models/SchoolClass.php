@@ -29,6 +29,9 @@ class SchoolClass extends BaseModel {
 
         for ($i = 0; $i < count($gradedItems); $i ++) {
             $gradedItems[$i]["class_id"] = $this->id;
+            if (!$gradedItems[$i]["datetaken"] || $gradedItems[$i]["datetaken"] == "") {
+                $gradedItems[$i]["datetaken"] = NULL;
+            }
         }
 
         DB::table('class_graded_items')
@@ -85,11 +88,26 @@ class SchoolClass extends BaseModel {
         }
     }
 
+    public function scopeSection($query, $sectionId) {
+        return $query
+                        ->leftJoin('section_classes', 'section_classes.class_id', '=', 'id')
+                        ->where('section_classes.section_id', $sectionId);
+    }
+
+    public function scopeSelectClassOnly($query) {
+        return $query->select('classes.*');
+    }
+
     public function scopeByStudent($query, $studentId) {
         return $query
-                        ->rightJoin('student_classes', 'class_id', '=', 'id')
+                        ->rightJoin('student_classes', 'class_id', '=', 'classes.id')
                         ->where('student_id', $studentId);
-        ;
+    }
+
+    public function scopeOpenGradingYear($query) {
+        return $query
+                        ->leftJoin('grading_years', 'grading_year_id', '=', 'grading_years.id')
+                        ->where('is_open', 1);
     }
 
     // <editor-fold defaultstate="collapsed" desc="Relationships">

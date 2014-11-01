@@ -20,7 +20,7 @@ class Section extends Model {
 
     public function level() {
         return $this->belongsTo(Level::class);
-    }
+    }       
 
     // </editor-fold>
 }

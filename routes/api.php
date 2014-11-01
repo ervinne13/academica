@@ -30,6 +30,10 @@ Route::post('/class/{classId}/assign', 'ClassesController@assignGradedItem');
 Route::post('/class/{classId}/assign-multiple', 'ClassesController@assignGradedItems');
 Route::get('/class/{classId}/graded-items', 'ClassesController@getGradedItems');
 
+Route::get('sections/{sectionId}/class', 'SectionsController@classes');
+Route::post('sections/{sectionId}/class/create', 'SectionsController@storeClass');
+Route::delete('sections/{sectionId}/class/{classId}', 'SectionsController@destroyClass');
+
 // For testing
 Route::get('/students/{studentId}/grades', 'StudentsController@getGrades');
 Route::get('/test', 'TestController@test');

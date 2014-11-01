@@ -4,6 +4,7 @@ namespace Academica;
 
 use Academica\Grading\Transmuter;
 use App\Models\GradedItem;
+use App\Models\GradedItemType;
 use App\Models\GradingPeriod;
 use App\Models\SchoolClass;
 use App\Models\Student;
@@ -34,8 +35,12 @@ class StudentGradesProvider {
      * @returns StudentRecords
      */
     public function getRecordsByPeriod() {
-        $periods = GradingPeriod::all();
-        $classes = SchoolClass::ByStudent($this->student->id)->get();
+        $gradedItemTypes = GradedItemType::all();
+        $periods         = GradingPeriod::all();
+        $classes         = SchoolClass::OpenGradingYear()
+                ->ByStudent($this->student->id)
+                ->SelectClassOnly()
+                ->get();
 
         $recordsByPeriod = [];
 
@@ -43,17 +48,46 @@ class StudentGradesProvider {
             $records           = [];
             $initialGradeTotal = 0;
             $totalSubjectCount = 0;
+
+            $gradedItemTypeSummary = [];
+
+            foreach ($gradedItemTypes AS $gradedItemType) {
+                $gradedItemTypeSummary[$gradedItemType->id] = [
+                    "name"  => $gradedItemType->name,
+                    "grade" => 0,
+                    "count" => 0
+                ];
+            }
+
             foreach ($classes AS $class) {
                 $subjectGrades = $this->getSubjectGradesFromClass($class, $period->id);
-                
+
                 $records[$class->subject_id] = $subjectGrades->toArray();
-                
+
                 $initialGradeTotal += $subjectGrades->getInitialGrade();
                 $totalSubjectCount ++;
+
+                $summary = $subjectGrades->getGradedItemTypeSummaryMap();
+
+                foreach ($gradedItemTypes AS $gradedItemType) {
+                    if (array_key_exists($gradedItemType->id, $summary)) {
+                        $gradedItemTypeSummary[$gradedItemType->id]["grade"] += $summary[$gradedItemType->id]["ps"];
+                        $gradedItemTypeSummary[$gradedItemType->id]["count"] ++;
+                    }
+                }
             }
-            $recordsByPeriod[$period->id] = $records;
-            $recordsByPeriod[$period->id]["initialGrade"] = $initialGradeTotal / $totalSubjectCount;
-            $recordsByPeriod[$period->id]["transmutedGrade"] = $this->transmuter->transmute($recordsByPeriod[$period->id]["initialGrade"]);
+
+            foreach ($gradedItemTypes AS $gradedItemType) {
+                if ($gradedItemTypeSummary[$gradedItemType->id]["count"] > 0) {
+                    $initialGrade                                        = $gradedItemTypeSummary[$gradedItemType->id]["grade"] / $gradedItemTypeSummary[$gradedItemType->id]["count"];
+                    $gradedItemTypeSummary[$gradedItemType->id]["grade"] = $this->transmuter->transmute($initialGrade);
+                }
+            }
+
+            $recordsByPeriod[$period->id]                            = $records;
+            $recordsByPeriod[$period->id]["initialGrade"]            = $totalSubjectCount > 0 ? $initialGradeTotal / $totalSubjectCount : 0;
+            $recordsByPeriod[$period->id]["transmutedGrade"]         = $this->transmuter->transmute($recordsByPeriod[$period->id]["initialGrade"]);
+            $recordsByPeriod[$period->id]["summaryByGradedItemType"] = $gradedItemTypeSummary;
 //            $recordsByPeriod[$period->id] = $records;
         }
 

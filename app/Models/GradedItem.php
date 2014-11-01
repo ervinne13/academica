@@ -10,6 +10,20 @@ class GradedItem extends Model {
         "name", "short_name", "type_id", "subject_id", "grading_period_id"
     ];
 
+    public function scopeActiveOfStudentInOpenYear($query, $studentId) {
+        return $query                        
+                        ->leftJoin('class_graded_items', 'graded_items.id', '=', 'graded_item_id')
+                        ->leftJoin('classes', 'classes.id', '=', 'class_id')
+                        ->leftJoin('grading_years', 'grading_years.id', '=', 'grading_year_id')
+                        ->leftJoin('student_classes', 'student_classes.class_id', '=', 'classes.id')
+                        ->leftJoin('student_grades', 'student_grades.graded_item_id', '=', 'class_graded_items.graded_item_id')
+                        ->where('is_open', 1)
+                        ->where('is_active', 1)
+                        ->where('student_classes.student_id', $studentId)
+
+        ;
+    }
+
     public function scopeType($query, $type) {
         return $query->where('type_id', '=', $type);
     }

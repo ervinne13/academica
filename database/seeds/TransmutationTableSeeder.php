@@ -30,7 +30,7 @@ class TransmutationTableSeeder extends Seeder {
             ["initial_grade_from" => 36, "initial_grade_to" => 39.99, "transmuted_grade" => 69],
             ["initial_grade_from" => 40, "initial_grade_to" => 43.99, "transmuted_grade" => 70],
             ["initial_grade_from" => 44, "initial_grade_to" => 47.99, "transmuted_grade" => 71],
-            ["initial_grade_from" => 58, "initial_grade_to" => 51.99, "transmuted_grade" => 72],
+            ["initial_grade_from" => 48, "initial_grade_to" => 51.99, "transmuted_grade" => 72],
             ["initial_grade_from" => 52, "initial_grade_to" => 55.99, "transmuted_grade" => 73],
             ["initial_grade_from" => 56, "initial_grade_to" => 59.99, "transmuted_grade" => 74],
             ["initial_grade_from" => 60, "initial_grade_to" => 61.59, "transmuted_grade" => 75],

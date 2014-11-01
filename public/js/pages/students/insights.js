@@ -1,4 +1,6 @@
 
+/* global monthlyGrades */
+
 (function () {
 
     var graphsInitialized = false;
@@ -10,18 +12,22 @@
     });
 
     function initializeTopSubjects() {
+
+        var data = [];
+        console.log(topThreeGrades);
+
+        for (var i = 0; i < 3; i++) {
+            data.push({
+                label: topThreeGrades[i].short_name,
+                value: topThreeGrades[i].transmutedGrade
+            });
+        }
+
         topSubjectsChart = new Morris.Donut({
             element: 'top-subjects-chart',
             resize: true,
             colors: ["#3c8dbc", "#f56954", "#00a65a"],
-            data: [
-//                {label: "Mathematics", value: 92},
-//                {label: "Science", value: 89},
-//                {label: "English", value: 88}
-                {label: "TLE", value: 92},
-                {label: "Filipino", value: 91},
-                {label: "EPP", value: 90}
-            ],
+            data: data,
             hideHover: 'auto',
             smooth: true
         });
@@ -36,12 +42,29 @@
 
     function initializePast2MonthsProgress() {
         // Get context with jQuery - using jQuery's .get() method.
-        var areaChartCanvas = $("#past-two-months-progress").get(0).getContext("2d");
+        var areaChartCanvas = $("#monthly-progress").get(0).getContext("2d");
         // This will get the first returned node in the jQuery collection.
         past2MonthsProgressChart = new Chart(areaChartCanvas);
 
+        var labels = [];
+        var data = [];
+        var bestMonth;
+        var bestMonthGrade = 0;
+
+        for (var i in monthlyGrades) {
+            labels.push(monthlyGrades[i].month_taken);
+            data.push(monthlyGrades[i].transmuted_grade);
+
+            if (bestMonthGrade < monthlyGrades[i].transmuted_grade) {
+                bestMonth = monthlyGrades[i].month_taken;
+                bestMonthGrade = monthlyGrades[i].transmuted_grade;
+            }
+        }
+
+        $('#best-month').html(bestMonth);
+
         var areaChartData = {
-            labels: ["June Week 1", "June Week 2", "June Week 3", "June Week 4", "July Week 1", "July Week 2", "July Week 3", "July Week 4"],
+            labels: labels,
             datasets: [
                 {
                     label: "Digital Goods",
@@ -51,7 +74,7 @@
                     pointStrokeColor: "rgba(60,141,188,1)",
                     pointHighlightFill: "#fff",
                     pointHighlightStroke: "rgba(60,141,188,1)",
-                    data: [74, 72, 78, 81, 84, 86, 89, 87]
+                    data: data
                 }
             ]
         };
@@ -92,7 +115,11 @@
             //Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
             maintainAspectRatio: true,
             //Boolean - whether to make the chart responsive to window resizing
-            responsive: true
+            responsive: true,
+            scaleOverride: true,
+            scaleSteps: 8,
+            scaleStepWidth: 5,
+            scaleStartValue: 60
         };
 
         past2MonthsProgressChart.Line(areaChartData, areaChartOptions);

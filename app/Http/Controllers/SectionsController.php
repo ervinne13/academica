@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Level;
+use App\Models\SchoolClass;
 use App\Models\Section;
+use App\Models\SectionClass;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -37,8 +39,9 @@ class SectionsController extends Controller {
         $section = new Section();
         $mode    = "ADD";
         $levels  = Level::all();
+        $classes = SchoolClass::all();
 
-        return view('pages.sections.form', compact(['section', 'mode', 'levels']));
+        return view('pages.sections.form', compact(['section', 'mode', 'levels', 'classes']));
     }
 
     /**
@@ -75,11 +78,12 @@ class SectionsController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        $section = Section::find($id);
-        $mode    = "EDIT";
-        $levels  = Level::all();
+        $section           = Section::find($id);
+        $mode              = "EDIT";
+        $levels            = Level::all();
+        $selectableClasses = SchoolClass::all();
 
-        return view('pages.sections.form', compact(['section', 'mode', 'levels']));
+        return view('pages.sections.form', compact(['section', 'mode', 'levels', 'selectableClasses', 'classes']));
     }
 
     /**
@@ -113,6 +117,38 @@ class SectionsController extends Controller {
      */
     public function destroy($id) {
         //
+    }
+
+    public function classes($id) {
+        return SchoolClass::section($id)->get();
+    }
+
+    public function storeClass(Request $request) {
+
+        try {
+            $sectionClass = SectionClass::firstOrNew([
+                        "section_id" => $request->section_id,
+                        "class_id"   => $request->class_id
+            ]);
+
+            $sectionClass->save();
+            return "OK";
+        } catch (\Exception $e) {
+            return response($e->getMessage(), 500);
+        }
+    }
+
+    public function destroyClass($sectionId, $classId) {
+
+        try {
+            SectionClass::where([
+                "section_id" => $sectionId,
+                "class_id"   => $classId
+            ])->delete();
+            return "OK";
+        } catch (\Exception $e) {
+            return response($e->getMessage(), 500);
+        }
     }
 
 }

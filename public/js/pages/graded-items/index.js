@@ -42,7 +42,7 @@
                     targets: 0,
                     render: function (id, type, rowData, meta) {
 
-                        var editAction = datatable_utilities.getDefaultEditAction(id);
+                        var editAction = getEditAction(id);
                         var view = datatable_utilities.getInlineActionsView([editAction]);
 
                         return view;
@@ -50,6 +50,16 @@
                 }
             ]
         });
+    }
+
+    function getEditAction(id) {
+        return {
+            id: id,
+            href: "/graded-items/" + id + "/edit",
+            name: "edit",
+            displayName: "Edit",
+            icon: "fa-pencil"
+        };
     }
 
 })();

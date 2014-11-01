@@ -83,7 +83,8 @@
                     <i class="fa text-red fa-graduation-cap"></i>
                 </div>
                 <div class="title">
-                    <span class="text-red">a</span>c<span class="text-red">a</span>demic<span class="text-red">a</span>
+                    <!--<span class="text-red">a</span>c<span class="text-red">a</span>demic<span class="text-red">a</span>-->
+                    {!!Config::get('app.name_html')!!}
                 </div>
 
                 <div class="links m-b-md">
@@ -92,11 +93,12 @@
                     </a>
                 </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">About Us</a>
+                <div class="links">                    
+                    <a href="http://www.stfrancis.edu.ph/" class="text-red">Saint Francis of Assisi</a>
+                    <!--<a href="https://laravel.com/docs">Documentation</a>-->
+                    <!--<a href="https://laracasts.com">About Us</a>-->
                     <a href="{{ url('/login') }}" class="text-fuchsia">Login</a>
-                    <a href="{{ url('/register') }}" class="text-blue">Register</a>
+                    <!--<a href="{{ url('/register') }}" class="text-blue">Register</a>-->
                 </div>
             </div>
         </div>

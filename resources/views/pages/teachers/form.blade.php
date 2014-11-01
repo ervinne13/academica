@@ -17,6 +17,13 @@
 
 @section('content')
 
+<?php 
+$fieldProperty = "required";
+if ($mode == "VIEW") {
+    $fieldProperty = "readonly";
+}
+?>
+
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
@@ -36,35 +43,27 @@
                     <form class="fields-container">
                         <div class="row">
                             <div class="col-lg-6 col-sm-12">
-                                <!--                                <div class="form-group">
-                                                                    <label for="input-teacher-image">Profile Image</label>
-                                                                    <input type="file" id="input-teacher-image" name="image">
-                                                                    <p class="help-block">Ideal size is 250px x 250px</p>
-                                
-                                                                    <img src="{{ $teacher->image_url  ? URL::to('/') . $teacher->image_url : "" }}" width="250px" height="250px" id="image-preview">
-                                                                    <input type="hidden" name="image_url">
-                                                                </div>-->
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="email" required name="email" class="form-control" value="{{ $teacher->user->email }}">
+                                    <input type="email" {{$fieldProperty}} name="email" class="form-control" value="{{ $teacher->user->email }}">
                                 </div>
                                 <div class="form-group">
                                     <label>First Name</label>
-                                    <input type="text" required name="first_name" class="form-control" value="{{ $teacher->first_name }}">
+                                    <input type="text" {{$fieldProperty}} name="first_name" class="form-control" value="{{ $teacher->first_name }}">
                                 </div>
                                 <div class="form-group">
                                     <label>Middle Name</label>
-                                    <input type="text" required name="middle_name" class="form-control" value="{{ $teacher->middle_name }}">
+                                    <input type="text" {{$fieldProperty}} name="middle_name" class="form-control" value="{{ $teacher->middle_name }}">
                                 </div>
                                 <div class="form-group">
                                     <label>Last Name</label>
-                                    <input type="text" required name="last_name" class="form-control" value="{{ $teacher->last_name }}">
+                                    <input type="text" {{$fieldProperty}} name="last_name" class="form-control" value="{{ $teacher->last_name }}">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-12">
                                 <div class="form-group">
                                     <label>Birth Date</label>
-                                    <input type="text" required name="birthdate" class="form-control datepicker" value="{{ $teacher->birthdate }}">
+                                    <input type="text" {{$fieldProperty}} name="birthdate" class="form-control datepicker" value="{{ $teacher->birthdate }}">
                                 </div>
 
                                 @if($mode == "ADD")

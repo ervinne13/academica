@@ -1,22 +1,35 @@
 @extends('layouts.lte-module')
 
+@section('css')
+@parent
+<link href="{{ asset("/bower_components/AdminLTE/plugins/datepicker/datepicker3.css") }}" rel="stylesheet" type="text/css" />
+@endsection
+
 @section('js')
 @parent
+<script src="{{ asset ("/bower_components/AdminLTE/plugins/datepicker/bootstrap-datepicker.js") }}" type="text/javascript"></script>
 <script type='text/javascript'>
-    var teacherId = '{{$teacher->user_id}}';
-    var classId = '{{$class->id}}';
+var teacherId = '{{$teacher->user_id}}';
+var classId = '{{$class->id}}';
 </script>
 <script src="{{ asset ("/js/pages/teachers/classes/form.js") }}" type="text/javascript"></script>
 
 <script type="text/html" id="assigned-graded-items-row-template">
     <tr class="graded-item-row" data-graded-item-id="<%= graded_item_id %>">        
-        <td><%= name %></td>
+        <td>
+            <a href="/classes/{{$class->id}}/grading/<%=graded_item_id%>">
+                <%= name %>
+            </a>
+        </td>
         <td>
             <input type="checkbox" class="is-active-field" <%= is_active == 1 ? 'checked' : '' %>>
         </td>
         <td>
             <input type="text" class="form-control hps-field" value="<%= highest_possible_score %>">
-        </td>        
+        </td>
+        <td>
+            <input type="text" class="form-control datetaken-field datepicker_recurring_start" value="<%= datetaken %>">
+        </td>  
         <td>
             <a href="javascript:void" class="action-delete-graded-item" data-id="<%= graded_item_id %>">
                 <i class="fa fa-times"></i>
@@ -124,9 +137,10 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th style="min-width: 200px;">Graded Item</th>
+                                            <th>Graded Item</th>
                                             <th>Include In Grading?</th>
-                                            <th>Highest Possible Score</th>
+                                            <th>HPS</th>
+                                            <th>Date Taken</th>
                                             <th></th>
                                         </tr>
                                     </thead>

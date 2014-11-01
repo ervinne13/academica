@@ -58,6 +58,13 @@
         $gradedItemId = $('[name=graded_item_id]').select2({
             data: []
         });
+
+        $('body').on('focus', ".datepicker_recurring_start", function () {
+            $(this).datepicker({
+                autoclose: true,
+                format: "yyyy-mm-dd",
+            });
+        });
     }
 
     function initializeEvents() {
@@ -104,11 +111,11 @@
                     graded_item_id: gradedItems[i].graded_item_id,
                     is_active: gradedItems[i].is_active,
                     name: gradedItems[i].graded_item.name,
+                    datetaken: gradedItems[i].datetaken,
                     highest_possible_score: gradedItems[i].highest_possible_score
                 });
 
                 $('#assigned-graded-items-tbody').append(rowHtml);
-
             }
 
         });
@@ -145,6 +152,8 @@
             var rowHtml = gradedItemRowTemplate({
                 graded_item_id: gradedItemId,
                 name: gradedItemName,
+                is_active: 0,
+                datetaken: "",
                 highest_possible_score: 0
             });
 
@@ -162,6 +171,7 @@
             data.push({
                 class_id: classId,
                 is_active: $(this).find('.is-active-field').is(':checked') ? 1 : 0,
+                datetaken: $(this).find('.datetaken-field').val(),
                 graded_item_id: $(this).data('graded-item-id'),
                 highest_possible_score: $(this).find('.hps-field').val()
             });

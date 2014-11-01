@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder {
         $this->call(GradingPeriodsSeeder::class);
         $this->call(GradedItemSeeder::class);
         $this->call(ClassGradedItemSeeder::class);
+        $this->call(Transmutation::class);
     }
 
 }

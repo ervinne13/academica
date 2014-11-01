@@ -3,8 +3,8 @@
 
 (function () {
     $(document).ready(function () {
-        form_utilities.moduleUrl = "/sections";
-        form_utilities.updateObjectId = sectionId;
+        form_utilities.moduleUrl = "/grading-years";
+        form_utilities.updateObjectId = id;
         form_utilities.validate = true;        
         form_utilities.initializeDefaultProcessing($('.fields-container'));
     });

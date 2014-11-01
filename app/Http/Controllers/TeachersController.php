@@ -81,7 +81,11 @@ class TeachersController extends Controller {
      * @return Response
      */
     public function show($id) {
-        //
+        $viewData            = $this->getDefaultViewData();
+        $viewData["teacher"] = Teacher::find($id);
+        $viewData["mode"]    = "VIEW";
+
+        return view('pages.teachers.form', $viewData);
     }
 
     /**

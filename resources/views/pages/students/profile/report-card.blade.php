@@ -1,9 +1,21 @@
-<?php $totalFinal = 0 ?>
+<?php
+$totalFinal    = 0;
+$hasMapeh      = FALSE;
+$mapehSubjects = [
+    "Music",
+    "Arts",
+    "PE",
+    "Health"
+];
+?>
 
 <div class="row">    
     <div class="col-md-8 b-r">
 
-        <h3>Report on Learning Progress and Achievement</h3>
+        <h3>
+            Report on Learning Progress and Achievement
+            <a id="action-generate-printout" class="btn btn-success pull-right" href="/students/{{$student->id}}/print">Generate Printout</a>
+        </h3>
 
         <table class="table table-striped table-bordered table-hover">
             <thead>
@@ -22,7 +34,8 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($card["subjects"] AS $subjectGrade)                
+                @foreach($card["subjects"] AS $subjectGrade)
+                @if (!in_array($subjectGrade["short_name"], $mapehSubjects))
                 <tr>
                     <td>{{$subjectGrade["name"]}}</td>
                     <td class="text-center">{{$subjectGrade["grades"][1]["transmutedGrade"]}}</td>
@@ -31,7 +44,35 @@
                     <td class="text-center">{{$subjectGrade["grades"][4]["transmutedGrade"]}}</td>
                     <td class="text-right">{{$subjectGrade["transmutedGrade"]}}</td>
                 </tr>
+                @else
+                <?php $hasMapeh      = TRUE ?>
+                @endif
                 @endforeach
+
+                @if ($hasMapeh)
+                <tr>
+                    <td>MAPEH</td>
+                    <td class="text-center">{{$card["mapeh"][1]["transmutedGrade"]}}</td>
+                    <td class="text-center">{{$card["mapeh"][2]["transmutedGrade"]}}</td>
+                    <td class="text-center">{{$card["mapeh"][3]["transmutedGrade"]}}</td>
+                    <td class="text-center">{{$card["mapeh"][4]["transmutedGrade"]}}</td>
+                    <td class="text-right">{{$card["mapeh"]["transmutedGrade"]}}</td>
+                </tr>
+
+                @foreach($card["subjects"] AS $subjectGrade)
+                @if (in_array($subjectGrade["short_name"], $mapehSubjects))
+                <tr>
+                    <td style="text-align: right;">{{$subjectGrade["name"]}}</td>
+                    <td class="text-center">{{$subjectGrade["grades"][1]["transmutedGrade"]}}</td>
+                    <td class="text-center">{{$subjectGrade["grades"][2]["transmutedGrade"]}}</td>
+                    <td class="text-center">{{$subjectGrade["grades"][3]["transmutedGrade"]}}</td>
+                    <td class="text-center">{{$subjectGrade["grades"][4]["transmutedGrade"]}}</td>
+                    <td class="text-right">{{$subjectGrade["transmutedGrade"]}}</td>
+                </tr>                
+                @endif
+                @endforeach
+
+                @endif
             </tbody>
         </table>
 
@@ -48,7 +89,7 @@
                 <label class="text-danger">Failed</label>
                 @endif
             </small>
-        </h3>
+        </h3>   
 
         @if ($gradingYear->currently_active_period_id < 4)
         <h5>
@@ -74,7 +115,17 @@
         <div class="small-box {{$transmutedGradeColor}}">
             <div class="inner">
                 <h3>{{$card["transmutedGrade"]}}<sup style="font-size: 20px">%</sup></h3>
-                <p>Overall Grade</p>
+                @if ($card["transmutedGrade"] > 89)
+                <p>Outstanding</p>
+                @elseif($card["transmutedGrade"] > 84)
+                <p>Very Satisfactory</p>
+                @elseif($card["transmutedGrade"] > 79)
+                <p>Satisfactory</p>
+                @elseif($card["transmutedGrade"] > 74)
+                <p>Fairly Satisfactory</p>
+                @else
+                <p>Did not meet expectations</p>
+                @endif
             </div>
             <div class="icon">
                 @if ($card["transmutedGrade"] > 90)
@@ -90,10 +141,28 @@
         </div>
 
         <div class="small-box bg-aqua-active">
+            @if (count($studentsRanked) > 0)
+            <?php
+            $rank    = 1;
+            $ordinal = "";
+            foreach ($studentsRanked AS $studentInRank) {
+                if ($studentInRank["student_id"] == $student->id) {
+                    $ordinal = $ordinalSuffix[$rank];
+                    break;
+                }
+                $rank ++;
+            }
+            ?>
             <div class="inner">
-                <h3>21<sup style="font-size: 20px">st</sup></h3>
+                <h3>{{$rank}}<sup style="font-size: 20px">{{$ordinal}}</sup></h3>
                 <p>Your Current Rank</p>
             </div>
+            @else
+            <div class="inner">
+                <h3>Non Rank</h3>
+                <p>You are not enrolled in a section yet</p>
+            </div>
+            @endif
             <div class="icon">
                 <i class="fa fa-star"></i>
             </div>
@@ -103,13 +172,20 @@
             <span class="info-box-icon"><i class="fa fa-book"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Graded Item Completion</span>
-                <span class="info-box-number">112 out of 140</span>
-                <div class="progress">
-                    <div class="progress-bar" style="width: 80%"></div>
+                <span class="info-box-number">{{$takenGradedItemsCount}} out of {{$gradedItemsCount}}</span>
+                
+                @if ($gradedItemsCount > 0)
+                <div class="progress">                    
+                    <div class="progress-bar" style="width: {{$takenGradedItemsCount / $gradedItemsCount * 100}}%"></div>
                 </div>
                 <span class="progress-description">
-                    80% of the total graded items
+                    {{$takenGradedItemsCount / $gradedItemsCount * 100}}% of the total graded items
                 </span>
+                @else
+                <span class="progress-description">
+                    No Graded Items Yet
+                </span>
+                @endif
             </div><!-- /.info-box-content -->
         </div><!-- /.info-box -->
     </div>

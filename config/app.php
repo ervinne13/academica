@@ -12,8 +12,9 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'academica',
-    'name_html' => '<span class="text-red">a</span>c<span class="text-red">a</span>demic<span class="text-red">a</span>',
+    'name' => 'SFAC SDM',
+//    'name_html' => '<span class="text-red">a</span>c<span class="text-red">a</span>demic<span class="text-red">a</span>',
+    'name_html' => '<span class="text-red">SFAC</span><br>Student Development Monitoring</span>',
 
     /*
     |--------------------------------------------------------------------------
@@ -185,6 +186,7 @@ return [
          * Third party service providers         
          */
         Yajra\Datatables\DatatablesServiceProvider::class,
+        Barryvdh\Snappy\ServiceProvider::class,
     ],
 
     /*
@@ -241,6 +243,8 @@ return [
          */
         
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
+        'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
         
     ],
 

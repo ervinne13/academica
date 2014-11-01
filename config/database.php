@@ -62,7 +62,7 @@ return [
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
-            'strict' => true,
+            'strict' => false, // set to false since strict mode enforces group by even if the columns are not selected
             'engine' => null,
         ],
 

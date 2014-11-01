@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Subject;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Yajra\Datatables\Datatables;
+use function response;
 use function view;
 
 class SubjectsController extends Controller {
@@ -29,7 +31,11 @@ class SubjectsController extends Controller {
      * @return Response
      */
     public function create() {
-        //
+        $viewData            = $this->getDefaultViewData();
+        $viewData["subject"] = new Subject();
+        $viewData["mode"]    = "ADD";
+
+        return view('pages.subjects.form', $viewData);
     }
 
     /**
@@ -39,7 +45,14 @@ class SubjectsController extends Controller {
      * @return Response
      */
     public function store(Request $request) {
-        //
+
+        try {
+            $subject = new Subject($request->toArray());
+            $subject->save();
+            return $subject;
+        } catch (Exception $e) {
+            return response($e->getMessage(), 500);
+        }
     }
 
     /**
@@ -49,7 +62,7 @@ class SubjectsController extends Controller {
      * @return Response
      */
     public function show($id) {
-        //
+        
     }
 
     /**
@@ -59,7 +72,11 @@ class SubjectsController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        //
+        $viewData            = $this->getDefaultViewData();
+        $viewData["subject"] = Subject::find($id);
+        $viewData["mode"]    = "EDIT";
+
+        return view('pages.subjects.form', $viewData);
     }
 
     /**
@@ -70,7 +87,14 @@ class SubjectsController extends Controller {
      * @return Response
      */
     public function update(Request $request, $id) {
-        //
+        try {
+            $subject = Subject::find($id);
+            $subject->fill($request->toArray());
+            $subject->update();
+            return $subject;
+        } catch (Exception $e) {
+            return response($e->getMessage(), 500);
+        }
     }
 
     /**
