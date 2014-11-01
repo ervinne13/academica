@@ -29,7 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('period/{periodId}/class/{subjectId}/class-record/generate', 'ClassRecordsController@generate');
     Route::get('period/{periodId}/class/{subjectId}/class-record', 'ClassRecordsController@classRecord');
-    Route::resource('class-records', 'ClassRecordsController');
+    Route::get('class-records/teacher/{teacherId}', 'ClassRecordsController@index');
     Route::resource('class-records', 'ClassRecordsController');
 
     Route::get('teachers/datatable', 'TeachersController@datatable');

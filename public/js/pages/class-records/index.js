@@ -5,13 +5,20 @@
 
     $(document).ready(function () {
         initializeTable();
-        
+
         //  hide sidebar
         $('.sidebar-toggle').click();
-        
+
     });
 
     function initializeTable() {
+
+        var url = "/classes/datatable";
+
+        if (teacherId) {
+            url = "/teacher/" + teacherId + "/classes/datatable";
+        }
+
         $('#datatable').DataTable({
             processing: true,
             serverSide: true,
@@ -19,7 +26,7 @@
                 caseInsensitive: true
             },
             ajax: {
-                url: "/classes/datatable"
+                url: url
             },
             order: [1, "desc"],
             columns: [

@@ -9,6 +9,7 @@
 
     function initializeTable() {
         $('#teachers-table').DataTable({
+            aaSorting: [[4, 'asc']],
             processing: true,
             serverSide: true,
             search: {
@@ -16,8 +17,7 @@
             },
             ajax: {
                 url: "/teachers/datatable"
-            },
-            order: [1, "desc"],
+            },            
             columns: [
                 {data: 'id'},
                 {data: 'user.email', name: 'user.email'},

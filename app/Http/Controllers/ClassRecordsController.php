@@ -25,9 +25,10 @@ class ClassRecordsController extends Controller {
         $this->destinationPath = "uploads";
     }
 
-    public function index() {
-        $viewData         = $this->getDefaultViewData();
-        $viewData["mode"] = "VIEW";
+    public function index($teacherId = null) {
+        $viewData              = $this->getDefaultViewData();
+        $viewData["mode"]      = "VIEW";
+        $viewData["teacherId"] = $teacherId;
         return view('pages.class-records.index', $viewData);
     }
 

@@ -11,6 +11,12 @@
 
 @section('js')
 @parent
+
+<script type="text/javascript">
+var teacherId = '{{$teacherId}}';
+
+</script>
+
 <script src="{{ asset ("/js/pages/class-records/index.js") }}" type="text/javascript"></script>
 @endsection
 

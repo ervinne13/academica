@@ -3,6 +3,14 @@
 @section('css')
 <!-- Morris charts -->
 <link rel="stylesheet" href="/bower_components/AdminLTE/plugins/morris/morris.css">
+
+<style>
+    .tab-label {
+        font-weight: bolder;
+        font-size: 15px;
+    }    
+</style>
+
 @endsection
 
 @section('js')
@@ -23,16 +31,31 @@
 </section>-->
 
 <section class="content">
-
     <div class="row">
         <div class="col-lg-12">
             <div class="nav-tabs-custom">
                 <ul class="nav nav-tabs pull-right">
                     <li class="pull-left header"><i class="fa fa-th"></i> {{$student->full_name}}</li>
-                    <li class="active"><a href="#tab-general" data-toggle="tab">Profile / General Information</a></li>
-                    <li><a href="#tab-insights" data-toggle="tab">Performance Insights</a></li>
-                    <li><a href="#tab-categorical-insights" data-toggle="tab">Categorical Performance</a></li>
-                    <li><a href="#tab-report-card" data-toggle="tab">Report Card</a></li>
+                    <li class="active">
+                        <a href="#tab-general" data-toggle="tab">
+                            <label class="tab-label text-info">Profile / General Information</label>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#tab-insights" data-toggle="tab">
+                            <label class="tab-label text-info">Performance Insights</label>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#tab-categorical-insights" data-toggle="tab">
+                            <label class="tab-label text-info">Categorical Performance</label>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#tab-report-card" data-toggle="tab">
+                            <label class="tab-label text-info">Report Card</label>
+                        </a>
+                    </li>
                     <!--                    <li class="dropdown">
                                             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                                 Actions <span class="caret"></span>

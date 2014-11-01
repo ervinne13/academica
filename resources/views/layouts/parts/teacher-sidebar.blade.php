@@ -35,7 +35,7 @@
                 </a>
             </li>
             <li>
-                <a href="/class-records">
+                <a href="/class-records/teacher/{{Auth()->user()->id}}">
                     <span><i class="fa fa-users text-info"></i> 
                         Class Records
                     </span>

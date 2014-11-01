@@ -54,6 +54,7 @@ class TeacherClassesController extends Controller {
                                     ->with('gradingYear')
                                     ->with('subject')
                                     ->with('level')
+                                    ->with('teacher')
                     )->make(true);
         } else {
             abort(404);
