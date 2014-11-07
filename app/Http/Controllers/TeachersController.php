@@ -111,10 +111,21 @@ class TeachersController extends Controller {
      */
     public function update(Request $request, $id) {
         try {
+            DB::beginTransaction();
+
             $teacher = Teacher::find($id);
             $teacher->fill($request->toArray());
             $teacher->update();
+
+            if ($request->password) {
+                $user           = User::find($id);
+                $user->password = \Hash::make($request->password);
+                $user->save();
+            }
+
+            DB::commit();
         } catch (Exception $e) {
+            DB::rollBack();
             return response($e->getMessage(), 500);
         }
     }

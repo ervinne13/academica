@@ -25,4 +25,14 @@ class HomeController extends Controller {
         }
     }
 
+    public function register() {
+        return view('pages.home.register', $this->getDefaultViewData());
+    }
+
+    public function changeAdminView($type) {
+        session('admin_view', $type);
+//        return redirect('/');       
+        return session('admin_view');
+    }
+
 }

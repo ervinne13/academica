@@ -15,6 +15,7 @@ return [
     'name' => 'SFAC SDM',
 //    'name_html' => '<span class="text-red">a</span>c<span class="text-red">a</span>demic<span class="text-red">a</span>',
     'name_html' => '<span class="text-red">SFAC</span><br>Student Development Monitoring</span>',
+    'short_name_html' => '<span class="text-red">SFAC</span> SDM</span>',
 
     /*
     |--------------------------------------------------------------------------

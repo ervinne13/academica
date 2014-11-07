@@ -84,7 +84,15 @@
                         Classes
                     </span>
                 </a>
-            </li>            
+            </li>   
+            <li class="header"></li>
+            <li>
+                <a href="/change-admin-view/basic">
+                    <span>
+                        Basic View
+                    </span>
+                </a>
+            </li>
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

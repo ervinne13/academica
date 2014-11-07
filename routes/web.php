@@ -12,6 +12,9 @@
  */
 
 Route::get('/', 'HomeController@index');
+Route::get('/register-users', 'HomeController@register');
+Route::get('/change-admin-view/{type}', 'HomeController@changeAdminView');
+Route::get('/enrollment-wizard', 'EnrollmentWizardController@wizard');
 
 Route::auth();
 Route::get('/logout', 'Auth\LoginController@logout');

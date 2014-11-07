@@ -19,7 +19,7 @@
                 url: "/teachers/datatable"
             },            
             columns: [
-                {data: 'id'},
+                {data: 'user_id'},
                 {data: 'user.email', name: 'user.email'},
                 {data: 'first_name'},
                 {data: 'middle_name'},

@@ -10,7 +10,13 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Subjects        
+        Subjects
+        <div class="pull-right">
+            <a href="/subjects/create" class="btn btn-success btn-sm ">
+                <i class="fa fa-plus"></i>
+                Add Subject
+            </a>
+        </div>
     </h1>
 </section>
 

@@ -4,7 +4,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Administrator Page
+        Registration Page
     </h1>
 </section>
 
@@ -17,11 +17,10 @@
             <div class="info-box bg-green">
                 <span class="info-box-icon"><i class="fa fa-users"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Teachers</span>
+                    <span class="info-box-text">Faculty Registration</span>
                     <span class="progress-description">
-                        <ul class="list-group">
-                            <li><a href="/teachers" style="color: white">Click here to view</a></li>
-                            <li><a href="/teachers/create" style="color: white">Click here to add new</a></li>
+                        <ul class="list-group">                            
+                            <li><a href="/teachers/create" style="color: white">Click here to register</a></li>
                         </ul>
                     </span>
                 </div><!-- /.info-box-content -->
@@ -36,9 +35,8 @@
                 <div class="info-box-content">
                     <span class="info-box-text">Students</span>
                     <span class="progress-description">
-                        <ul class="list-group">
-                            <li><a href="/students" style="color: white">Click here to view</a></li>
-                            <li><a href="/students/create" style="color: white">Click here to add new</a></li>
+                        <ul class="list-group">                            
+                            <li><a href="/students/create" style="color: white">Click here to register</a></li>
                         </ul>
                     </span>
                 </div><!-- /.info-box-content -->

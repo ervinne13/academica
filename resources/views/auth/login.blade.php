@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
         <!-- Theme style -->
         <link rel="stylesheet" href="bower_components/AdminLTE/dist/css/AdminLTE.min.css">
+        <link rel="stylesheet" href="{{ asset("/bower_components/AdminLTE/dist/css/skins/skin-red-light.min.css")}}"  type="text/css" />
         <!-- iCheck -->
         <link rel="stylesheet" href="bower_components/AdminLTE/plugins/iCheck/square/blue.css">
 
@@ -24,53 +25,86 @@
     </style>
 </head>
 <!--<body class="hold-transition login-page" style="background-image: url('/static-img/wall.jpg')">-->
-<body class="hold-transition login-page">
-    <div class="login-box">
-        <!-- /.login-logo -->
-        <div class="login-box-body">
+<body class="layout-top-nav skin-red-light">
 
-            <h1 class="text-center">
-                {!! Config::get('app.name_html') !!} <i class="fa text-red fa-graduation-cap"></i>
-            </h1>
-
-            <h3>                    
-                <small>Log in</small>
-            </h3>
-
-            <form action="{{url('/login')}}" method="POST">
-                {{ csrf_field() }}
-
-                <div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
-                    <input type="email" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}">
-                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-
-                    @if ($errors->has('email'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('email') }}</strong>
-                    </span>
-                    @endif
+    <header class="main-header">
+        <nav class="navbar navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <img width="32" src="/static-img/SFACS-logo.png" class="pull-left" style="margin-top: 8px; margin-right: 12px;" > 
+                    <a href="/" class="navbar-brand pull-left">
+                        Saint Francis of Assissi
+                    </a>                    
                 </div>
-                <div class="form-group has-feedback">
-                    <input type="password" name="password" class="form-control" placeholder="Password">
-                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
 
-                    @if ($errors->has('password'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('password') }}</strong>
-                    </span>
-                    @endif
-                </div>
-                <div class="row">                        
-                    <!-- /.col -->
-                    <div class="col-xs-offset-8 col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+            </div><!-- /.container-fluid -->
+        </nav>
+    </header>
+
+    <div class="content-wrapper"> 
+        <div class="container"> 
+
+            <section class="content">
+                <div class="row">
+
+                    <div class="col-lg-6" style="padding: 50px;">
+                        <div class="box">
+
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Login</h3>
+                            </div>
+
+                            <!-- /.login-logo -->
+                            <div class="box-body">
+
+                                <h1 class="text-center">
+                                    {!! Config::get('app.short_name_html') !!} <i class="fa text-red fa-graduation-cap"></i>
+                                </h1>
+
+                                <form action="{{url('/login')}}" method="POST">
+                                    {{ csrf_field() }}
+
+                                    <div class="form-group has-feedback {{ $errors->has('email') ? ' has-error' : '' }}">
+                                        <input type="email" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}">
+                                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+
+                                        @if ($errors->has('email'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <input type="password" name="password" class="form-control" placeholder="Password">
+                                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+
+                                        @if ($errors->has('password'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                    <div class="row">                        
+                                        <!-- /.col -->
+                                        <div class="col-xs-offset-8 col-xs-4">
+                                            <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /.login-box-body -->
+                        </div>
                     </div>
-                    <!-- /.col -->
+                    <div class="col-lg-6" style="padding: 50px;">
+                        <img src="/static-img/SFACS-logo.png" class="pull-left" style="width: 80%;" > 
+                    </div>
                 </div>
-            </form>
+            </section>
+
         </div>
-        <!-- /.login-box-body -->
     </div>
+
     <!-- /.login-box -->
 
     <!-- jQuery 2.2.3 -->

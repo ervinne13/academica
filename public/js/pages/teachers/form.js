@@ -2,10 +2,24 @@
 /* global form_utilities, teacherId, baseURL, image_utils */
 
 (function () {
+
+    var passwordFieldsTemplate;
+
     $(document).ready(function () {
+
+        //  initialize templates
+        passwordFieldsTemplate = _.template($('#password-fields-template').html());
+
         initializeUI();
         initializeFormUtilities();
         initializeImageUtilities();
+        initializeEvents();
+
+        //  show password fields for creation
+        if (mode == "ADD") {
+            showPasswordFields(true);
+        }
+
     });
 
     function initializeUI() {
@@ -37,6 +51,22 @@
 
     function initializeImageUtilities() {
         image_utils.initialize($('#input-teacher-image'), $('[name=image_url]'), null);
+    }
+
+    function initializeEvents() {
+
+        $('#action-show-passwords-field').click(function () {
+            showPasswordFields(true);
+        });
+
+    }
+
+    function showPasswordFields(show) {
+        if (show) {
+            $('#password-fields-container').html(passwordFieldsTemplate());
+        } else {
+            $('#password-fields-container').html('');
+        }
     }
 
 })();

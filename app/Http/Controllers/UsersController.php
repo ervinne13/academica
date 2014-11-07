@@ -146,7 +146,12 @@ class UsersController extends Controller {
             "user" => User::find($id),
             "mode" => "EDIT"
         ];
-        return view('pages.users.form', $viewData);
+
+        if ($viewData["user"]->role_name == User::ROLE_VIEWER) {
+            return view('pages.users.viewer-form', $viewData);
+        } else {
+            return view('pages.users.form', $viewData);
+        }
     }
 
     /**

@@ -51,7 +51,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
             <!-- Left side column. contains the logo and sidebar -->
             @if (Auth::user()->role_name == "ADMIN")
+
+            @if (session('admin_view') == 'advanced')
             @include('layouts.parts.admin-sidebar')
+            @else
+            @include('layouts.parts.admin-sidebar-basic')
+            @endif
+
             @elseif (Auth::user()->role_name == "TEACHER")
             @include('layouts.parts.teacher-sidebar')
             @elseif (Auth::user()->role_name == "VIEWER")

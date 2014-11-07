@@ -58,7 +58,7 @@
             }
 
             .title {
-                font-size: 50px;
+                font-size: 84px;
             }
 
             .links > a {
@@ -78,22 +78,11 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-
-            <div class="top-right links">
-                @if (Route::has('login'))
-                <a href="{{ url('/login') }}">Login</a>
-                @endif
-
-                <a href="http://www.stfrancis.edu.ph/" class="text-red">Saint Francis of Assisi Website</a>
-
-                <a href="{{ url('/about') }}">About Us</a>
-                <a href="{{ url('/contact') }}">Contact Us</a>
-            </div>            
-
-            <div class="content">                
+            <div class="content">
                 <div class="title">
-                    <img src="/static-img/SFACS-logo.png" style="margin: auto;">
-                    <br>
+                    <i class="fa text-red fa-graduation-cap"></i>
+                </div>
+                <div class="title">
                     <!--<span class="text-red">a</span>c<span class="text-red">a</span>demic<span class="text-red">a</span>-->
                     {!!Config::get('app.name_html')!!}
                 </div>
@@ -102,6 +91,14 @@
                     <a href="javascript:void(0)">
                         Grading Utility and Student Performance Monitoring for Teachers and Parents
                     </a>
+                </div>
+
+                <div class="links">                    
+                    <a href="http://www.stfrancis.edu.ph/" class="text-red">Saint Francis of Assisi</a>
+                    <!--<a href="https://laravel.com/docs">Documentation</a>-->
+                    <!--<a href="https://laracasts.com">About Us</a>-->
+                    <a href="{{ url('/login') }}" class="text-fuchsia">Login</a>
+                    <!--<a href="{{ url('/register') }}" class="text-blue">Register</a>-->
                 </div>
             </div>
         </div>

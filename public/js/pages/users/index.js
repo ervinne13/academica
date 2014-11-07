@@ -37,7 +37,7 @@
 
                         var actions = [];
 
-                        if (rowData.role_name == "VIEWER") {
+                        if (rowData.role_name != "ADMIN") {
                             actions.push(datatable_utilities.getDefaultEditAction(id));
                         }
 

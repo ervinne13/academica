@@ -27,11 +27,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        @if ($user->role_name == "TEACHER")
-        Teacher Account
-        @else
-        Administrator
-        @endif
+        User / Viewer
         <small>
             {{ ($mode == "ADD" ? "Create New" : "Update") }}
         </small>       
@@ -62,7 +58,6 @@
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-12">
-                                @if ($user->role_name == "VIEWER")
                                 <div class="form-group">
                                     <label>Accessible Links</label>
                                     <br>
@@ -73,7 +68,6 @@
                                     </small>
                                     <textarea class="form-control" name="links" rows="5" placeholder="Ex. Bridgette Dela Cruz:/students/13,Anya Dela Cruz:/students/14">{{$user->getFormattedLinks()}}</textarea>
                                 </div>
-                                @endif
                             </div>
                         </div>
                     </form>

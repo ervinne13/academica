@@ -9,7 +9,21 @@
 @parent
 <script type='text/javascript'>
     var teacherId = '{{$teacher->user_id}}';
+    var mode = '{{$mode}}';
 </script>
+
+<script type="text/html" id="password-fields-template">
+    <div class="form-group">
+        <label>Password</label>
+        <input type="password" required name="password" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label>Repeat Password</label>
+        <input type="password" required name="password_repeat" class="form-control">
+    </div>
+</script>
+
 <script src="{{ asset ("/bower_components/AdminLTE/plugins/datepicker/bootstrap-datepicker.js") }}" type="text/javascript"></script>
 <script src="{{ asset ("/js/image-utils.js") }}" type="text/javascript"></script>
 <script src="{{ asset ("/js/pages/teachers/form.js") }}" type="text/javascript"></script>
@@ -17,7 +31,7 @@
 
 @section('content')
 
-<?php 
+<?php
 $fieldProperty = "required";
 if ($mode == "VIEW") {
     $fieldProperty = "readonly";
@@ -66,17 +80,9 @@ if ($mode == "VIEW") {
                                     <input type="text" {{$fieldProperty}} name="birthdate" class="form-control datepicker" value="{{ $teacher->birthdate }}">
                                 </div>
 
-                                @if($mode == "ADD")
-                                <div class="form-group">
-                                    <label>Password</label>
-                                    <input type="password" required name="password" class="form-control">
+                                <div id="password-fields-container">
+                                    <button id="action-show-passwords-field" type="button" class="btn btn-link">Change Password</button>
                                 </div>
-
-                                <div class="form-group">
-                                    <label>Repeat Password</label>
-                                    <input type="password" required name="password_repeat" class="form-control">
-                                </div>
-                                @endif
                             </div>                            
                         </div>
                     </form>
