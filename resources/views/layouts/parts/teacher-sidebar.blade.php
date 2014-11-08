@@ -16,7 +16,7 @@
             <li>
                 <a href="/teacher/{{Auth()->user()->id}}/classes">
                     <span><i class="fa fa-graduation-cap text-fuchsia"></i> 
-                        Subjects / My Classes
+                        My Classes
                     </span>
                 </a>
             </li>
@@ -28,16 +28,16 @@
                             </a>
                         </li>-->
             <li>
-                <a href="/students">
-                    <span><i class="fa fa-users text-aqua"></i> 
-                        Students
+                <a href="/class-records/teacher/{{Auth()->user()->id}}">
+                    <span><i class="fa fa-users text-info"></i> 
+                        Class Records
                     </span>
                 </a>
             </li>
             <li>
-                <a href="/class-records/teacher/{{Auth()->user()->id}}">
-                    <span><i class="fa fa-users text-info"></i> 
-                        Class Records
+                <a href="/students">
+                    <span><i class="fa fa-users text-aqua"></i> 
+                        Students
                     </span>
                 </a>
             </li>            
