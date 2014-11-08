@@ -62,6 +62,23 @@
             </div>
         </div>
 
+        <div class="col-lg-4">
+
+            <div class="info-box bg-fuchsia">
+                <span class="info-box-icon"><i class="fa fa-user"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">All Users</span>
+                    <span class="progress-description">                      
+                        (Admins, Teachers, Viewers)
+                        <ul class="list-group">
+                            <li><a href="/users" style="color: white">Click here to view</a></li>
+                        </ul>
+                    </span>
+                </div><!-- /.info-box-content -->
+
+            </div>
+        </div>
+
     </div>
 
 </section><!-- /.content -->

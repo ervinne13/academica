@@ -11,7 +11,7 @@ class GradedItem extends Model {
     ];
 
     public function scopeActiveOfStudentInOpenYear($query, $studentId) {
-        return $query                        
+        return $query
                         ->leftJoin('class_graded_items', 'graded_items.id', '=', 'graded_item_id')
                         ->leftJoin('classes', 'classes.id', '=', 'class_id')
                         ->leftJoin('grading_years', 'grading_years.id', '=', 'grading_year_id')

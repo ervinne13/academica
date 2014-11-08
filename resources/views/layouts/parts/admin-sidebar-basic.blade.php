@@ -27,6 +27,13 @@
                 </a>
             </li>
             <li>
+                <a href="/sections">
+                    <span><i class="fa fa-cubes text-info"></i> 
+                        Sections
+                    </span>
+                </a>
+            </li>
+            <li>
                 <a href="/teachers">
                     <span><i class="fa fa-users text-blue"></i> 
                         Teachers
@@ -39,22 +46,42 @@
                         Students
                     </span>
                 </a>
-            </li>
+            </li>            
+            <!--            <li class="header"></li>
+                        <li>
+                            <a href="/change-admin-view/advanced">
+                                <span>
+                                    Advanced View
+                                </span>
+                            </a>
+                        </li>-->
+
+            <li class="header">Graded Items</li>
             <li>
-                <a href="/sections">
-                    <span><i class="fa fa-cubes text-info"></i> 
-                        Sections
+                <a href="/graded-items/create">
+                    <span><i class="fa fa-plus text-red"></i> 
+                        Create Graded Item
                     </span>
                 </a>
             </li>
-<!--            <li class="header"></li>
             <li>
-                <a href="/change-admin-view/advanced">
-                    <span>
-                        Advanced View
+                <a href="/graded-items">
+                    <span><i class="fa fa-book text-red"></i> 
+                        Graded Items
                     </span>
                 </a>
-            </li>-->
+            </li>
+
+            @foreach($gradedItemTypes AS $gradedItemType)
+            <li>
+                <a href="/graded-items/type/{{$gradedItemType->id}}">
+                    <span><i class="fa fa-book text-red"></i> 
+                        {{$gradedItemType->name}}
+                    </span>
+                </a>
+            </li>
+            @endforeach
+
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

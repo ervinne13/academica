@@ -20,13 +20,13 @@
                     </span>
                 </a>
             </li>
-<!--            <li>
-                <a href="/enrollment">
-                    <span><i class="fa fa-plus text-blue"></i> 
-                        Enroll Students                        
-                    </span>
-                </a>
-            </li>-->
+            <!--            <li>
+                            <a href="/enrollment">
+                                <span><i class="fa fa-plus text-blue"></i> 
+                                    Enroll Students                        
+                                </span>
+                            </a>
+                        </li>-->
             <li>
                 <a href="/students">
                     <span><i class="fa fa-users text-aqua"></i> 
@@ -40,32 +40,7 @@
                         Class Records
                     </span>
                 </a>
-            </li>
-            <li class="header">Graded Items</li>
-            <li>
-                <a href="/graded-items/create">
-                    <span><i class="fa fa-plus text-red"></i> 
-                        Create Graded Item
-                    </span>
-                </a>
-            </li>
-            <li>
-                <a href="/graded-items">
-                    <span><i class="fa fa-book text-red"></i> 
-                        Graded Items
-                    </span>
-                </a>
-            </li>
-
-            @foreach($gradedItemTypes AS $gradedItemType)
-            <li>
-                <a href="/graded-items/type/{{$gradedItemType->id}}">
-                    <span><i class="fa fa-book text-red"></i> 
-                        {{$gradedItemType->name}}
-                    </span>
-                </a>
-            </li>
-            @endforeach
+            </li>            
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

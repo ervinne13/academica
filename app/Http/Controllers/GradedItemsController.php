@@ -26,6 +26,13 @@ class GradedItemsController extends Controller {
         return view('pages.graded-items.index', $viewData);
     }
 
+    public function get(Request $request) {
+        return GradedItem::ClassWithHPS($request->classId)
+                        ->period($request->periodId)
+                        ->with('gradedItemType')
+                        ->get();
+    }
+
     public function typeIndex($gradedItemTypeId) {
         $viewData                     = $this->getDefaultViewData();
         $viewData["gradedItemTypeId"] = $gradedItemTypeId;

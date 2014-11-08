@@ -20,7 +20,7 @@ class UsersController extends Controller {
      * @return Response
      */
     public function index() {
-        return view('pages.users.index');
+        return view('pages.users.index', $this->getDefaultViewData());
     }
 
     public function datatable() {

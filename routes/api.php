@@ -22,6 +22,7 @@ Route::get('/subjects/{subjectId}/graded-items', 'GradedItemsController@getBySub
 Route::get('/students/search', 'StudentsController@search');
 
 Route::get('teacher/{teacherId}/classes', 'TeacherClassesController@listJSON');
+Route::get('teacher/{teacherId}/classes/{levelId}', 'TeacherClassesController@levelListJSON');
 
 Route::get('class/{classId}/students', 'ClassStudentsController@index');
 Route::delete('class/{classId}/students/{studentId}', 'ClassStudentsController@destroy');
@@ -33,6 +34,8 @@ Route::get('/class/{classId}/graded-items', 'ClassesController@getGradedItems');
 Route::get('sections/{sectionId}/class', 'SectionsController@classes');
 Route::post('sections/{sectionId}/class/create', 'SectionsController@storeClass');
 Route::delete('sections/{sectionId}/class/{classId}', 'SectionsController@destroyClass');
+
+Route::get('graded-items', 'GradedItemsController@get');
 
 // For testing
 Route::get('/students/{studentId}/grades', 'StudentsController@getGrades');

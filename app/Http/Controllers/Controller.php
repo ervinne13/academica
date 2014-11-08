@@ -17,11 +17,8 @@ class Controller extends BaseController {
         ValidatesRequests;
 
     protected function getDefaultViewData() {
-        $viewData = [];
-
-        if (Auth::check() && Auth::user()->role_name == User::ROLE_TEACHER) {
-            $viewData["gradedItemTypes"] = GradedItemType::all();
-        }
+        $viewData                    = [];
+        $viewData["gradedItemTypes"] = GradedItemType::all();
 
         return $viewData;
     }

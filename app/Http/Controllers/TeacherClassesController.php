@@ -45,6 +45,17 @@ class TeacherClassesController extends Controller {
                         ->get();
     }
 
+    public function levelListJSON($teacherId, $levelId) {
+        $teacher = Teacher::find($teacherId);
+        return $teacher
+                        ->classes()
+                        ->where('level_id', $levelId)
+                        ->with('gradingYear')
+                        ->with('subject')
+                        ->with('level')
+                        ->get();
+    }
+
     public function datatable($teacherId) {
         $teacher = Teacher::find($teacherId);
         if ($teacher) {
