@@ -18,7 +18,7 @@ class SubjectsController extends Controller {
      * @return Response
      */
     public function index() {
-        return view('pages.subjects.index');
+        return view('pages.subjects.index', $this->getDefaultViewData());
     }
 
     public function datatable() {

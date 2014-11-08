@@ -94,6 +94,14 @@ class SchoolClass extends BaseModel {
                         ->where('section_classes.section_id', $sectionId);
     }
 
+    public function scopeLevel($query, $levelId) {
+        return $query->where('level_id', $levelId);
+    }
+
+    public function scopeSubject($query, $subjectId) {
+        return $query->where('subject_id', $subjectId);
+    }
+
     public function scopeSelectClassOnly($query) {
         return $query->select('classes.*');
     }

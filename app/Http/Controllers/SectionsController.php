@@ -22,7 +22,7 @@ class SectionsController extends Controller {
      */
     public function index() {
 
-        return view('pages.sections.index');
+        return view('pages.sections.index', $this->getDefaultViewData());
     }
 
     public function datatable() {
