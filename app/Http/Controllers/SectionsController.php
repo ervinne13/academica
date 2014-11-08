@@ -36,12 +36,14 @@ class SectionsController extends Controller {
      */
     public function create() {
 
-        $section = new Section();
-        $mode    = "ADD";
-        $levels  = Level::all();
-        $classes = SchoolClass::all();
+        $viewData = $this->getDefaultViewData();
 
-        return view('pages.sections.form', compact(['section', 'mode', 'levels', 'classes']));
+        $viewData["section"] = new Section();
+        $viewData["mode"]    = "ADD";
+        $viewData["levels"]  = Level::all();
+        $viewData["classes"] = SchoolClass::all();
+
+        return view('pages.sections.form', $viewData);
     }
 
     /**
@@ -78,12 +80,14 @@ class SectionsController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        $section           = Section::find($id);
-        $mode              = "EDIT";
-        $levels            = Level::all();
-        $selectableClasses = SchoolClass::all();
+        $viewData = $this->getDefaultViewData();
 
-        return view('pages.sections.form', compact(['section', 'mode', 'levels', 'selectableClasses', 'classes']));
+        $viewData["section"] = Section::find($id);
+        $viewData["mode"]    = "EDIT";
+        $viewData["levels"]  = Level::all();
+        $viewData["classes"] = SchoolClass::all();
+
+        return view('pages.sections.form', $viewData);
     }
 
     /**
