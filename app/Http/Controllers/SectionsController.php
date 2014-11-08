@@ -85,7 +85,7 @@ class SectionsController extends Controller {
         $viewData["section"] = Section::find($id);
         $viewData["mode"]    = "EDIT";
         $viewData["levels"]  = Level::all();
-        $viewData["classes"] = SchoolClass::all();
+        $viewData["selectableClasses"] = SchoolClass::all();
 
         return view('pages.sections.form', $viewData);
     }
