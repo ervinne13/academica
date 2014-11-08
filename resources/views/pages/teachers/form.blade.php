@@ -41,7 +41,7 @@ if ($mode == "VIEW") {
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Section
+        Teacher
         <small>
             {{ ($mode == "ADD" ? "Create New" : "Update") }}
         </small>       
