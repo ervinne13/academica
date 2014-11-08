@@ -11,14 +11,7 @@
                         Dashboard
                     </span>
                 </a>
-            </li>           
-            <li>
-                <a href="/subjects">
-                    <span><i class="fa fa-book text-purple"></i> 
-                        Subjects
-                    </span>
-                </a>
-            </li>            
+            </li>                                 
             <li>
                 <a href="/teachers">
                     <span><i class="fa fa-users text-blue"></i> 
@@ -27,15 +20,22 @@
                 </a>
             </li>
             <li>
+                <a href="/subjects">
+                    <span style="margin-left: 24px"><i class="fa fa-book text-purple"></i> 
+                        Subjects
+                    </span>
+                </a>
+            </li> 
+            <li>
                 <a href="/classes">
-                    <span><i class="fa fa-clock-o text-blue"></i> 
+                    <span style="margin-left: 24px"><i class="fa fa-clock-o text-blue"></i> 
                         Classes
                     </span>
                 </a>
             </li>
             <li>
                 <a href="/sections">
-                    <span><i class="fa fa-cubes text-info"></i> 
+                    <span style="margin-left: 24px"><i class="fa fa-cubes text-info"></i> 
                         Sections
                     </span>
                 </a>
