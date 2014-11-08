@@ -14,6 +14,7 @@ class CreateDefaultGradingYears extends Migration {
     public function up() {
         $pastYear    = new GradingYear();
         $currentYear = new GradingYear();
+        $nextYear    = new GradingYear();
 
         $pastYear->is_open                    = 0;
         $pastYear->name                       = "Grading Year 2015";
@@ -32,6 +33,7 @@ class CreateDefaultGradingYears extends Migration {
 
         $pastYear->save();
         $currentYear->save();
+        $nextYear->save();
     }
 
     /**
