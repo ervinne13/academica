@@ -37,7 +37,7 @@
                                             </a>
                                         </th>                                        
                                         <th>Active</th>
-                                        <th>Default</th>
+                                        <th>Applies To Grades</th>
                                         <th>Name</th>
                                         <th>Short Name</th>
                                     </tr>

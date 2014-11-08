@@ -25,24 +25,22 @@ class LevelSubjectsSeeder extends Seeder {
         foreach ($levels AS $level) {
             foreach ($subjects AS $subject) {
 
-                if ($subject->short_name == "Mother Tounge" && $level->id > 3) {
-                    //  mother tounge is for grades 1 - 3
-                    continue;
-                }
+                $include = //  mother tounge is for grades 1 - 3
+                        !(($subject->short_name == "Mother Tounge" && $level->id > 3) ||
+                        //  EPP is for grades 4 - 6
+                        ($subject->short_name == "EPP" && ($level->id < 4 || $level->id > 6)));
 
-                if ($subject->short_name == "EPP" && $level->id < 4 && $level->id > 6) {
-                    //  EPP is for grades 4 - 6
-                    continue;
-                }
 
-                array_push($entries, [
-                    "level_id"   => $level->id,
-                    "subject_id" => $subject->id
-                ]);
+                if ($include) {
+                    array_push($entries, [
+                        "level_id"   => $level->id,
+                        "subject_id" => $subject->id
+                    ]);
+                }
             }
         }
 
-        DB::table('level_subjects', $entries);
+        DB::table('level_subjects')->insert($entries);
     }
 
 }

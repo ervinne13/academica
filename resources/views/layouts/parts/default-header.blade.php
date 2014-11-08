@@ -1,7 +1,10 @@
 <header class="main-header">
 
     <!-- Logo -->
-    <a href="javascript:void(0)" class="logo">{!!Config::get('app.name')!!}</a>
+    <a href="javascript:void(0)" class="logo">
+        <img width="32" src="/static-img/SFACS-logo.png" class="pull-left" style="margin-top: 8px; margin-right: 12px;" > 
+        <span class="pull-left">{!!Config::get('app.name')!!}</span>
+    </a>
 
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation">

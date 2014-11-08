@@ -54,4 +54,12 @@ class Subject extends BaseModel {
         return $subjects;
     }
 
+    public function levels() {
+        return $this->manyThroughMany(Level::class, LevelSubject::class, 'id', 'subject_id', 'level_id');
+    }
+
+    public function levelSubjects() {
+        return $this->hasMany(LevelSubject::class);
+    }
+
 }

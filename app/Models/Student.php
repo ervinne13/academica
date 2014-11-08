@@ -45,6 +45,32 @@ class Student extends Model {
         return $result->match_count;
     }
 
+    public function enroll($classIdList) {
+        try {
+
+            DB::beginTransaction();
+
+            //  clear enrollment data
+            DB::table("student_classes")->where('student_id', $this->id)->delete();
+
+            $records = [];
+
+            foreach ($classIdList AS $classId) {
+                array_push($records, [
+                    "student_id" => $this->id,
+                    "class_id"   => $classId
+                ]);
+            }
+
+            DB::table("student_classes")->insert($records);
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
     // <editor-fold defaultstate="collapsed" desc="Scopes">
 
     public function scopeDatatable($query) {

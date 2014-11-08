@@ -22,7 +22,7 @@ class SubjectsController extends Controller {
     }
 
     public function datatable() {
-        return Datatables::of(Subject::query())->make(true);
+        return Datatables::of(Subject::with('levelSubjects'))->make(true);
     }
 
     /**

@@ -13,7 +13,7 @@
                 </a>
             </li>
             <li>
-                <a href="/enrollment-wizard">
+                <a href="/enroll-by-student">
                     <span><i class="fa fa-plus text-fuchsia"></i> 
                         Enroll Student
                     </span>
@@ -40,14 +40,21 @@
                     </span>
                 </a>
             </li>
-            <li class="header"></li>
+            <li>
+                <a href="/sections">
+                    <span><i class="fa fa-cubes text-info"></i> 
+                        Sections
+                    </span>
+                </a>
+            </li>
+<!--            <li class="header"></li>
             <li>
                 <a href="/change-admin-view/advanced">
                     <span>
                         Advanced View
                     </span>
                 </a>
-            </li>
+            </li>-->
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\SchoolClass;
+use App\Models\Section;
+use App\Models\Student;
 use App\Models\Teacher;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use function response;
 use function view;
 
 class EnrollmentController extends Controller {
@@ -36,6 +40,21 @@ class EnrollmentController extends Controller {
         return view('pages.enrollment.index', $viewData);
     }
 
+    public function enrollByStudentView() {
+
+        $viewData = $this->getDefaultViewData();
+
+        $viewData["sections"] = Section::with('level')->with('classes')->get();
+
+        return view('pages.enrollment.enroll-by-student', $viewData);
+    }
+
+    public function enrollByStudent(Request $request) {
+        $student = Student::find($request->studentId);
+        $student->enroll($request->classes);
+        return 'OK';
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -58,7 +77,7 @@ class EnrollmentController extends Controller {
             try {
                 $class->enroll($request->student_id);
                 return "OK";
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 return response($e->getMessage(), 500);
             }
         } else {

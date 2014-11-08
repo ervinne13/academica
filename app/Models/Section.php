@@ -20,7 +20,11 @@ class Section extends Model {
 
     public function level() {
         return $this->belongsTo(Level::class);
-    }       
+    }
+
+    public function classes() {
+        return $this->belongsToMany(SchoolClass::class, 'section_classes', 'section_id', 'class_id');
+    }
 
     // </editor-fold>
 }

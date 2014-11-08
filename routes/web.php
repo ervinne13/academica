@@ -28,6 +28,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('grading-years/datatable', 'GradingYearsController@datatable');
     Route::resource('grading-years', 'GradingYearsController');
 
+    Route::get('enroll-by-student', 'EnrollmentController@enrollByStudentView');
+    Route::post('/enrollment/enroll-by-student', 'EnrollmentController@enrollByStudent');
     Route::resource('enrollment', 'EnrollmentController');
 
     Route::get('period/{periodId}/class/{subjectId}/class-record/generate', 'ClassRecordsController@generate');

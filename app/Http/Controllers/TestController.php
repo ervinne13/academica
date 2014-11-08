@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Academica\Grading\Transmuter;
 use Academica\ReportCardFormatter;
-use Academica\SectionStudentRankProvider;
 use Academica\StudentGradesProvider;
 use App\Models\ClassGradedItem;
 use App\Models\GradingPeriod;
@@ -12,38 +11,15 @@ use App\Models\GradingYear;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\Transmutation;
-use SebastianBergmann\Comparator\Factory;
 use function response;
 
 class TestController extends Controller {
 
     public function test() {
-
-        $transmutation = Transmutation::all();
-        $transmuter    = new Transmuter($transmutation);
-
-        $studentRecord = new StudentGradesProvider(Student::find(101));
-        $studentRecord->setTransmuter($transmuter);
-
-        $grades    = $studentRecord->getRecordsByPeriod();
-//
-//        return $grades;
-        $formatter = new ReportCardFormatter();
-        return $formatter->format($grades, 101, $transmuter);
-//        $query = ClassGradedItem::EnrolledByStudent(64)->groupByFix();
-//
-//        $gradedItems      = $query->get();
-//        $takenGradedItems = $query->gradedItemTaken()->get();
-//
-//        $gradedItemCount       = count($gradedItems);
-//        $takenGradedItemsCount = count($takenGradedItems);
-//
-//        return "{$takenGradedItemsCount} / {$gradedItemCount}";
-//        $monthlyGrades = StudentGrade::Monthly()->StudentId(101)->get();
-//        return $monthlyGrades;
-
-        $studentRanking = (new SectionStudentRankProvider())->getStudentsRanked(1);
-        return $studentRanking;
+        
+        $subjects = Subject::with('levelSubjects')->get();
+        return $subjects;
+        
     }
 
     public function pdf() {

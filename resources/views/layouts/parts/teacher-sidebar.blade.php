@@ -16,17 +16,17 @@
             <li>
                 <a href="/teacher/{{Auth()->user()->id}}/classes">
                     <span><i class="fa fa-graduation-cap text-fuchsia"></i> 
-                        My Classes
+                        Subjects / My Classes
                     </span>
                 </a>
             </li>
-            <li>
+<!--            <li>
                 <a href="/enrollment">
                     <span><i class="fa fa-plus text-blue"></i> 
-                        Enroll Students
+                        Enroll Students                        
                     </span>
                 </a>
-            </li>
+            </li>-->
             <li>
                 <a href="/students">
                     <span><i class="fa fa-users text-aqua"></i> 

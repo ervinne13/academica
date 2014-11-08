@@ -17,16 +17,16 @@
             ajax: {
                 url: "/subjects/datatable"
             },
-            order: [1, "desc"],
+            order: [3, "desc"],
             columns: [
                 {data: 'id'},
                 {data: 'is_active'},
-                {data: 'is_default'},
+                {data: 'level_subjects'},
                 {data: 'name'},
                 {data: 'short_name'}
             ],
             columnDefs: [
-                {bSearchable: false, aTargets: [0]},
+                {bSearchable: false, aTargets: [0, 2]},
                 {orderable: false, targets: [0]},
                 {
                     targets: 0,
@@ -46,8 +46,22 @@
                 },
                 {
                     targets: 2,
-                    render: function (isDefault, type, rowData, meta) {
-                        return isDefault == 1 ? "Yes" : "No";
+                    render: function (levelSubjects, type, rowData, meta) {
+                        console.log(levelSubjects);
+
+                        var displayText;
+
+                        if (levelSubjects.length > 0) {
+                            displayText = "Grades ";
+                            displayText += levelSubjects[0].level_id;
+                            displayText += " to ";
+                            displayText += levelSubjects[levelSubjects.length - 1].level_id;
+                        } else {
+                            displayText = "None";
+                        }
+
+                        return displayText;
+
                     }
                 }
             ]
