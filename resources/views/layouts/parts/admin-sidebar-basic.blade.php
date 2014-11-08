@@ -11,14 +11,7 @@
                         Dashboard
                     </span>
                 </a>
-            </li>
-            <li>
-                <a href="/enroll-by-student">
-                    <span><i class="fa fa-plus text-fuchsia"></i> 
-                        Enroll Student
-                    </span>
-                </a>
-            </li>
+            </li>           
             <li>
                 <a href="/subjects">
                     <span><i class="fa fa-book text-purple"></i> 
@@ -53,7 +46,14 @@
                         Students
                     </span>
                 </a>
-            </li>            
+            </li>   
+            <li>
+                <a href="/enroll-by-student">
+                    <span><i class="fa fa-plus text-fuchsia"></i> 
+                        Enroll Student
+                    </span>
+                </a>
+            </li>
             <!--            <li class="header"></li>
                         <li>
                             <a href="/change-admin-view/advanced">
