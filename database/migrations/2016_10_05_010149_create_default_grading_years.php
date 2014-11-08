@@ -25,6 +25,11 @@ class CreateDefaultGradingYears extends Migration {
         $currentYear->year                       = 2016;
         $currentYear->currently_active_period_id = 1;
 
+        $nextYear->is_open                    = 0;
+        $nextYear->name                       = "Grading Year 2017";
+        $nextYear->year                       = 2017;
+        $nextYear->currently_active_period_id = 1;
+
         $pastYear->save();
         $currentYear->save();
     }
