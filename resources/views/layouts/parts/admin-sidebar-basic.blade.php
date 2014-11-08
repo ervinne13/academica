@@ -18,14 +18,7 @@
                         Subjects
                     </span>
                 </a>
-            </li>
-            <li>
-                <a href="/sections">
-                    <span><i class="fa fa-cubes text-info"></i> 
-                        Sections
-                    </span>
-                </a>
-            </li>
+            </li>            
             <li>
                 <a href="/teachers">
                     <span><i class="fa fa-users text-blue"></i> 
@@ -39,7 +32,14 @@
                         Classes
                     </span>
                 </a>
-            </li>   
+            </li>
+            <li>
+                <a href="/sections">
+                    <span><i class="fa fa-cubes text-info"></i> 
+                        Sections
+                    </span>
+                </a>
+            </li>
             <li>
                 <a href="/students">
                     <span><i class="fa fa-graduation-cap text-info"></i> 
