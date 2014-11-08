@@ -41,6 +41,13 @@
                 </a>
             </li>
             <li>
+                <a href="/classes">
+                    <span><i class="fa fa-clock-o text-blue"></i> 
+                        Classes
+                    </span>
+                </a>
+            </li>   
+            <li>
                 <a href="/students">
                     <span><i class="fa fa-graduation-cap text-info"></i> 
                         Students
