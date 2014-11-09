@@ -82,10 +82,10 @@ class UsersController extends Controller {
      * @return Response
      */
     public function create() {
-        $viewData = [
-            "user" => new User(),
-            "mode" => "ADD"
-        ];
+
+        $viewData         = $this->getDefaultViewData();
+        $viewData["user"] = new User();
+        $viewData["mode"] = "ADD";
         return view('pages.users.form', $viewData);
     }
 
@@ -142,10 +142,10 @@ class UsersController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        $viewData = [
-            "user" => User::find($id),
-            "mode" => "EDIT"
-        ];
+
+        $viewData         = $this->getDefaultViewData();
+        $viewData["user"] = User::find($id);
+        $viewData["mode"] = "EDIT";
 
         if ($viewData["user"]->role_name == User::ROLE_VIEWER) {
             return view('pages.users.viewer-form', $viewData);
