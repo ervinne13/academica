@@ -27,7 +27,9 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        @if ($user->role_name == "TEACHER")
+        @if ($user->role_name == "VIEWER")
+        Parent / Viewer
+        @elseif ($user->role_name == "TEACHER")
         Teacher Account
         @else
         Administrator

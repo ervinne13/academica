@@ -45,10 +45,12 @@ class Student extends Model {
         return $result->match_count;
     }
 
-    public function enroll($classIdList) {
+    public function enroll($sectionId, $classIdList) {
         try {
 
             DB::beginTransaction();
+
+            $openGradingYear = GradingYear::Open()->first();
 
             //  clear enrollment data
             DB::table("student_classes")->where('student_id', $this->id)->delete();
@@ -63,6 +65,21 @@ class Student extends Model {
             }
 
             DB::table("student_classes")->insert($records);
+
+
+            $existing = DB::table("section_students")
+                    ->where('grading_year_id', $openGradingYear->id)
+                    ->where('student_id', $this->id)
+                    ->where('section_id', $sectionId)
+                    ->first();
+
+            if (!$existing) {
+                DB::table("section_students")->insert([
+                    "grading_year_id" => $openGradingYear->id,
+                    "student_id"      => $this->id,
+                    "section_id"      => $sectionId
+                ]);
+            }
 
             DB::commit();
         } catch (Exception $e) {

@@ -17,13 +17,13 @@
             },
             ajax: {
                 url: "/teachers/datatable"
-            },            
+            },
             columns: [
                 {data: 'user_id'},
-                {data: 'user.email', name: 'user.email'},
+                {data: 'last_name'},
                 {data: 'first_name'},
                 {data: 'middle_name'},
-                {data: 'last_name'},
+                {data: 'user.email', name: 'user.email'},
                 {data: 'birthdate'}
             ],
             columnDefs: [

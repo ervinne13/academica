@@ -91,6 +91,7 @@
 
     function enroll() {
         var studentId = $('[name=student_id]').val();
+        var sectionId = $('[name=section_id]').val();
         var classes = [];
 
         $('.class-row').each(function () {
@@ -100,6 +101,7 @@
         var url = "/enrollment/enroll-by-student";
         var data = {
             studentId: studentId,
+            sectionId: sectionId,
             classes: classes
         };
 

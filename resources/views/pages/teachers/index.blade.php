@@ -30,10 +30,10 @@
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                         </th>
-                                        <th>Email</th>                                                                                
+                                        <th>Last Name</th>                                        
                                         <th>First Name</th>                                                                                
-                                        <th>Middle Name</th>
-                                        <th>Last Name</th>
+                                        <th>Middle Name</th>                                        
+                                        <th>Email</th>
                                         <th>Birth Date</th>
                                     </tr>
                                 </thead>

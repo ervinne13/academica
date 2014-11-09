@@ -51,7 +51,7 @@ class EnrollmentController extends Controller {
 
     public function enrollByStudent(Request $request) {
         $student = Student::find($request->studentId);
-        $student->enroll($request->classes);
+        $student->enroll($request->sectionId, $request->classes);
         return 'OK';
     }
 
