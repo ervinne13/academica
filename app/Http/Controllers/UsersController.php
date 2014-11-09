@@ -86,6 +86,10 @@ class UsersController extends Controller {
         $viewData         = $this->getDefaultViewData();
         $viewData["user"] = new User();
         $viewData["mode"] = "ADD";
+        
+        //  only viewers may be created from here
+        $viewData["user"]->role_name = User::ROLE_VIEWER;
+        
         return view('pages.users.form', $viewData);
     }
 
