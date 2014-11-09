@@ -32,9 +32,7 @@
                                         </th>                                                                            
                                         <th>Last Name</th>
                                         <th>First Name</th>
-                                        <th>Section</th>                                        
-                                        <th>Contact Number 1</th>                                        
-                                        <th>Contact Number 2</th>
+                                        <th>Section</th>
                                         <th>LRN</th>
                                         <th>Student Number</th>
                                     </tr>

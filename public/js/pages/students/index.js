@@ -19,12 +19,10 @@
                 url: "/students/datatable"
             },
             columns: [
-                {data: 'id'},                
+                {data: 'id'},
                 {data: 'last_name'},
                 {data: 'first_name'},
                 {data: 'section_name', name: 'sections.name'},
-                {data: 'contact_number_1'},
-                {data: 'contact_number_2'},
                 {data: 'lrn'},
                 {data: 'student_number'}
             ],
