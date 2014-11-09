@@ -9,7 +9,7 @@
 
     function initializeTable() {
         $('#teachers-table').DataTable({
-            aaSorting: [[4, 'asc']],
+            aaSorting: [[1, 'asc']],
             processing: true,
             serverSide: true,
             search: {
