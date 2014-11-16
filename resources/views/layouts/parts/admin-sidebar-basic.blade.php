@@ -54,6 +54,13 @@
                     </span>
                 </a>
             </li>
+            <li>
+                <a href="/class-records">
+                    <span><i class="fa fa-users text-info"></i> 
+                        Class Records
+                    </span>
+                </a>
+            </li>
             <!--            <li class="header"></li>
                         <li>
                             <a href="/change-admin-view/advanced">
