@@ -37,9 +37,9 @@
                                             </a>
                                         </th>                                        
                                         <th>Active</th>
-                                        <th>Applies To Grades</th>
+                                        <!--<th>Applies To Grades</th>-->
                                         <th>Name</th>
-                                        <th>Short Name</th>
+                                        <th>Subject Code</th>
                                     </tr>
                                 </thead>
                                 <tbody></tbody>

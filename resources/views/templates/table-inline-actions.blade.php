@@ -7,8 +7,12 @@
         data-container="body" 
         data-toggle="tooltip" 
         data-placement="top" 
-        title="<%= action.displayName %>">    
+        title="<%= action.displayName %>">
+        <% if (action.icon) { %>
         <span class="fa <%= action.icon %>"></span>
+        <% } else { %>        
+        <%= action.displayName %>
+        <% } %>        
     </a>
 
     <% }); %>

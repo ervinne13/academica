@@ -39,7 +39,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Short Name</label>
+                                    <label>Subject Code</label>
                                     <input type="text" required name="short_name" class="form-control" value="{{ $subject->short_name }}">
                                 </div>
 

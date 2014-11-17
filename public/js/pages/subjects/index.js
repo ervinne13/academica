@@ -21,7 +21,7 @@
             columns: [
                 {data: 'id'},
                 {data: 'is_active'},
-                {data: 'level_subjects'},
+//                {data: 'level_subjects'},
                 {data: 'name'},
                 {data: 'short_name'}
             ],
@@ -44,26 +44,26 @@
                         return isActive == 1 ? "Active" : "Inactive";
                     }
                 },
-                {
-                    targets: 2,
-                    render: function (levelSubjects, type, rowData, meta) {
-                        console.log(levelSubjects);
-
-                        var displayText;
-
-                        if (levelSubjects.length > 0) {
-                            displayText = "Grades ";
-                            displayText += levelSubjects[0].level_id;
-                            displayText += " to ";
-                            displayText += levelSubjects[levelSubjects.length - 1].level_id;
-                        } else {
-                            displayText = "None";
-                        }
-
-                        return displayText;
-
-                    }
-                }
+//                {
+//                    targets: 2,
+//                    render: function (levelSubjects, type, rowData, meta) {
+//                        console.log(levelSubjects);
+//
+//                        var displayText;
+//
+//                        if (levelSubjects.length > 0) {
+//                            displayText = "Grades ";
+//                            displayText += levelSubjects[0].level_id;
+//                            displayText += " to ";
+//                            displayText += levelSubjects[levelSubjects.length - 1].level_id;
+//                        } else {
+//                            displayText = "None";
+//                        }
+//
+//                        return displayText;
+//
+//                    }
+//                }
             ]
         });
     }
