@@ -4,7 +4,8 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Administrator Page
+        <!--Administrator Page-->
+        Welcome Administrator
     </h1>
 </section>
 

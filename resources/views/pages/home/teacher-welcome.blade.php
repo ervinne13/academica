@@ -24,7 +24,8 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Teacher Dashboard        
+        <!--Teacher Dashboard-->        
+        Welcome Teacher {{$teacher->first_name}} {{$teacher->last_name}}
     </h1>
 </section>
 

@@ -31,7 +31,7 @@
         <nav class="navbar navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
-                    <img width="32" src="/static-img/SFACS-logo.png" class="pull-left" style="margin-top: 8px; margin-right: 12px;" > 
+                    <!--<img width="32" src="/static-img/SFACS-logo.png" class="pull-left" style="margin-top: 8px; margin-right: 12px;" >--> 
                     <a href="/" class="navbar-brand pull-left">
                         Saint Francis of Assissi
                     </a>                    
