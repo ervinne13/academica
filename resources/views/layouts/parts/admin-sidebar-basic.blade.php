@@ -34,6 +34,13 @@
                 </a>
             </li> 
             <li>
+                <a href="/classes">
+                    <span><i class="fa fa-clock-o text-blue"></i> 
+                        Classes
+                    </span>
+                </a>
+            </li>
+            <li>
                 <a href="/sections">
                     <span><i class="fa fa-cubes text-info"></i> 
                         Sections
@@ -46,14 +53,7 @@
                         Enroll Student(s)
                     </span>
                 </a>
-            </li>
-            <li>
-                <a href="/classes">
-                    <span><i class="fa fa-clock-o text-blue"></i> 
-                        Classes
-                    </span>
-                </a>
-            </li>
+            </li>            
             <li>
                 <a href="/class-records">
                     <span><i class="fa fa-users text-info"></i> 
