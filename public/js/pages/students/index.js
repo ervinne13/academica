@@ -9,7 +9,7 @@
 
     function initializeTable() {
         $('#students-table').DataTable({
-            aaSorting: [[1, 'asc']],
+            aaSorting: [[2, 'asc']],
             processing: true,
             serverSide: true,
             search: {
@@ -20,11 +20,11 @@
             },
             columns: [
                 {data: 'id'},
+                {data: 'student_number'},
                 {data: 'last_name'},
                 {data: 'first_name'},
                 {data: 'section_name', name: 'sections.name'},
-                {data: 'lrn'},
-                {data: 'student_number'}
+                {data: 'lrn'}
             ],
             columnDefs: [
                 {bSearchable: false, aTargets: [0]},

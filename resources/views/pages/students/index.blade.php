@@ -29,12 +29,12 @@
                                             <a href="/students/create">
                                                 <i class="fa fa-plus"></i>
                                             </a>
-                                        </th>                                                                            
+                                        </th>       
+                                        <th>Student Number</th>
                                         <th>Last Name</th>
                                         <th>First Name</th>
                                         <th>Section</th>
-                                        <th>LRN</th>
-                                        <th>Student Number</th>
+                                        <th>LRN</th>                                        
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
