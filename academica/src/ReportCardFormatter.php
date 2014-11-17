@@ -23,6 +23,7 @@ class ReportCardFormatter {
         "EsP",
         "TLE",
         "MAPEH",
+        "others",
         "Music",
         "Arts",
         "PE",
@@ -61,7 +62,7 @@ class ReportCardFormatter {
         foreach ($this->subjectSortOrder AS $subjectShortName) {
             //  b
             foreach ($subject AS $index => $periodSubject) {
-                if ($periodSubject->short_name == $subjectShortName) {
+                if ($periodSubject->short_name == $subjectShortName || ($subjectShortName == "others" && !in_array($periodSubject->short_name, $this->subjectSortOrder))) {
                     $subjectAssoc                 = [];
                     $subjectAssoc["id"]           = $periodSubject->id;
                     $subjectAssoc["short_name"]   = $periodSubject->short_name;

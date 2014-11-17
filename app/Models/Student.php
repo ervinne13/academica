@@ -52,14 +52,7 @@ class Student extends Model {
 
             $openGradingYear = GradingYear::Open()->first();
 
-//            $records = [];
-
             foreach ($classIdList AS $classId) {
-//                array_push($records, [
-//                    "student_id" => $this->id,
-//                    "class_id"   => $classId
-//                ]);
-
                 $existingStudentClass = DB::table("student_classes")
                         ->where('student_id', $this->id)
                         ->where('class_id', $classId)
