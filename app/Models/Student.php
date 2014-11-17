@@ -52,28 +52,34 @@ class Student extends Model {
 
             $openGradingYear = GradingYear::Open()->first();
 
-            //  clear enrollment data
-            DB::table("student_classes")->where('student_id', $this->id)->delete();
-
-            $records = [];
+//            $records = [];
 
             foreach ($classIdList AS $classId) {
-                array_push($records, [
-                    "student_id" => $this->id,
-                    "class_id"   => $classId
-                ]);
+//                array_push($records, [
+//                    "student_id" => $this->id,
+//                    "class_id"   => $classId
+//                ]);
+
+                $existingStudentClass = DB::table("student_classes")
+                        ->where('student_id', $this->id)
+                        ->where('class_id', $classId)
+                        ->first();
+
+                if (!$existingStudentClass) {
+                    DB::table("student_classes")->insert([
+                        "student_id" => $this->id,
+                        "class_id"   => $classId
+                    ]);
+                }
             }
 
-            DB::table("student_classes")->insert($records);
-
-
-            $existing = DB::table("section_students")
+            $existingSectionStudent = DB::table("section_students")
                     ->where('grading_year_id', $openGradingYear->id)
                     ->where('student_id', $this->id)
                     ->where('section_id', $sectionId)
                     ->first();
 
-            if (!$existing) {
+            if (!$existingSectionStudent) {
                 DB::table("section_students")->insert([
                     "grading_year_id" => $openGradingYear->id,
                     "student_id"      => $this->id,

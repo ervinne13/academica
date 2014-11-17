@@ -4,7 +4,9 @@ var form_utilities = {
     moduleUrl: "/",
     updateObjectId: 0,
     validate: null,
-    postValidate: function () {},
+    postValidate: function () {
+        return true;
+    },
     errorHandler: null,
     successHandler: null
 };
@@ -41,10 +43,11 @@ form_utilities.initializeDefaultProcessing = function ($form) {
         var valid = true;
         if (form_utilities.validate) {
             valid = $form.valid();
-            console.log(valid);
             if (form_utilities.postValidate) {
                 valid = form_utilities.postValidate();
             }
+
+            console.log(valid);
         }
 
         if (valid) {
