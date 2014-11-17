@@ -21,10 +21,10 @@
             columns: [
                 {data: 'id'},
                 {data: 'student_number'},
+                {data: 'lrn'},
                 {data: 'last_name'},
                 {data: 'first_name'},
-                {data: 'section_name', name: 'sections.name'},
-                {data: 'lrn'}
+                {data: 'section_name', name: 'sections.name'}
             ],
             columnDefs: [
                 {bSearchable: false, aTargets: [0]},

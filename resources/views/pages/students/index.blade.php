@@ -31,10 +31,10 @@
                                             </a>
                                         </th>       
                                         <th>Student Number</th>
+                                        <th>LRN</th>
                                         <th>Last Name</th>
                                         <th>First Name</th>
-                                        <th>Section</th>
-                                        <th>LRN</th>                                        
+                                        <th>Section</th>                                        
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
