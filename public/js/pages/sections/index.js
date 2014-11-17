@@ -17,7 +17,7 @@
             ajax: {
                 url: "/sections/datatable"
             },
-            order: [1, "desc"],
+            order: [0, "asc"],
             columns: [
                 {data: 'section_id'},
                 {data: 'level_name', name: 'levels.name'},
