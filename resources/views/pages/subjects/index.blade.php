@@ -28,7 +28,7 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <table id="subjects-table" class="table table-striped">
+                            <table id="subjects-table" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th>

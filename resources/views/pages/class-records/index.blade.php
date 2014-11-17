@@ -37,7 +37,7 @@ var teacherId = '{{$teacherId}}';
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <table id="datatable" class="table table-striped">
+                            <table id="datatable" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th>

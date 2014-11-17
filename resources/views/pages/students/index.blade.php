@@ -22,7 +22,7 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <table id="students-table" class="table table-striped">
+                            <table id="students-table" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
                                         <th>
