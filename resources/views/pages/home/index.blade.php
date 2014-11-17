@@ -51,10 +51,10 @@
             <div class="info-box bg-blue">
                 <span class="info-box-icon"><i class="fa fa-binoculars"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Viewers / Parents</span>
+                    <span class="info-box-text">Register User</span>
                     <span class="progress-description">
                         <ul class="list-group">                            
-                            <li><a href="/users/create" style="color: white">Click here to add new</a></li>
+                            <li><a href="/users/create" style="color: white">Click here to register</a></li>
                         </ul>
                     </span>
                 </div><!-- /.info-box-content -->

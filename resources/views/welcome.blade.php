@@ -86,8 +86,10 @@
 
                 <a href="http://www.stfrancis.edu.ph/" class="text-red">Saint Francis of Assisi Website</a>
 
-                <a href="{{ url('/about') }}">About Us</a>
-                <a href="{{ url('/contact') }}">Contact Us</a>
+                <a href="http://www.stfrancis.edu.ph/history.html">About Us</a>
+                <a href="https://www.facebook.com/SFACOfficial"><i class="fa fa-facebook fa-2x text-blue"></i></a>
+                <a href="https://twitter.com/mysfac"><i class="fa fa-twitter fa-2x text-info"></i></a>
+                <a href="https://plus.google.com/104422121833796332859"><i class="fa fa-google-plus fa-2x text-red"></i></a>
             </div>            
 
             <div class="content">                
