@@ -62,7 +62,7 @@ use AuthenticatesUsers;
         return redirect()->back()
                         ->withInput($request->only($this->username(), 'remember'))
                         ->withErrors([
-                            $this->username() => "Invalid email and/or password, or your account is inactive. Please contact the administrator / registrar staff.",
+                            "password" => "Invalid email and/or password, or your account is inactive. Please contact the administrator / registrar staff.",
         ]);
     }
 

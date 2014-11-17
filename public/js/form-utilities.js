@@ -41,7 +41,10 @@ form_utilities.initializeDefaultProcessing = function ($form) {
         var valid = true;
         if (form_utilities.validate) {
             valid = $form.valid();
-            valid = form_utilities.postValidate();
+            console.log(valid);
+            if (form_utilities.postValidate) {
+                valid = form_utilities.postValidate();
+            }
         }
 
         if (valid) {
@@ -85,6 +88,8 @@ form_utilities.initializeDefaultProcessing = function ($form) {
                     console.error(e);
                 }
             }
+        } else {
+            console.warn("Validation errors");
         }
 
     });

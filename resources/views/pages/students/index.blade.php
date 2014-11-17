@@ -34,7 +34,7 @@
                                         <th>LRN</th>
                                         <th>Last Name</th>
                                         <th>First Name</th>
-                                        <th>Section</th>                                        
+                                        <th>Level / Section</th>                                        
                                     </tr>
                                 </thead>
                                 <tbody></tbody>
