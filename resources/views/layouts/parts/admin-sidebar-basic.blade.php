@@ -50,10 +50,17 @@
             <li>
                 <a href="/enroll-by-student">
                     <span><i class="fa fa-plus text-fuchsia"></i> 
-                        Enroll Student(s)
+                        Enroll Student to Section
                     </span>
                 </a>
-            </li>            
+            </li>
+            <li>
+                <a href="/enrollment">
+                    <span><i class="fa fa-plus text-fuchsia"></i> 
+                        Enroll Student to Class
+                    </span>
+                </a>
+            </li>
             <li>
                 <a href="/class-records">
                     <span><i class="fa fa-users text-info"></i> 
