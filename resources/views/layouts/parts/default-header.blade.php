@@ -38,7 +38,7 @@
                         </li>                      
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            <a href="/logout" class="btn btn-default btn-flat">Sign out</a>
+                            <a href="/logout" class="btn btn-default btn-flat btn-primary" style="color: white;">Sign out</a>
                         </li>
                     </ul>
                 </li>
