@@ -70,8 +70,7 @@ class ReportCardFormatter {
                     $subjectAssoc["teacher_name"] = $periodSubject->teacher_name;
                     $subjectAssoc["name"]         = $periodSubject->name;
                     $subjectAssoc["grades"]       = [];
-
-                    //  c
+                    
                     $avgInitialGrade = 0;
                     foreach ($grades AS $periodId => $periodGrades) {
                         if ($gradingYear->currently_active_period_id >= $periodId) {

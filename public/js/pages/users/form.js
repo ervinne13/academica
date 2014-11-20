@@ -34,8 +34,10 @@
                 form_utilities.setFieldError('password_repeat', 'Passwords do not match');
 
                 swal("Error", "Passwords must match", "error");
+                return false;
             }
 
+            return true;
         };
     }
 
