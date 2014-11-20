@@ -80,7 +80,7 @@
                 <td id="gi-info-name"></td>
             </tr>
             <tr>
-                <th class="text-right">Short Name</th>
+                <th class="text-right">Code</th>
                 <td id="gi-info-short-name"></td>
             </tr>
             <tr>
