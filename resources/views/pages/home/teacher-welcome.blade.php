@@ -38,12 +38,12 @@
                 <ul class="nav nav-tabs">                    
                     <li class="active">
                         <a href="#tab-general" data-toggle="tab">
-                            <label class="tab-label text-info">Grading By Graded Item (Web)</label>
+                            <label class="tab-label text-info">Encode Grades</label>
                         </a>
                     </li>
                     <li>
                         <a href="#tab-insights" data-toggle="tab">
-                            <label class="tab-label text-info">Grading By Excel</label>
+                            <label class="tab-label text-info">Encode Grades Using Excel</label>
                         </a>
                     </li>
                 </ul>
