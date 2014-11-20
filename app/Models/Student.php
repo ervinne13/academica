@@ -66,19 +66,24 @@ class Student extends Model {
                 }
             }
 
-            $existingSectionStudent = DB::table("section_students")
+//            $existingSectionStudent = DB::table("section_students")
+//                    ->where('grading_year_id', $openGradingYear->id)
+//                    ->where('student_id', $this->id)
+//                    ->where('section_id', $sectionId)
+//                    ->first();
+
+            DB::table("section_students")
                     ->where('grading_year_id', $openGradingYear->id)
                     ->where('student_id', $this->id)
-                    ->where('section_id', $sectionId)
-                    ->first();
+                    ->delete();
 
-            if (!$existingSectionStudent) {
-                DB::table("section_students")->insert([
-                    "grading_year_id" => $openGradingYear->id,
-                    "student_id"      => $this->id,
-                    "section_id"      => $sectionId
-                ]);
-            }
+//            if (!$existingSectionStudent) { //  if already enrolled, don't bother                
+            DB::table("section_students")->insert([
+                "grading_year_id" => $openGradingYear->id,
+                "student_id"      => $this->id,
+                "section_id"      => $sectionId
+            ]);
+//            }
 
             DB::commit();
         } catch (Exception $e) {
