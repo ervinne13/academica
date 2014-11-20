@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder {
         $this->call(ClassGradedItemSeeder::class);
         $this->call(TransmutationTableSeeder::class);
         $this->call(LevelSubjectsSeeder::class);
-        $this->call(SectionClassesSeeder::class);
+//        $this->call(SectionClassesSeeder::class);
     }
 
 }

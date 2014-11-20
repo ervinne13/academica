@@ -32,7 +32,7 @@ class SectionClassesSeeder extends Seeder {
             }
         }
 
-        DB::table('level_subjects')->insert($entries);
+//        DB::table('level_subjects')->insert($entries);
     }
 
 }
