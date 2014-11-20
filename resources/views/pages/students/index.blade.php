@@ -30,7 +30,7 @@
                                                 <i class="fa fa-plus"></i>
                                             </a>
                                         </th>       
-                                        <th>Student Number</th>
+                                        <!--<th>Student Number</th>-->
                                         <th>LRN</th>
                                         <th>Last Name</th>
                                         <th>First Name</th>

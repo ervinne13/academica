@@ -20,7 +20,7 @@
             },
             columns: [
                 {data: 'id'},
-                {data: 'student_number'},
+//                {data: 'student_number'},
                 {data: 'lrn'},
                 {data: 'last_name'},
                 {data: 'first_name'},

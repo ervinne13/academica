@@ -63,6 +63,7 @@
         $('#gi-info-hps').html(gradedItem.highest_possible_score);
 
         $('#student-grades-grade-col-header').html("Grade (HPS = " + gradedItem.highest_possible_score + ")");
+        $('#student-grades-grade-col-header').attr("data-hps", gradedItem.highest_possible_score);
 
     }
 
@@ -159,24 +160,39 @@
             records: []
         };
 
+        var hps = $('#student-grades-grade-col-header').data('hps');
+        var valid = true;
+
         $('.student-row').each(function () {
+            var fieldName = $(this).find('.score-field').attr('name');
             var record = {
                 student_id: $(this).data('student-id'),
                 score: $(this).find('.score-field').val()
             };
 
+            form_utilities.clearError(fieldName);
+
+            if (record.score > hps) {
+                form_utilities.setFieldError(fieldName, "The score should not exceed the highest possible score");
+                valid = false;
+            }
+
             data.records.push(record);
         });
 
-        data.records = JSON.stringify(data.records);
+        if (valid) {
+            data.records = JSON.stringify(data.records);
 
-        $.post(url, data, function (response) {
-            utilities.setBoxLoading($('#students-container'), false);
-            console.log(response);
-            swal("Success", "Grades Saved!", "success");
-        });
+            $.post(url, data, function (response) {
+                utilities.setBoxLoading($('#students-container'), false);
+                console.log(response);
+                swal("Success", "Grades Saved!", "success");
+            });
 
-        utilities.setBoxLoading($('#students-container'), true);
+            utilities.setBoxLoading($('#students-container'), true);
+        } else {
+            swal("Error", "Please correct your input errors before saving, thank you", "warning");
+        }
 
     }
 

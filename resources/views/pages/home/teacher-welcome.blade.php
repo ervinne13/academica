@@ -16,6 +16,7 @@
     var teacherId = '{{$teacher->user_id}}';
 </script>
 
+<script src="{{ asset ("/js/form-utilities.js") }}" type="text/javascript"></script>
 <script src="{{ asset ("/js/pages/class-records/form.js") }}" type="text/javascript"></script>
 <script src="{{ asset ("/js/pages/home/teacher-grading.js") }}" type="text/javascript"></script>
 @endsection

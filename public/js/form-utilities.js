@@ -26,11 +26,15 @@ form_utilities.formToJSON = function ($form) {
     return json;
 };
 
+form_utilities.clearError = function (fieldName) {
+    $('#' + fieldName + '-error').remove();
+};
+
 form_utilities.setFieldError = function (fieldName, errorMessage) {
     var errorLabelHtml = '<label id="' + fieldName + '-error" class="error" for="' + fieldName + '">' + errorMessage + '</label>';
 
     //  clear previous error
-    $('#' + fieldName + '-error').remove();
+    form_utilities.clearError(fieldName);
 
     //  insert new error
     $('[name=' + fieldName + ']').parent().append(errorLabelHtml);

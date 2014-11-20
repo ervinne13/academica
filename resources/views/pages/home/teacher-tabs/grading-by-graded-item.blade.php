@@ -2,7 +2,7 @@
     <tr class="student-row" data-student-id="<%= student_id %>">        
         <td><%= student_name %></td> 
         <td>
-            <input type="text" class="form-control score-field" value="<%= score %>">
+            <input type="text" class="form-control score-field" name="student_<%= student_id %>_score" value="<%= score %>">
         </td>
     </tr>
 </script>
