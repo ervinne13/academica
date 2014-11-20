@@ -94,6 +94,7 @@ class Student extends Model {
                         ->select(['students.*', 'sections.name AS section_name'])
                         ->leftJoin('section_students', 'student_id', '=', 'students.id')
                         ->leftJoin('sections', 'section_id', '=', 'sections.id')
+                        ->groupBy('students.id')
         ;
     }
 
