@@ -36,7 +36,7 @@ var gradedItemTypeId = '{{$gradedItemTypeId}}';
                                             </a>
                                         </th>
                                         <th>Name</th>
-                                        <th>Short Name</th>
+                                        <th>Code</th>
                                         <th>Subject</th>
                                         <th>Type</th>
                                         <th>Grading Period</th>

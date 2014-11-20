@@ -34,7 +34,7 @@
                                     <input type="text" required name="name" class="form-control" value="{{ $gradedItem->name }}" placeholder="Ex. Quiz 1 (Q1)">
                                 </div>
                                 <div class="form-group">
-                                    <label>Code / Short Name</label>
+                                    <label>Code</label>
                                     <label><small>Code or short name will be used to display the graded item in the class record so use something that's about 2 characters</small></label>
                                     <input type="text" name="short_name" class="form-control" value="{{ $gradedItem->short_name }}" placeholder="Ex. (Q1)">
                                 </div>
