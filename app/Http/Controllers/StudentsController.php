@@ -156,10 +156,14 @@ class StudentsController extends Controller {
         $viewData["monthlyGrades"] = $monthlyGrades;
 
         $viewData["studentsRanked"] = [];
-        $firstClass                 = SchoolClass::ByStudent($id)->first();
+        $classes                    = SchoolClass::ByStudent($id)->get();
 
-        if ($firstClass) {
-            $section = SectionClass::ClassId($firstClass->id)->first();
+        if ($classes) {
+            $classIdList = [];
+            foreach ($classes AS $class) {
+                array_push($classIdList, $class->id);
+            }
+            $section = SectionClass::InClassId($classIdList)->first();
 
             if ($section) {
                 $rankProvider               = new SectionStudentRankProvider();

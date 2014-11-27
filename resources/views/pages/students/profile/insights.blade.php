@@ -125,9 +125,9 @@
             <?php
             $medSubjects = [];
             foreach ($medGrades AS $grade) {
-                array_push($lowSubjects, $grade["short_name"]);
+                array_push($medSubjects, $grade["short_name"]);
             }
-            ?>
+            ?>            
             <p class="text-bold">Your performance in {{join(', ', $medSubjects)}} needs more work, but well done on passing it.</p>
             @endif
 

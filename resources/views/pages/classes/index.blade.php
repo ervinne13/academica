@@ -35,6 +35,7 @@
                                         <th>Class Name</th>
                                         <th>Year</th>
                                         <th>Level</th>
+                                        <th>Level Id</th>
                                         <th>Subject</th>
                                         <th>Teacher</th>
                                     </tr>

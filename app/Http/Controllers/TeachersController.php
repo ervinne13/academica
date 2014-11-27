@@ -57,7 +57,7 @@ class TeachersController extends Controller {
 
             $user            = new User();
             $user->seeded    = 0;
-            $user->email     = $request->email;
+            $user->username  = $request->username;
             $user->name      = "{$request->first_name} {$request->last_name}";
             $user->role_name = User::ROLE_TEACHER;
             $user->password  = \Hash::make($request->password);
@@ -117,11 +117,14 @@ class TeachersController extends Controller {
             $teacher->fill($request->toArray());
             $teacher->update();
 
+            $user           = User::find($id);
+            $user->username = $request->username;
+
             if ($request->password) {
-                $user           = User::find($id);
                 $user->password = \Hash::make($request->password);
-                $user->save();
             }
+
+            $user->save();
 
             DB::commit();
         } catch (Exception $e) {

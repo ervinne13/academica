@@ -26,6 +26,21 @@
 
     function initializeEvents() {
         $('#action-add-class').click(addClass);
+
+        $('#action-clear-graded-items').click(function () {
+            swal({
+                title: "Are you sure?",
+                text: "This will remove all classes associated with this section!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, clear it!",
+                closeOnConfirm: false
+            }).then(function () {
+                clearClasses();
+            });
+        });
+
         $(document).on('click', '.action-delete-class', deleteClass);
 
     }
@@ -80,6 +95,23 @@
 
         utilities.setBoxLoading($('#classes-container'), true);
 
+    }
+
+    function clearClasses() {
+        var url = "/api/sections/" + sectionId + "/class";
+
+        $.ajax({
+            url: url,
+            type: 'DELETE',
+            success: function () {
+                utilities.setBoxLoading($('#classes-container'), false);
+                loadClasses(sectionId);
+
+                swal("Cleared!", "Classes has been cleared", "success");
+            }
+        });
+
+        utilities.setBoxLoading($('#classes-container'), true);
     }
 
 })();

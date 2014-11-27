@@ -26,12 +26,12 @@
                                 <thead>
                                     <tr>
                                         <th>
-<!--                                            <a href="/users/create">
-                                                <i class="fa fa-plus"></i>
-                                            </a>-->
+                                            <!--                                            <a href="/users/create">
+                                                                                            <i class="fa fa-plus"></i>
+                                                                                        </a>-->
                                         </th>                                        
                                         <th>Active</th>
-                                        <th>Email</th>
+                                        <th>Username</th>
                                         <th>Name</th>
                                         <th>Role</th>
                                     </tr>

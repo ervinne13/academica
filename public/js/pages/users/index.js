@@ -24,7 +24,7 @@
             columns: [
                 {data: 'id'},
                 {data: 'is_active'},
-                {data: 'email'},
+                {data: 'username'},
                 {data: 'name'},
                 {data: 'role_name'}
             ],

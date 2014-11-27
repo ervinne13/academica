@@ -23,7 +23,7 @@
                 {data: 'last_name'},
                 {data: 'first_name'},
                 {data: 'middle_name'},
-                {data: 'user.email', name: 'user.email'},
+                {data: 'user.username', name: 'user.username'},
                 {data: 'birthdate'}
             ],
             columnDefs: [

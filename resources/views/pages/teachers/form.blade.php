@@ -58,8 +58,8 @@ if ($mode == "VIEW") {
                         <div class="row">
                             <div class="col-lg-6 col-sm-12">
                                 <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="email" {{$fieldProperty}} name="email" class="form-control" value="{{ $teacher->user->email }}">
+                                    <label>username</label>
+                                    <input type="text" {{$fieldProperty}} name="username" class="form-control" value="{{ $teacher->user->username }}">
                                 </div>
                                 <div class="form-group">
                                     <label>First Name</label>

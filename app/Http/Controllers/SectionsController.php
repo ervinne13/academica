@@ -82,9 +82,9 @@ class SectionsController extends Controller {
     public function edit($id) {
         $viewData = $this->getDefaultViewData();
 
-        $viewData["section"] = Section::find($id);
-        $viewData["mode"]    = "EDIT";
-        $viewData["levels"]  = Level::all();
+        $viewData["section"]           = Section::find($id);
+        $viewData["mode"]              = "EDIT";
+        $viewData["levels"]            = Level::all();
         $viewData["selectableClasses"] = SchoolClass::all();
 
         return view('pages.sections.form', $viewData);
@@ -148,6 +148,18 @@ class SectionsController extends Controller {
             SectionClass::where([
                 "section_id" => $sectionId,
                 "class_id"   => $classId
+            ])->delete();
+            return "OK";
+        } catch (\Exception $e) {
+            return response($e->getMessage(), 500);
+        }
+    }
+
+    public function destroyAllClass($sectionId) {
+
+        try {
+            SectionClass::where([
+                "section_id" => $sectionId
             ])->delete();
             return "OK";
         } catch (\Exception $e) {

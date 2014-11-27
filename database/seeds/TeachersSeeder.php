@@ -24,7 +24,7 @@ class TeachersSeeder extends Seeder {
             $user            = new User();
             $user->seeded    = 1;
             $user->role_name = User::ROLE_TEACHER;
-            $user->email     = $faker->email;
+            $user->username  = str_replace(" ", "", "{$firstName}{$lastName}"); //  remove possible blanks from first name
             $user->name      = "{$firstName} {$lastName}";
             $user->password  = \Hash::make("password");
 

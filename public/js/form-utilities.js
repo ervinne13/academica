@@ -4,9 +4,7 @@ var form_utilities = {
     moduleUrl: "/",
     updateObjectId: 0,
     validate: null,
-    postValidate: function () {
-        return true;
-    },
+    postValidate: null,
     errorHandler: null,
     successHandler: null
 };

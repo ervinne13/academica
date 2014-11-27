@@ -13,7 +13,7 @@ class CreateAdminUser extends Migration {
     public function up() {
         $user            = new User();
         $user->name      = "Administrator";
-        $user->email     = "administrator@academica.com";
+        $user->username  = "administrator";
         $user->role_name = User::ROLE_ADMIN;
         $user->password  = \Hash::make("password");
 
@@ -26,7 +26,7 @@ class CreateAdminUser extends Migration {
      * @return void
      */
     public function down() {
-        User::where("email", "administrator@academica.com")->delete();
+        User::where("username", "administrator")->delete();
     }
 
 }

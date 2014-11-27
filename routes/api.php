@@ -34,6 +34,7 @@ Route::get('/class/{classId}/graded-items', 'ClassesController@getGradedItems');
 Route::get('sections/{sectionId}/class', 'SectionsController@classes');
 Route::post('sections/{sectionId}/class/create', 'SectionsController@storeClass');
 Route::delete('sections/{sectionId}/class/{classId}', 'SectionsController@destroyClass');
+Route::delete('sections/{sectionId}/class', 'SectionsController@destroyAllClass');
 
 Route::get('graded-items', 'GradedItemsController@get');
 

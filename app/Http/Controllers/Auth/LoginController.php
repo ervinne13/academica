@@ -66,4 +66,13 @@ use AuthenticatesUsers;
         ]);
     }
 
+    /**
+     * Get the login username to be used by the controller.
+     * @Override
+     * @return string
+     */
+    public function username() {
+        return 'username';
+    }
+
 }

@@ -17,8 +17,8 @@
             </tr>
             <tr>
                 <td>QE (20%)</td>
-            <tdQuarterly Exams (20%)</td>
-                </tr>
+                <td>Quarterly Exams (20%)</td>
+            </tr>
         </table>
     </div>
     <div class="col-md-6">

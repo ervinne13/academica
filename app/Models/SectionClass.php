@@ -25,4 +25,8 @@ class SectionClass extends Model {
         return $query->where('class_id', $classId);
     }
 
+    public function scopeInClassId($query, $classIdList) {
+        return $query->whereIn('class_id', $classIdList);
+    }
+
 }

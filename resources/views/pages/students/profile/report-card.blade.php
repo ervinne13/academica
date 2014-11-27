@@ -159,8 +159,15 @@ $mapehSubjects = [
             </div>
             @else
             <div class="inner">
-                <h3>Non Rank</h3>
+                <h3>Non Rank</h3>                
+
+                @if($card["transmutedGrade"] > 60)
+                <p><u>Unable to generate ranking.</u></p>
+                <br>
+                <p>It's possible that your teacher forgot to set the "Date Taken" in her class's graded item.</p>
+                @else
                 <p>You are not enrolled in a section yet</p>
+                @endif
             </div>
             @endif
             <div class="icon">
@@ -173,7 +180,7 @@ $mapehSubjects = [
             <div class="info-box-content">
                 <span class="info-box-text">Graded Item Completion</span>
                 <span class="info-box-number">{{$takenGradedItemsCount}} out of {{$gradedItemsCount}}</span>
-                
+
                 @if ($gradedItemsCount > 0)
                 <div class="progress">                    
                     <div class="progress-bar" style="width: {{$takenGradedItemsCount / $gradedItemsCount * 100}}%"></div>

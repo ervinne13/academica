@@ -57,8 +57,6 @@ class ClassGradingController extends Controller {
         $class      = SchoolClass::find($request->class_id);
         $gradedItem = GradedItem::WithHPS($request->graded_item_id, $class->id)->first();
 
-        $gradedItemType = $gradedItem->gradedItemType;
-
         $records = json_decode($request->records, true);
 
         try {
@@ -76,7 +74,7 @@ class ClassGradingController extends Controller {
 
                 $grade->score                  = $record["score"];
                 $grade->highest_possible_score = $gradedItem->highest_possible_score;
-                $grade->grade                  = $grade->score / $grade->highest_possible_score * 100;
+                $grade->grade                  = $grade->score / $grade->highest_possible_score * 100;                
                 $grade->save();
             }
 
