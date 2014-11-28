@@ -28,13 +28,14 @@
             ajax: {
                 url: url
             },
-            order: [1, "desc"],
+            order: [5, "desc"],
             columns: [
                 {data: 'id'},
                 {data: 'id'},
                 {data: 'name'},
                 {data: 'grading_year.year'},
                 {data: 'level.name'},
+                {data: 'level.id', name: 'level_id'},
                 {data: 'subject.name'},
                 {data: 'teacher.first_name'}
             ],
@@ -52,7 +53,7 @@
                     }
                 },
                 {
-                    targets: 6,
+                    targets: 7,
                     render: function (id, type, rowData, meta) {
                         return rowData.teacher.first_name + " " + rowData.teacher.last_name;
                     }
