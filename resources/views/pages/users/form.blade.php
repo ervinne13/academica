@@ -73,7 +73,7 @@
                                         <br>
                                         Use format link name:link url
                                     </small>
-                                    <textarea class="form-control" name="links" rows="5" placeholder="Ex. Bridgette Dela Cruz:/students/13,Anya Dela Cruz:/students/14">{{$user->getFormattedLinks()}}</textarea>
+                                    <textarea class="form-control" required name="links" rows="5" placeholder="Ex. Bridgette Dela Cruz:/students/13,Anya Dela Cruz:/students/14">{{$user->getFormattedLinks()}}</textarea>
                                 </div>
                                 @endif
                             </div>

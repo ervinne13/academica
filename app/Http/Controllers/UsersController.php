@@ -112,14 +112,18 @@ class UsersController extends Controller {
 
             $formattedLinks = explode(',', $request->links);
             foreach ($formattedLinks AS $formattedLink) {
-                $splittedLink   = explode(':', $formattedLink);
-                $access         = new ViewerAccessibleLinks();
-                $access->name   = $splittedLink[0];
-                $access->url    = $splittedLink[1];
-                $access->status = "Approved";
+                $splittedLink = explode(':', $formattedLink);
+                if (count($splittedLink) == 2) {    //  splitted link is only valid if it contains 2 parts
+                    $access         = new ViewerAccessibleLinks();
+                    $access->name   = $splittedLink[0];
+                    $access->url    = $splittedLink[1];
+                    $access->status = "Approved";
 
-                $access->user_id = $user->id;
-                $access->save();
+                    $access->user_id = $user->id;
+                    $access->save();
+                } else {
+                    throw new Exception("The link(s) format is invalid");
+                }
             }
 
             DB::commit();
@@ -201,6 +205,8 @@ class UsersController extends Controller {
 
                     $access->user_id = $user->id;
                     $access->save();
+                } else {
+                    throw new Exception("The link(s) format is invalid");
                 }
             }
 
