@@ -35,10 +35,14 @@ class StudentGradesProvider {
      * @returns StudentRecords
      */
     public function getRecordsByPeriod() {
+
+        $studentSections = $this->student->sections;
+
         $gradedItemTypes = GradedItemType::all();
         $periods         = GradingPeriod::all();
         $classes         = SchoolClass::OpenGradingYear()
                 ->ByStudent($this->student->id)
+//                ->section($studentSections[0]->section_id)
                 ->SelectClassOnly()
                 ->get();
 

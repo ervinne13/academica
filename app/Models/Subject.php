@@ -29,6 +29,36 @@ class Subject extends BaseModel {
                         ->where('is_open', 1);
     }
 
+    public function scopeEnrolledByStudentOnSection($query, $userId, $sectionId) {
+        return $query
+                        ->select(['subjects.*', 'teachers.user_id AS teacher_id', 'section_classes.section_id', 'student_classes.student_id', DB::raw('CONCAT(teachers.first_name, \' \', teachers.last_name) AS teacher_name')])
+                        ->rightJoin('classes', 'subjects.id', '=', 'subject_id')
+                        ->rightJoin('student_classes', 'classes.id', '=', 'class_id')
+                        ->rightJoin('section_classes', 'section_classes.class_id', '=', 'classes.id')
+                        ->rightJoin('teachers', 'teachers.user_id', '=', 'teacher_id')
+                        ->rightJoin('grading_years', 'classes.grading_year_id', '=', 'grading_years.id')
+                        ->where('student_classes.student_id', $userId)
+                        ->where('section_id', $sectionId)
+                        ->groupBy(['subjects.id'])
+        ;
+    }
+
+    public function scopeEnrolledByStudentOpenYearAndSection($query, $userId, $sectionId) {
+        return $query
+                        ->select(['subjects.*', 'teachers.user_id AS teacher_id', 'section_students.section_id', 'student_classes.student_id', DB::raw('CONCAT(teachers.first_name, \' \', teachers.last_name) AS teacher_name')])
+                        ->leftJoin('classes', 'subjects.id', '=', 'subject_id')
+                        ->leftJoin('student_classes', 'classes.id', '=', 'class_id')
+                        ->leftJoin('section_students', 'section_students.student_id', '=', 'student_classes.student_id')
+                        ->leftJoin('teachers', 'teachers.user_id', '=', 'teacher_id')
+                        ->leftJoin('grading_years', 'classes.grading_year_id', '=', 'grading_years.id')
+                        ->where('student_classes.student_id', $userId)
+                        ->where('section_students.student_id', $userId)
+                        ->where('section_id', $sectionId)
+                        ->where('is_open', 1)
+                        ->groupBy(['subjects.id'])
+        ;
+    }
+
     public static function getSubjectsWithMapeh($query = null) {
         $mapeh = ["Music", "Arts", "Physical Education", "Health"];
 

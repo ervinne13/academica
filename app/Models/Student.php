@@ -92,6 +92,10 @@ class Student extends Model {
         }
     }
 
+    public function sections() {
+        return $this->hasMany(SectionStudents::class);
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="Scopes">
 
     public function scopeDatatable($query) {

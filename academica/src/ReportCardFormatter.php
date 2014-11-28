@@ -4,6 +4,7 @@ namespace Academica;
 
 use App\Models\GradingPeriod;
 use App\Models\GradingYear;
+use App\Models\Student;
 use App\Models\Subject;
 
 /**
@@ -43,9 +44,17 @@ class ReportCardFormatter {
     public function format($grades, $studentId, $transmuter) {
         //  get the corresponding subject id of each subject
 
-        $periods      = GradingPeriod::all();
-        $subject      = Subject::EnrolledByStudentOpenYear($studentId)->get();
-        $subjectCount = count($subject);
+        $student         = Student::find($studentId);
+        $studentSections = $student->sections;
+
+        $periods = GradingPeriod::all();
+
+        if (count($studentSections) > 0) {
+            $subjects = Subject::EnrolledByStudentOnSection($studentId, $studentSections[0]->section_id)->get();
+        } else {
+            $subjects = Subject::EnrolledByStudentOpenYear($studentId)->get();
+        }
+        $subjectCount = count($subjects);
 
         $gradingYear = GradingYear::open()->first();
 
@@ -61,7 +70,7 @@ class ReportCardFormatter {
         // a
         foreach ($this->subjectSortOrder AS $subjectShortName) {
             //  b
-            foreach ($subject AS $index => $periodSubject) {
+            foreach ($subjects AS $index => $periodSubject) {
                 if ($periodSubject->short_name == $subjectShortName || ($subjectShortName == "others" && !in_array($periodSubject->short_name, $this->subjectSortOrder))) {
                     $subjectAssoc                 = [];
                     $subjectAssoc["id"]           = $periodSubject->id;
@@ -70,7 +79,7 @@ class ReportCardFormatter {
                     $subjectAssoc["teacher_name"] = $periodSubject->teacher_name;
                     $subjectAssoc["name"]         = $periodSubject->name;
                     $subjectAssoc["grades"]       = [];
-                    
+
                     $avgInitialGrade = 0;
                     foreach ($grades AS $periodId => $periodGrades) {
                         if ($gradingYear->currently_active_period_id >= $periodId) {
@@ -110,7 +119,7 @@ class ReportCardFormatter {
                     $gradingCard["initialGrade"] += $subjectAssoc["initialGrade"];
 
                     array_push($gradingCard["subjects"], $subjectAssoc);
-                    unset($subject[$index]);
+                    unset($subjects[$index]);
                 }
             }
         }
@@ -141,8 +150,8 @@ class ReportCardFormatter {
                         ];
                     }
 
-                    foreach ($mapehPeriodSubjects AS $subject) {
-                        $gradingCard["mapeh"][$periodSubject->id]["initialGrade"] += $subject["initialGrade"];
+                    foreach ($mapehPeriodSubjects AS $subjects) {
+                        $gradingCard["mapeh"][$periodSubject->id]["initialGrade"] += $subjects["initialGrade"];
                     }
                 }
 

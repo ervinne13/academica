@@ -90,7 +90,7 @@ class SchoolClass extends BaseModel {
 
     public function scopeSection($query, $sectionId) {
         return $query
-                        ->leftJoin('section_classes', 'section_classes.class_id', '=', 'id')
+                        ->leftJoin('section_classes', 'section_classes.class_id', '=', 'classes.id')
                         ->where('section_classes.section_id', $sectionId);
     }
 
