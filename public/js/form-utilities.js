@@ -45,7 +45,7 @@ form_utilities.initializeDefaultProcessing = function ($form) {
         var valid = true;
         if (form_utilities.validate) {
             valid = $form.valid();
-            if (form_utilities.postValidate) {
+            if (valid && form_utilities.postValidate) {
                 valid = form_utilities.postValidate();
             }
 

@@ -59,7 +59,7 @@ if ($mode == "VIEW") {
                             <div class="col-lg-6 col-sm-12">
                                 <div class="form-group">
                                     <label>username</label>
-                                    <input type="text" {{$fieldProperty}} name="username" class="form-control" value="{{ $teacher->user->username }}">
+                                    <input type="text" {{$fieldProperty}} required name="username" class="form-control" value="{{ $teacher->user->username }}">
                                 </div>
                                 <div class="form-group">
                                     <label>First Name</label>
