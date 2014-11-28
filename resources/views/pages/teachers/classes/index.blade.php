@@ -40,6 +40,7 @@ var teacherId = '{{$teacher->user_id}}';
                                         <th>Class Name</th>
                                         <th>Year</th>
                                         <th>Level</th>
+                                        <th>Level Id</th>
                                         <th>Subject</th>
                                     </tr>
                                 </thead>

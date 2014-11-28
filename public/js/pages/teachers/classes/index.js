@@ -17,17 +17,18 @@
             ajax: {
                 url: "/teacher/" + teacherId + "/classes/datatable"
             },
-            order: [1, "desc"],
+            order: [5, "desc"],
             columns: [
                 {data: 'id'},
                 {data: 'id'},
                 {data: 'name'},
                 {data: 'grading_year.year', name: 'grading_years.year'},
                 {data: 'level.name'},
+                {data: 'level.id'},
                 {data: 'subject.name'}
             ],
             columnDefs: [
-                {bSearchable: false, aTargets: [0]},
+                {searchable: false, targets: [0, 5]},
                 {orderable: false, targets: [0]},
                 {
                     targets: 0,

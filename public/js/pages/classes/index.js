@@ -28,7 +28,7 @@
                 {data: 'teacher.first_name'}
             ],
             columnDefs: [
-                {aearchable: false, targets: [0, 5]},
+                {searchable: false, targets: [0, 5]},
                 {orderable: false, targets: [0]},
                 {
                     targets: 0,

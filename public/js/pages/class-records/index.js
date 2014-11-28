@@ -7,7 +7,7 @@
         initializeTable();
 
         //  hide sidebar
-        $('.sidebar-toggle').click();
+//        $('.sidebar-toggle').click();
 
     });
 
@@ -42,6 +42,7 @@
             columnDefs: [
                 {bSearchable: false, aTargets: [3]},
                 {orderable: false, targets: [0]},
+                {visible: false, targets: [5]},
                 {
                     targets: 0,
                     render: function (id, type, rowData, meta) {

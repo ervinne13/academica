@@ -13,7 +13,7 @@
 @parent
 
 <script type="text/javascript">
-var teacherId = '{{$teacherId}}';
+    var teacherId = '{{$teacherId}}';
 
 </script>
 
@@ -49,6 +49,7 @@ var teacherId = '{{$teacherId}}';
                                         <th>Class Name</th>
                                         <th>Year</th>
                                         <th>Level</th>
+                                        <th style="display: none">Level Id</th>
                                         <th>Subject</th>
                                         <th>Teacher</th>
                                     </tr>
