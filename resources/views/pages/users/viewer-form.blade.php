@@ -44,8 +44,8 @@
                         <div class="row">
                             <div class="col-lg-6 col-sm-12">
                                 <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="email" required name="email" class="form-control" value="{{ $user->email }}">
+                                    <label>Username</label>
+                                    <input type="text" required name="username" class="form-control" value="{{ $user->username }}">
                                 </div>
 
                                 <div class="form-group">
