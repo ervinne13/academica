@@ -18,7 +18,7 @@
         <div class="row">
             <div class="form-group col-md-6">
                 <label>Learner's Reference Number (LRN)</label>
-                <input type="text" required name="lrn" class="form-control" value="{{ $student->lrn }}">
+                <input type="text" required {{$mode == "VIEW" ? "readonly" : "" }} name="lrn" class="form-control" value="{{ $student->lrn }}">
             </div>
             <!--            <div class="form-group col-md-6">
                             <label>Student Number</label>
@@ -28,44 +28,44 @@
         <div class="row">
             <div class="form-group col-md-4">
                 <label>First Name</label>
-                <input type="text" required name="first_name" class="form-control" value="{{ $student->first_name }}">
+                <input type="text" required {{$mode == "VIEW" ? "readonly" : "" }} name="first_name" class="form-control" value="{{ $student->first_name }}">
             </div>
             <div class="form-group col-md-4">
                 <label>Middle Name</label>
-                <input type="text" required name="middle_name" class="form-control" value="{{ $student->middle_name }}">
+                <input type="text" required {{$mode == "VIEW" ? "readonly" : "" }} name="middle_name" class="form-control" value="{{ $student->middle_name }}">
             </div>
             <div class="form-group col-md-4">
                 <label>Last Name</label>
-                <input type="text" required name="last_name" class="form-control" value="{{ $student->last_name }}">
+                <input type="text" required {{$mode == "VIEW" ? "readonly" : "" }} name="last_name" class="form-control" value="{{ $student->last_name }}">
             </div>
         </div>
 
         <div class="row">
             <div class="form-group col-md-4">
                 <label>Birth Date</label>
-                <input type="text" name="birthdate" class="form-control datepicker" value="{{ $student->birthdate }}">
+                <input type="text" name="birthdate" {{$mode == "VIEW" ? "readonly" : "" }} class="form-control datepicker" value="{{ $student->birthdate }}">
             </div>
         </div>
 
         <div class="row">
             <div class="form-group col-md-4">
                 <label>Contact Number 1</label>
-                <input type="text" name="contact_number_1" class="form-control" value="{{ $student->contact_number_1 }}">
+                <input type="text" name="contact_number_1" {{$mode == "VIEW" ? "readonly" : "" }} class="form-control" value="{{ $student->contact_number_1 }}">
             </div>
             <div class="form-group col-md-4">
                 <label>Contact Number 2</label>
-                <input type="text" name="contact_number_2" class="form-control" value="{{ $student->contact_number_2 }}">
+                <input type="text" name="contact_number_2" {{$mode == "VIEW" ? "readonly" : "" }} class="form-control" value="{{ $student->contact_number_2 }}">
             </div>
             <div class="form-group col-md-4">
                 <label>Landline Number</label>
-                <input type="text" name="landline" class="form-control" value="{{ $student->landline }}">
+                <input type="text" name="landline" class="form-control" {{$mode == "VIEW" ? "readonly" : "" }} value="{{ $student->landline }}">
             </div>
         </div>
 
         <div class="row">
             <div class="form-group col-md-6">
                 <label>Address</label>
-                <textarea class="form-control" name="address">{{$student->address}}</textarea>
+                <textarea class="form-control" {{$mode == "VIEW" ? "readonly" : "" }} name="address">{{$student->address}}</textarea>
             </div>
         </div>
     </div>
