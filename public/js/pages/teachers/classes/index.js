@@ -24,7 +24,7 @@
                 {data: 'name'},
                 {data: 'grading_year.year', name: 'grading_years.year'},
                 {data: 'level.name'},
-                {data: 'level.id'},
+                {data: 'level_id'},
                 {data: 'subject.name'}
             ],
             columnDefs: [
