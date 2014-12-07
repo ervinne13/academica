@@ -23,7 +23,7 @@
     </div>
     <div class="col-md-6">
         <div>
-            <h3>Quaterly Grade</h3>
+            <h3>Quarterly Grade</h3>
 
             <div class="chart">
                 <canvas id="quarterly-grade" style="height:230px"></canvas>
