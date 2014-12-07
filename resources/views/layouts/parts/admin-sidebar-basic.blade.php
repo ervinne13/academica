@@ -54,13 +54,13 @@
                     </span>
                 </a>
             </li>
-<!--            <li>
-                <a href="/enrollment">
-                    <span><i class="fa fa-plus text-fuchsia"></i> 
-                        Enroll Student to Class
-                    </span>
-                </a>
-            </li>-->
+            <!--            <li>
+                            <a href="/enrollment">
+                                <span><i class="fa fa-plus text-fuchsia"></i> 
+                                    Enroll Student to Class
+                                </span>
+                            </a>
+                        </li>-->
             <li>
                 <a href="/class-records">
                     <span><i class="fa fa-users text-info"></i> 
@@ -76,7 +76,13 @@
                                 </span>
                             </a>
                         </li>-->
-
+            <li>
+                <a href="/grading-years">
+                    <span><i class="fa fa-calendar text-blue"></i> 
+                        Grading Years
+                    </span>
+                </a>
+            </li>
             <li class="header">Graded Items</li>
             <li>
                 <a href="/graded-items/create">

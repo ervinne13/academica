@@ -19,7 +19,8 @@ class GradingYearsController extends Controller {
      * @return Response
      */
     public function index() {
-        return view('pages.grading-years.index');
+        $viewData = $this->getDefaultViewData();
+        return view('pages.grading-years.index', $viewData);
     }
 
     public function datatable() {
@@ -33,14 +34,12 @@ class GradingYearsController extends Controller {
      */
     public function create() {
 
-        $gradingYear    = new GradingYear();
-        $gradingPeriods = GradingPeriod::all();
+        $viewData                   = $this->getDefaultViewData();
+        $viewData["gradingYear"]    = new GradingYear();
+        $viewData["gradingPeriods"] = GradingPeriod::all();
+        $viewData["mode"]           = "ADD";
 
-        return view('pages.grading-years.form', [
-            "mode"           => "ADD",
-            "gradingYear"    => $gradingYear,
-            "gradingPeriods" => $gradingPeriods
-        ]);
+        return view('pages.grading-years.form', $viewData);
     }
 
     /**
@@ -79,14 +78,12 @@ class GradingYearsController extends Controller {
      */
     public function edit($id) {
 
-        $gradingYear    = GradingYear::find($id);
-        $gradingPeriods = GradingPeriod::all();
+        $viewData                   = $this->getDefaultViewData();
+        $viewData["gradingYear"]    = GradingYear::find($id);
+        $viewData["gradingPeriods"] = GradingPeriod::all();
+        $viewData["mode"]           = "EDIT";
 
-        return view('pages.grading-years.form', [
-            "mode"           => "EDIT",
-            "gradingYear"    => $gradingYear,
-            "gradingPeriods" => $gradingPeriods
-        ]);
+        return view('pages.grading-years.form', $viewData);
     }
 
     /**
