@@ -50,18 +50,18 @@ class ReportCardFormatter {
         $periods = GradingPeriod::all();
 
         if (count($studentSections) > 0) {
-            $subjects = Subject::EnrolledByStudentOnSection($studentId, $studentSections[0]->section_id)->get();
+            $subject = Subject::EnrolledByStudentOnSection($studentId, $studentSections[0]->section_id)->get();
         } else {
-            $subjects = Subject::EnrolledByStudentOpenYear($studentId)->get();
+            $subject = Subject::EnrolledByStudentOpenYear($studentId)->get();
         }
-        $subjectCount = count($subjects);
+        $subjectCount = count($subject);
 
         $gradingYear = GradingYear::open()->first();
 
         $gradingCard = [
-            "subjects"        => [],
-            "initialGrade"    => 0,
-            "transmutedGrade" => 0,
+            "subjects"             => [],
+            "totalTransmutedGrade" => 0,
+            "transmutedGrade"      => 0,
         ];
 
         $mapehSubjects = [];
@@ -70,25 +70,25 @@ class ReportCardFormatter {
         // a
         foreach ($this->subjectSortOrder AS $subjectShortName) {
             //  b
-            foreach ($subjects AS $index => $periodSubject) {
-                if ($periodSubject->short_name == $subjectShortName || ($subjectShortName == "others" && !in_array($periodSubject->short_name, $this->subjectSortOrder))) {
+            foreach ($subject AS $index => $period) {
+                if ($period->short_name == $subjectShortName || ($subjectShortName == "others" && !in_array($period->short_name, $this->subjectSortOrder))) {
                     $subjectAssoc                 = [];
-                    $subjectAssoc["id"]           = $periodSubject->id;
-                    $subjectAssoc["short_name"]   = $periodSubject->short_name;
-                    $subjectAssoc["teacher_id"]   = $periodSubject->teacher_id;
-                    $subjectAssoc["teacher_name"] = $periodSubject->teacher_name;
-                    $subjectAssoc["name"]         = $periodSubject->name;
+                    $subjectAssoc["id"]           = $period->id;
+                    $subjectAssoc["short_name"]   = $period->short_name;
+                    $subjectAssoc["teacher_id"]   = $period->teacher_id;
+                    $subjectAssoc["teacher_name"] = $period->teacher_name;
+                    $subjectAssoc["name"]         = $period->name;
                     $subjectAssoc["grades"]       = [];
 
-                    $avgInitialGrade = 0;
+                    $subjectTotalGrade = 0;
                     foreach ($grades AS $periodId => $periodGrades) {
                         if ($gradingYear->currently_active_period_id >= $periodId) {
                             $subjectAssoc["grades"][$periodId] = [
-                                "initialGrade"    => $periodGrades[$periodSubject->id]["initialGrade"],
-                                "transmutedGrade" => $periodGrades[$periodSubject->id]["transmutedGrade"]
+                                "initialGrade"    => $periodGrades[$period->id]["initialGrade"],
+                                "transmutedGrade" => $periodGrades[$period->id]["transmutedGrade"]
                             ];
 
-                            $avgInitialGrade += $periodGrades[$periodSubject->id]["initialGrade"];
+                            $subjectTotalGrade += $periodGrades[$period->id]["transmutedGrade"];
                         } else {
                             $subjectAssoc["grades"][$periodId] = [
                                 "initialGrade"    => "",
@@ -99,38 +99,40 @@ class ReportCardFormatter {
                         if (in_array($subjectAssoc["short_name"], $this->mapehSubjects)) {
                             if (!array_key_exists($periodId, $mapehSubjects)) {
                                 $mapehSubjects[$periodId] = [];
+
+                                $mapehSubjects[$periodId]["totalTransmutedGrade"] = 0;
                             }
 
                             if (!array_key_exists($subjectAssoc["short_name"], $mapehSubjects[$periodId])) {
                                 $mapehSubjects[$periodId][$subjectAssoc["short_name"]] = [];
                             }
 
+                            $mapehTransmutedGrade = $transmuter->transmute($subjectAssoc["grades"][$periodId]["initialGrade"]);
+
                             $mapehSubjects[$periodId][$subjectAssoc["short_name"]] = [
                                 "name"            => $subjectAssoc["name"],
                                 "initialGrade"    => $subjectAssoc["grades"][$periodId]["initialGrade"],
-                                "transmutedGrade" => $transmuter->transmute($subjectAssoc["grades"][$periodId]["initialGrade"])
+                                "transmutedGrade" => $mapehTransmutedGrade
                             ];
+                            $mapehSubjects[$periodId]["totalTransmutedGrade"] += $mapehTransmutedGrade;
                         }
                     }
 
-                    $subjectAssoc["initialGrade"]    = $avgInitialGrade / $gradingYear->currently_active_period_id;
-                    $subjectAssoc["transmutedGrade"] = $transmuter->transmute($subjectAssoc["initialGrade"]);
-
-                    $gradingCard["initialGrade"] += $subjectAssoc["initialGrade"];
+                    $subjectAssoc["transmutedGrade"] = $subjectTotalGrade / $gradingYear->currently_active_period_id;
+                    $gradingCard["totalTransmutedGrade"] += $subjectAssoc["transmutedGrade"];
 
                     array_push($gradingCard["subjects"], $subjectAssoc);
-                    unset($subjects[$index]);
+                    unset($subject[$index]);
                 }
             }
         }
 
-        $gradingCard["initialGrade"]    = $subjectCount > 0 ? $gradingCard["initialGrade"] / $subjectCount : 0;
-        $gradingCard["transmutedGrade"] = $transmuter->transmute($gradingCard["initialGrade"]);
+        $gradingCard["transmutedGrade"] = number_format($subjectCount > 0 ? $gradingCard["totalTransmutedGrade"] / $subjectCount : 0, 2);
 
         $rankedSubjects = $gradingCard["subjects"];
 
         usort($rankedSubjects, function($a, $b) {
-            return $a["initialGrade"] <= $b["initialGrade"];
+            return $a["transmutedGrade"] <= $b["transmutedGrade"];
         });
 
         $gradingCard["subjectsRanked"]       = $rankedSubjects;
@@ -138,38 +140,26 @@ class ReportCardFormatter {
 
         $gradedPeriodCount    = 0;
         $gradingCard["mapeh"] = [
-            "initialGrade" => 0
+            "totalTransmutedGrade" => 0
         ];
 
-        foreach ($periods AS $periodSubject) {
-            if ($gradingYear->currently_active_period_id >= $periodSubject->id) {
-                foreach ($mapehSubjects AS $mapehPeriodSubjects) {
-                    if (!array_key_exists($periodSubject->id, $gradingCard["mapeh"])) {
-                        $gradingCard["mapeh"][$periodSubject->id] = [
-                            "initialGrade" => 0
-                        ];
-                    }
+        foreach ($periods AS $period) {
+            if ($gradingYear->currently_active_period_id >= $period->id) {
 
-                    foreach ($mapehPeriodSubjects AS $subjects) {
-                        $gradingCard["mapeh"][$periodSubject->id]["initialGrade"] += $subjects["initialGrade"];
-                    }
-                }
-
-//                if (!array_key_exists($period->id, $gradingCard["mapeh"])) {
-//                    $gradingCard["mapeh"][$period->id] = [
-//                        "initialGrade" => 0
-//                    ];
-//                }
+                $gradingCard["mapeh"][$period->id] = ["transmutedGrade" => 0];
 
                 if (count($mapehSubjects) > 0) {
-                    $gradingCard["mapeh"][$periodSubject->id]["initialGrade"]    = $gradingCard["mapeh"][$periodSubject->id]["initialGrade"] / count($mapehSubjects);
-                    $gradingCard["mapeh"][$periodSubject->id]["transmutedGrade"] = $transmuter->transmute($gradingCard["mapeh"][$periodSubject->id]["initialGrade"]);
+                    $gradingCard["mapeh"][$period->id]["transmutedGrade"] = $mapehSubjects[$period->id]["totalTransmutedGrade"] / count($mapehSubjects);
 
-                    $gradingCard["mapeh"]["initialGrade"] += $gradingCard["mapeh"][$periodSubject->id]["initialGrade"];
+                    $gradingCard["mapeh"]["totalTransmutedGrade"] += $gradingCard["mapeh"][$period->id]["transmutedGrade"];
+
+                    //  after applying total transmuted grade, round off the transmuted grade
+                    $gradingCard["mapeh"][$period->id]["transmutedGrade"] = number_format($gradingCard["mapeh"][$period->id]["transmutedGrade"]);
+
                     $gradedPeriodCount ++;
                 }
             } else {
-                $gradingCard["mapeh"][$periodSubject->id] = [
+                $gradingCard["mapeh"][$period->id] = [
                     "initialGrade"    => "",
                     "transmutedGrade" => ""
                 ];
@@ -177,9 +167,28 @@ class ReportCardFormatter {
         }
 
         if (count($mapehSubjects) > 0) {
-            $gradingCard["mapeh"]["initialGrade"]    = $gradingCard["mapeh"]["initialGrade"] / $gradedPeriodCount;
-            $gradingCard["mapeh"]["transmutedGrade"] = $transmuter->transmute($gradingCard["mapeh"]["initialGrade"]);
+            $gradingCard["mapeh"]["transmutedGrade"] = number_format($gradingCard["mapeh"]["totalTransmutedGrade"] / $gradedPeriodCount);
         }
+
+        //  format all grades only after all computations are properly set
+
+        for ($i = 0; $i < count($gradingCard["subjects"]); $i ++) {
+
+            foreach ($gradingCard["subjects"][$i]["grades"] AS $gradingPeriod => $grade) {
+                $rawGrade = $gradingCard["subjects"][$i]["grades"][$gradingPeriod]["transmutedGrade"];
+                if ($rawGrade) {
+                    $gradingCard["subjects"][$i]["grades"][$gradingPeriod]["transmutedGrade"] = number_format($rawGrade);
+                }
+            }
+
+            $rawGrade = $gradingCard["subjects"][$i]["transmutedGrade"];
+            if ($rawGrade) {
+                $gradingCard["subjects"][$i]["transmutedGrade"] = number_format($rawGrade);
+            }
+        }
+
+//        echo json_encode($gradingCard);
+//        exit();
 
         return $gradingCard;
     }

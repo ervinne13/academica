@@ -63,7 +63,7 @@
         $('#gi-info-hps').html(gradedItem.highest_possible_score);
 
         $('#student-grades-grade-col-header').html("Grade (HPS = " + gradedItem.highest_possible_score + ")");
-        $('#student-grades-grade-col-header').attr("data-hps", gradedItem.highest_possible_score);
+        $('#student-grades-grade-col-header').data("hps", gradedItem.highest_possible_score);
 
     }
 

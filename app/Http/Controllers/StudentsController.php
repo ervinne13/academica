@@ -150,7 +150,8 @@ class StudentsController extends Controller {
         $viewData["card"] = $formatter->format($viewData["grades"], $viewData["student"]->id, $transmuter);
 
         for ($i = 0; $i < count($monthlyGrades); $i ++) {
-            $monthlyGrades[$i]["transmuted_grade"] = $transmuter->transmute($monthlyGrades[$i]["total_grade"]);
+            $monthGrade                            = $monthlyGrades[$i]["total_grade"] / $monthlyGrades[$i]["grade_count"];
+            $monthlyGrades[$i]["transmuted_grade"] = $transmuter->transmute($monthGrade);
         }
 
         $viewData["monthlyGrades"] = $monthlyGrades;
