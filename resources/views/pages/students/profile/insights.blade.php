@@ -58,7 +58,7 @@
                     <tbody>
                         @for ($rank = 1; $rank <= count($card["subjectsRanked"]); $rank ++)
                         <?php $abbreviation = ($rank % 100) >= 11 && ($rank % 100) <= 13 ? $rank . 'th' : $rank . $ordinalSuffix[$rank % 10] ?>
-                        <?php $score        = $card["subjectsRanked"][$rank - 1]["transmutedGrade"] ?>
+                        <?php $score        = number_format($card["subjectsRanked"][$rank - 1]["transmutedGrade"]) ?>
 
                         <?php
                         if ($score <= 100 && $score >= 90) {
