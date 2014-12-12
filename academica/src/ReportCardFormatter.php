@@ -63,7 +63,7 @@ class ReportCardFormatter {
             "totalTransmutedGrade" => 0,
             "transmutedGrade"      => 0,
         ];
-
+        
         $mapehSubjects = [];
 
         //  Complexity O(a(log(b * c)))

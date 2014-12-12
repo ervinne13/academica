@@ -1,7 +1,8 @@
 <?php
-$totalFinal    = 0;
-$hasMapeh      = FALSE;
-$mapehSubjects = [
+$gradableSubjectCount    = 0;
+$totalFinal              = 0;
+$hasMapeh                = FALSE;
+$mapehSubjects           = [
     "Music",
     "Arts",
     "PE",
@@ -44,8 +45,14 @@ $mapehSubjects = [
                     <td class="text-center">{{$subjectGrade["grades"][4]["transmutedGrade"]}}</td>
                     <td class="text-right">{{$subjectGrade["transmutedGrade"]}}</td>
                 </tr>
+
+                <?php
+                $totalFinal              += $subjectGrade["transmutedGrade"];
+                $gradableSubjectCount ++;
+                ?>
+
                 @else
-                <?php $hasMapeh      = TRUE ?>
+                <?php $hasMapeh                = TRUE ?>
                 @endif
                 @endforeach
 
@@ -58,6 +65,11 @@ $mapehSubjects = [
                     <td class="text-center">{{$card["mapeh"][4]["transmutedGrade"]}}</td>
                     <td class="text-right">{{$card["mapeh"]["transmutedGrade"]}}</td>
                 </tr>
+
+                <?php
+                $totalFinal              += $card["mapeh"]["transmutedGrade"];
+                $gradableSubjectCount ++;
+                ?>
 
                 @foreach($card["subjects"] AS $subjectGrade)
                 @if (in_array($subjectGrade["short_name"], $mapehSubjects))
@@ -77,6 +89,10 @@ $mapehSubjects = [
         </table>
 
     </div>
+
+    <?php
+    $card["transmutedGrade"] = number_format($totalFinal / $gradableSubjectCount, 2);
+    ?>
 
     <div class="col-md-4">
 
