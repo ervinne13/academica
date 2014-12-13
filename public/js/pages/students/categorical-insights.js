@@ -52,6 +52,7 @@
             labels.push("Q" + i);
             quarterlyGrades.push(grades[i].transmutedGrade);
         }
+        console.log(grades);
 
         console.log(quarterlyGrades);
 

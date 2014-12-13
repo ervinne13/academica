@@ -49,9 +49,10 @@ class StudentGradesProvider {
         $recordsByPeriod = [];
 
         foreach ($periods AS $period) {
-            $records           = [];
-            $initialGradeTotal = 0;
-            $totalSubjectCount = 0;
+            $records              = [];
+            $initialGradeTotal    = 0;
+            $transmutedGradeTotal = 0;
+            $totalSubjectCount    = 0;
 
             $gradedItemTypeSummary = [];
 
@@ -68,7 +69,8 @@ class StudentGradesProvider {
 
                 $records[$class->subject_id] = $subjectGrades->toArray();
 
-                $initialGradeTotal += $subjectGrades->getInitialGrade();
+                $initialGradeTotal    += $subjectGrades->getInitialGrade();
+                $transmutedGradeTotal += $subjectGrades->getTransmutedGrade();
                 $totalSubjectCount ++;
 
                 $summary = $subjectGrades->getGradedItemTypeSummaryMap();
@@ -90,7 +92,8 @@ class StudentGradesProvider {
 
             $recordsByPeriod[$period->id]                            = $records;
             $recordsByPeriod[$period->id]["initialGrade"]            = $totalSubjectCount > 0 ? $initialGradeTotal / $totalSubjectCount : 0;
-            $recordsByPeriod[$period->id]["transmutedGrade"]         = $this->transmuter->transmute($recordsByPeriod[$period->id]["initialGrade"]);
+//            $recordsByPeriod[$period->id]["transmutedGrade"]         = $this->transmuter->transmute($recordsByPeriod[$period->id]["initialGrade"]);
+            $recordsByPeriod[$period->id]["transmutedGrade"]         = $totalSubjectCount > 0 ? $transmutedGradeTotal / $totalSubjectCount : 60;
             $recordsByPeriod[$period->id]["summaryByGradedItemType"] = $gradedItemTypeSummary;
 //            $recordsByPeriod[$period->id] = $records;
         }
