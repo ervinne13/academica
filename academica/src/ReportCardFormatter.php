@@ -63,7 +63,7 @@ class ReportCardFormatter {
             "totalTransmutedGrade" => 0,
             "transmutedGrade"      => 0,
         ];
-        
+
         $mapehSubjects = [];
 
         //  Complexity O(a(log(b * c)))
@@ -80,7 +80,8 @@ class ReportCardFormatter {
                     $subjectAssoc["name"]         = $period->name;
                     $subjectAssoc["grades"]       = [];
 
-                    $subjectTotalGrade = 0;
+                    $subjectTotalGrade           = 0;
+                    $subjectTotalTransmutedGrade = 0;
                     foreach ($grades AS $periodId => $periodGrades) {
                         if ($gradingYear->currently_active_period_id >= $periodId) {
                             $subjectAssoc["grades"][$periodId] = [
@@ -88,7 +89,8 @@ class ReportCardFormatter {
                                 "transmutedGrade" => $periodGrades[$period->id]["transmutedGrade"]
                             ];
 
-                            $subjectTotalGrade += $periodGrades[$period->id]["transmutedGrade"];
+                            $subjectTotalGrade           += $periodGrades[$period->id]["initialGrade"];
+                            $subjectTotalTransmutedGrade += $periodGrades[$period->id]["transmutedGrade"];
                         } else {
                             $subjectAssoc["grades"][$periodId] = [
                                 "initialGrade"    => "",
@@ -114,11 +116,12 @@ class ReportCardFormatter {
                                 "initialGrade"    => $subjectAssoc["grades"][$periodId]["initialGrade"],
                                 "transmutedGrade" => $mapehTransmutedGrade
                             ];
-                            $mapehSubjects[$periodId]["totalTransmutedGrade"] += $mapehTransmutedGrade;
+                            $mapehSubjects[$periodId]["totalTransmutedGrade"]      += $mapehTransmutedGrade;
                         }
                     }
 
-                    $subjectAssoc["transmutedGrade"] = $subjectTotalGrade / $gradingYear->currently_active_period_id;
+                    $subjectAssoc["initialGrade"]        = $subjectTotalGrade / $gradingYear->currently_active_period_id;
+                    $subjectAssoc["transmutedGrade"]     = $subjectTotalTransmutedGrade / $gradingYear->currently_active_period_id;
                     $gradingCard["totalTransmutedGrade"] += $subjectAssoc["transmutedGrade"];
 
                     array_push($gradingCard["subjects"], $subjectAssoc);

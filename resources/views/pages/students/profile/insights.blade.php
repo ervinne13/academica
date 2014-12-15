@@ -51,7 +51,8 @@
                         <tr>
                             <th>Teacher</th>
                             <th>Subject</th>
-                            <th>Score</th>                            
+                            <th>Actual Grade</th>                            
+                            <th>Transmuted Grade</th>                            
                             <th>Rank</th>                            
                         </tr>
                     </thead>
@@ -82,7 +83,8 @@
                                 </a>
                             </td>
                             <td>{{$card["subjectsRanked"][$rank - 1]["name"]}}</td>
-                            <td>{{$card["subjectsRanked"][$rank - 1]["transmutedGrade"]}}</td>
+                            <td>{{number_format($card["subjectsRanked"][$rank - 1]["initialGrade"], 2)}}</td>
+                            <td>{{number_format($card["subjectsRanked"][$rank - 1]["transmutedGrade"], 2)}}</td>
                             <td>{{$abbreviation}}</td>
                         </tr>
                         @endfor
@@ -157,6 +159,8 @@
 </div>
 
 <script type="text/javascript">
-    var topThreeGrades = {!!json_encode($card["subjectsRanked"])!!};
-            var monthlyGrades = {!!json_encode($monthlyGrades)!!};
+    var topThreeGrades = {!!json_encode($card["subjectsRanked"])!!}
+    ;
+            var monthlyGrades = {!!json_encode($monthlyGrades)!!}
+    ;
 </script>
