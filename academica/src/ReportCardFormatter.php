@@ -116,12 +116,14 @@ class ReportCardFormatter {
                                 "initialGrade"    => $subjectAssoc["grades"][$periodId]["initialGrade"],
                                 "transmutedGrade" => $mapehTransmutedGrade
                             ];
-                            $mapehSubjects[$periodId]["totalTransmutedGrade"]      += $mapehTransmutedGrade;
+
+                            $mapehSubjects[$periodId]["totalTransmutedGrade"] += $mapehTransmutedGrade;
                         }
                     }
 
                     $subjectAssoc["initialGrade"]        = $subjectTotalGrade / $gradingYear->currently_active_period_id;
-                    $subjectAssoc["transmutedGrade"]     = $subjectTotalTransmutedGrade / $gradingYear->currently_active_period_id;
+//                    $subjectAssoc["transmutedGrade"]     = $subjectTotalTransmutedGrade / $gradingYear->currently_active_period_id;
+                    $subjectAssoc["transmutedGrade"]     = $transmuter->transmute($subjectAssoc["initialGrade"]);
                     $gradingCard["totalTransmutedGrade"] += $subjectAssoc["transmutedGrade"];
 
                     array_push($gradingCard["subjects"], $subjectAssoc);
@@ -178,15 +180,15 @@ class ReportCardFormatter {
         for ($i = 0; $i < count($gradingCard["subjects"]); $i ++) {
 
             foreach ($gradingCard["subjects"][$i]["grades"] AS $gradingPeriod => $grade) {
-                $rawGrade = $gradingCard["subjects"][$i]["grades"][$gradingPeriod]["transmutedGrade"];
-                if ($rawGrade) {
-                    $gradingCard["subjects"][$i]["grades"][$gradingPeriod]["transmutedGrade"] = number_format($rawGrade);
+                $transmutedGrade = $gradingCard["subjects"][$i]["grades"][$gradingPeriod]["transmutedGrade"];
+                if ($transmutedGrade) {
+                    $gradingCard["subjects"][$i]["grades"][$gradingPeriod]["transmutedGrade"] = number_format($transmutedGrade);
                 }
             }
 
-            $rawGrade = $gradingCard["subjects"][$i]["transmutedGrade"];
-            if ($rawGrade) {
-                $gradingCard["subjects"][$i]["transmutedGrade"] = number_format($rawGrade);
+            $transmutedGrade = $gradingCard["subjects"][$i]["transmutedGrade"];
+            if ($transmutedGrade) {
+                $gradingCard["subjects"][$i]["transmutedGrade"] = number_format($transmutedGrade);
             }
         }
 

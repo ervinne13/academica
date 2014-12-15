@@ -146,6 +146,9 @@ class StudentsController extends Controller {
 
         $viewData["grades"] = $studentRecord->getRecordsByPeriod();
 
+//        echo json_encode($viewData["grades"][0]);
+//        exit();
+        
         $formatter        = new ReportCardFormatter();
         $viewData["card"] = $formatter->format($viewData["grades"], $viewData["student"]->id, $transmuter);
 
